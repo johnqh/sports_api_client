@@ -3,10 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import {
-  createApiFootballStore,
-  type ApiFootballState,
-} from "./api-football-store";
+import { createApiFootballStore } from "./api-football-store";
 import {
   isCacheValid,
   generateCacheKey,
