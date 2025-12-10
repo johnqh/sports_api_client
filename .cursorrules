@@ -1,0 +1,210 @@
+# API-Football Client Library - AI Assistant Rules
+
+## Project Overview
+
+TypeScript client library for API-Football v3, designed for React and React Native applications.
+
+**Key Facts:**
+- Package name: `@sudobility/sports_api_client`
+- Current version: 1.0.0
+- Tech stack: TypeScript, React, React Query (@tanstack/react-query), Zustand
+- Target: Browser and React Native environments (cross-platform via DI)
+- API Coverage: 27 endpoints implemented
+- DI Pattern: Uses NetworkClient and StorageService from @sudobility/di
+
+## Architecture
+
+```
+src/
+├── network/          # HTTP client and API communication
+│   ├── api-football-client.ts  # Main API client class (uses NetworkClient from DI)
+│   └── endpoints.ts            # Endpoint constants
+├── hooks/            # React hooks using @tanstack/react-query
+│   ├── context.tsx   # Provider with client + store (uses StorageService from DI)
+│   ├── types.ts      # Query keys and hook types
+│   └── use-*.ts      # Individual hooks (one per file)
+├── store/            # Zustand store for persistent caching
+│   ├── api-football-store.ts   # Store factory (requires StorageAdapter)
+│   └── cache-utils.ts          # Cache utilities + createStorageAdapter()
+├── types/            # TypeScript type definitions
+│   ├── common.ts     # Shared types
+│   ├── fixtures.ts   # Fixture types
+│   └── ...           # Other domain types
+└── utils/            # Utility functions
+```
+
+## DI Setup (Cross-Platform)
+
+The library uses dependency injection for cross-platform compatibility:
+
+```typescript
+import { ApiFootballProvider, ApiFootballClient } from "@sudobility/sports_api_client";
+import type { StorageService, NetworkClient } from "@sudobility/di";
+
+// Get services from your DI container
+const networkClient = container.get<NetworkClient>(ServiceKeys.NETWORK);
+const storageService = container.get<StorageService>(ServiceKeys.STORAGE);
+
+// Create API client with NetworkClient
+const apiClient = new ApiFootballClient(networkClient, { apiKey: "YOUR_KEY" });
+
+// Wrap app with provider (includes StorageService for persistence)
+<QueryClientProvider client={queryClient}>
+  <ApiFootballProvider client={apiClient} storageService={storageService}>
+    <YourApp />
+  </ApiFootballProvider>
+</QueryClientProvider>
+```
+
+**No direct localStorage usage** - all storage goes through StorageService from DI.
+
+## Code Style and Conventions
+
+### TypeScript
+- Use strict mode (`strict: true` in tsconfig.json)
+- Prefer interfaces over types for object shapes
+- Use type inference where obvious
+- Never use `any` - use `unknown` or proper types
+- Use `as unknown as TargetType` for necessary type conversions
+
+### React Hooks
+- All hooks use @tanstack/react-query for data fetching
+- Hook naming: `use<Feature>` (e.g., `useFixtures`, `useLeagues`)
+- One hook per file (e.g., `use-fixtures.ts`, `use-leagues.ts`)
+- Integrate Zustand cache as `initialData` for React Query
+- Use `apiFootballKeys` factory for query keys
+
+### File Organization
+- One hook per file in `src/hooks/`
+- Group related types in domain files (`fixtures.ts`, `teams.ts`, etc.)
+- Export all public APIs from `index.ts` files
+- Keep utility functions separate from business logic
+
+### Naming Conventions
+- Files: kebab-case (e.g., `use-fixtures.ts`, `api-football-client.ts`)
+- Hooks: camelCase with `use` prefix (e.g., `useFixtures`)
+- Functions: camelCase (e.g., `getFixtures`)
+- Constants: UPPER_SNAKE_CASE (e.g., `API_FOOTBALL_BASE_URL`)
+- Types/Interfaces: PascalCase (e.g., `Fixture`, `LeagueParams`)
+
+## Testing Strategy
+
+### Unit Tests
+- Use Vitest for all unit tests
+- Mock external dependencies (NetworkClient)
+- Test files: `*.test.ts` adjacent to source
+- Aim for 80%+ code coverage
+
+### Running Tests
+```bash
+npm run test:run    # Run all tests once
+npm run test        # Watch mode
+npm run check-all   # Lint + typecheck + test
+```
+
+## API Implementation Guidelines
+
+### Hook Pattern
+```typescript
+export function useFeature(
+  options: UseApiFootballQueryOptionsRequired<ResponseType, ParamsType>,
+) {
+  const client = useApiFootballClient();
+  const { getCache, setCache, cacheTTL } = useApiFootballStore();
+  const { params, ...queryOptions } = options;
+  const cacheKey = generateCacheKey("feature", params as unknown as Record<string, unknown>);
+
+  return useQuery({
+    queryKey: apiFootballKeys.feature.list(params),
+    queryFn: async () => {
+      const response = await client.getFeature(params);
+      setCache(cacheKey, response.response);
+      return response;
+    },
+    initialData: () => {
+      const cached = getCache(cacheKey);
+      if (cached) {
+        return {
+          get: "feature",
+          parameters: {} as Record<string, string>,
+          errors: [] as string[],
+          results: cached.length,
+          paging: { current: 1, total: 1 },
+          response: cached,
+        };
+      }
+      return undefined;
+    },
+    staleTime: cacheTTL,
+    ...queryOptions,
+  });
+}
+```
+
+### Client Method Pattern
+```typescript
+async getFeature(params?: FeatureParams): Promise<ApiFootballResponse<Feature>> {
+  const queryString = params ? `?${buildQueryParams(params)}` : "";
+  return this.get<Feature>(`${ENDPOINTS.FEATURE}${queryString}`);
+}
+```
+
+## Development Workflow
+
+### Before Committing
+```bash
+npm run check-all  # Runs lint + typecheck + tests
+```
+
+### Adding New Features
+1. Add types to `src/types/`
+2. Add endpoint constant to `src/network/endpoints.ts`
+3. Implement client method in `src/network/api-football-client.ts`
+4. Add cache methods to `src/store/api-football-store.ts`
+5. Add query keys to `src/hooks/types.ts`
+6. Create React hook in `src/hooks/use-<feature>.ts`
+7. Export from `src/hooks/index.ts`
+8. Add tests
+9. Run `npm run check-all`
+
+## Dependencies
+
+### Peer Dependencies (Required by Consumers)
+- `react`: ^19.2.0
+- `@tanstack/react-query`: ^5.0.0
+- `@sudobility/di`: ^1.4.17
+- `@sudobility/types`: ^1.9.12
+- `zustand`: ^5.0.0
+
+## AI Assistant Instructions
+
+When working on this project:
+
+1. **Follow the hook pattern** - Each hook gets its own file
+2. **Use the query key factory** - `apiFootballKeys` for cache keys
+3. **Integrate both caches** - React Query + Zustand initialData
+4. **Add comprehensive tests** for all new functionality
+5. **Run `npm run check-all`** before suggesting code is complete
+6. **Type everything** - no implicit any
+7. **Consider React Native** - avoid browser-specific APIs
+8. **Use established patterns** for error handling and data fetching
+
+### When Implementing New Endpoints
+
+1. Check API-Football documentation for endpoint spec
+2. Add types to appropriate `src/types/*.ts` file
+3. Add endpoint constant
+4. Add client method
+5. Add store cache methods
+6. Add query keys
+7. Create hook following the pattern
+8. Export from index files
+9. Write unit tests
+10. Run check-all
+
+### When Fixing Bugs
+
+1. Write a failing test first
+2. Fix the bug
+3. Verify test passes
+4. Run full check-all suite
