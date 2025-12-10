@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-trophies
+ * @module hooks/use-football-trophies
  * @description React hook for trophies endpoint
  */
 
@@ -35,7 +35,7 @@ import type { FootballTrophiesParams, FootballTrophy } from "../types";
  * }
  * ```
  */
-export function useTrophies(
+export function useFootballTrophies(
   options: UseApiFootballQueryOptionsRequired<
     FootballTrophy,
     FootballTrophiesParams

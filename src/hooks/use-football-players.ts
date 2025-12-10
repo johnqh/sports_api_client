@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-players
+ * @module hooks/use-football-players
  * @description React hooks for players endpoints
  */
 
@@ -49,7 +49,7 @@ import type {
  * }
  * ```
  */
-export function usePlayers(
+export function useFootballPlayers(
   options: UseApiFootballQueryOptionsRequired<
     FootballPlayerResponse,
     FootballPlayersParams
@@ -103,7 +103,7 @@ export function usePlayers(
  * }
  * ```
  */
-export function usePlayersSeasons(
+export function useFootballPlayersSeasons(
   options?: UseApiFootballQueryOptions<number, FootballPlayersSeasonParams>,
 ) {
   const client = useApiFootballClient();
@@ -139,7 +139,7 @@ export function usePlayersSeasons(
  * }
  * ```
  */
-export function useSquads(
+export function useFootballSquads(
   options: UseApiFootballQueryOptionsRequired<
     FootballSquadResponse,
     FootballSquadsParams
@@ -204,7 +204,7 @@ export function useSquads(
  * }
  * ```
  */
-export function useTopScorers(
+export function useFootballTopScorers(
   options: UseApiFootballQueryOptionsRequired<
     FootballPlayerResponse,
     FootballTopScorersParams
@@ -260,7 +260,7 @@ export function useTopScorers(
  * }
  * ```
  */
-export function useTopAssists(
+export function useFootballTopAssists(
   options: UseApiFootballQueryOptionsRequired<
     FootballPlayerResponse,
     FootballTopAssistsParams
@@ -316,7 +316,7 @@ export function useTopAssists(
  * }
  * ```
  */
-export function useTopCards(
+export function useFootballTopCards(
   options: UseApiFootballQueryOptionsRequired<
     FootballPlayerResponse,
     FootballTopCardsParams

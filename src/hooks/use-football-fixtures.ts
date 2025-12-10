@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-fixtures
+ * @module hooks/use-football-fixtures
  * @description React hooks for fixtures endpoints
  */
 
@@ -55,7 +55,7 @@ import type {
  * }
  * ```
  */
-export function useFixtures(
+export function useFootballFixtures(
   options?: UseApiFootballQueryOptions<
     FootballFixtureResponse,
     FootballFixturesParams
@@ -126,7 +126,7 @@ export function useFixtures(
  * }
  * ```
  */
-export function useFixturesHeadToHead(
+export function useFootballFixturesHeadToHead(
   options: UseApiFootballQueryOptionsRequired<
     FootballFixtureResponse,
     FootballHeadToHeadParams
@@ -184,7 +184,7 @@ export function useFixturesHeadToHead(
  * }
  * ```
  */
-export function useFixtureStatistics(
+export function useFootballFixtureStatistics(
   options: UseApiFootballQueryOptionsRequired<
     FootballFixtureStatistics,
     FootballFixtureStatisticsParams
@@ -248,7 +248,7 @@ export function useFixtureStatistics(
  * }
  * ```
  */
-export function useFixtureEvents(
+export function useFootballFixtureEvents(
   options: UseApiFootballQueryOptionsRequired<
     FootballFixtureEvent,
     FootballFixtureEventsParams
@@ -307,7 +307,7 @@ export function useFixtureEvents(
  * }
  * ```
  */
-export function useFixtureLineups(
+export function useFootballFixtureLineups(
   options: UseApiFootballQueryOptionsRequired<
     FootballFixtureLineup,
     FootballFixtureLineupsParams
@@ -367,7 +367,7 @@ export function useFixtureLineups(
  * }
  * ```
  */
-export function useFixturePlayers(
+export function useFootballFixturePlayers(
   options: UseApiFootballQueryOptionsRequired<
     FootballFixturePlayerStats,
     FootballFixturePlayersParams

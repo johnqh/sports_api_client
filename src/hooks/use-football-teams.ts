@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-teams
+ * @module hooks/use-football-teams
  * @description React hooks for teams endpoints
  */
 
@@ -46,7 +46,7 @@ import type {
  * }
  * ```
  */
-export function useTeams(
+export function useFootballTeams(
   options: UseApiFootballQueryOptionsRequired<
     FootballTeamResponse,
     FootballTeamsParams
@@ -104,7 +104,7 @@ export function useTeams(
  * }
  * ```
  */
-export function useTeamStatistics(
+export function useFootballTeamStatistics(
   options: UseApiFootballQueryOptionsRequired<
     FootballTeamStatistics,
     FootballTeamStatisticsParams
@@ -168,7 +168,7 @@ export function useTeamStatistics(
  * }
  * ```
  */
-export function useVenues(
+export function useFootballVenues(
   options?: UseApiFootballQueryOptions<FootballVenue, FootballVenuesParams>,
 ) {
   const client = useApiFootballClient();

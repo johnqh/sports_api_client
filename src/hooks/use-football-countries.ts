@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-countries
+ * @module hooks/use-football-countries
  * @description React hook for countries endpoint
  */
 
@@ -31,7 +31,7 @@ import type { FootballCountriesParams, FootballCountry } from "../types";
  * }
  * ```
  */
-export function useCountries(
+export function useFootballCountries(
   options?: UseApiFootballQueryOptions<
     FootballCountry,
     FootballCountriesParams

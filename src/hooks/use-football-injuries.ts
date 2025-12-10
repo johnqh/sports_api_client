@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-injuries
+ * @module hooks/use-football-injuries
  * @description React hook for injuries endpoint
  */
 
@@ -34,7 +34,7 @@ import type { FootballInjuriesParams, FootballInjury } from "../types";
  * }
  * ```
  */
-export function useInjuries(
+export function useFootballInjuries(
   options: UseApiFootballQueryOptionsRequired<
     FootballInjury,
     FootballInjuriesParams

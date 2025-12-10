@@ -1,6 +1,6 @@
 /**
- * @module hooks/use-sidelined
- * @description React hook for sidelined endpoint
+ * @module hooks/use-football-coaches
+ * @description React hook for coaches endpoint
  */
 
 import { useQuery } from "@tanstack/react-query";
@@ -10,48 +10,56 @@ import {
   apiFootballKeys,
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
-import type { FootballSidelined, FootballSidelinedParams } from "../types";
+import type { FootballCoach, FootballCoachsParams } from "../types";
 
 /**
- * Hook to fetch sidelined players (injured/suspended)
+ * Hook to fetch coach information
  *
- * @param options - Query options with player or coach param
- * @returns Query result with sidelined data
+ * @param options - Query options with id, team, or search param
+ * @returns Query result with coach data
  *
  * @example
  * ```typescript
- * function PlayerInjuryHistory({ playerId }: Props) {
- *   const { data } = useSidelined({ params: { player: playerId } });
+ * // Get team's coach
+ * function TeamCoach({ teamId }: Props) {
+ *   const { data } = useCoaches({ params: { team: teamId } });
+ *   const coach = data?.response[0];
+ *   // ...
+ * }
+ *
+ * // Search coaches
+ * function CoachSearch({ search }: Props) {
+ *   const { data } = useCoaches({ params: { search } });
  *   // ...
  * }
  * ```
  */
-export function useSidelined(
+export function useFootballCoaches(
   options: UseApiFootballQueryOptionsRequired<
-    FootballSidelined,
-    FootballSidelinedParams
+    FootballCoach,
+    FootballCoachsParams
   >,
 ) {
   const client = useApiFootballClient();
-  const { getSidelined, setSidelined, cacheTTL } = useApiFootballStore();
+  const { getCoaches, setCoaches, cacheTTL } = useApiFootballStore();
   const { params, ...queryOptions } = options;
   const cacheKey = generateCacheKey(
-    "sidelined",
+    "coaches",
     params as unknown as Record<string, unknown>,
   );
 
   return useQuery({
-    queryKey: apiFootballKeys.sidelined.list(params),
+    queryKey: apiFootballKeys.coaches.list(params),
     queryFn: async () => {
-      const response = await client.getSidelined(params);
-      setSidelined(cacheKey, response.response);
+      const response = await client.getCoachs(params);
+      setCoaches(cacheKey, response.response);
       return response;
     },
     initialData: () => {
-      const cached = getSidelined(cacheKey);
+      const cached = getCoaches(cacheKey);
       if (cached) {
         return {
-          get: "sidelined",
+          get: "coachs",
           parameters: {} as Record<string, string>,
           errors: [] as string[],
           results: cached.length,

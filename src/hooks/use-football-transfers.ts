@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-transfers
+ * @module hooks/use-football-transfers
  * @description React hook for transfers endpoint
  */
 
@@ -37,7 +37,7 @@ import type {
  * }
  * ```
  */
-export function useTransfers(
+export function useFootballTransfers(
   options: UseApiFootballQueryOptionsRequired<
     FootballTransferResponse,
     FootballTransfersParams

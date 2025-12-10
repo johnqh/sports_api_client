@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-standings
+ * @module hooks/use-football-standings
  * @description React hooks for standings endpoints
  */
 
@@ -46,7 +46,7 @@ import type {
  * }
  * ```
  */
-export function useStandings(
+export function useFootballStandings(
   options: UseApiFootballQueryOptionsRequired<
     FootballStandingsResponse,
     FootballStandingsParams

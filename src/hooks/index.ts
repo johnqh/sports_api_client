@@ -14,9 +14,9 @@
  * import {
  *   ApiFootballProvider,
  *   ApiFootballClient,
- *   useLeagues,
- *   useFixtures,
- *   useStandings,
+ *   useFootballLeagues,
+ *   useFootballFixtures,
+ *   useFootballStandings,
  *   apiFootballKeys,
  * } from "@sudobility/sports_api_client";
  * import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -59,54 +59,58 @@ export type {
 } from "./types";
 
 // Coaches hook
-export { useCoaches } from "./use-coaches";
+export { useFootballCoaches } from "./use-football-coaches";
 
 // Countries hook
-export { useCountries } from "./use-countries";
+export { useFootballCountries } from "./use-football-countries";
 
 // Fixtures hooks
 export {
-  useFixtureEvents,
-  useFixtureLineups,
-  useFixturePlayers,
-  useFixtures,
-  useFixturesHeadToHead,
-  useFixtureStatistics,
-} from "./use-fixtures";
+  useFootballFixtureEvents,
+  useFootballFixtureLineups,
+  useFootballFixturePlayers,
+  useFootballFixtures,
+  useFootballFixturesHeadToHead,
+  useFootballFixtureStatistics,
+} from "./use-football-fixtures";
 
 // Injuries hook
-export { useInjuries } from "./use-injuries";
+export { useFootballInjuries } from "./use-football-injuries";
 
 // Leagues hook
-export { useLeagues } from "./use-leagues";
+export { useFootballLeagues } from "./use-football-leagues";
 
 // Players hooks
 export {
-  usePlayers,
-  usePlayersSeasons,
-  useSquads,
-  useTopAssists,
-  useTopCards,
-  useTopScorers,
-} from "./use-players";
+  useFootballPlayers,
+  useFootballPlayersSeasons,
+  useFootballSquads,
+  useFootballTopAssists,
+  useFootballTopCards,
+  useFootballTopScorers,
+} from "./use-football-players";
 
 // Seasons hook
-export { useSeasons } from "./use-seasons";
+export { useFootballSeasons } from "./use-football-seasons";
 
 // Sidelined hook
-export { useSidelined } from "./use-sidelined";
+export { useFootballSidelined } from "./use-football-sidelined";
 
 // Standings hook
-export { useStandings } from "./use-standings";
+export { useFootballStandings } from "./use-football-standings";
 
 // Teams hooks
-export { useTeams, useTeamStatistics, useVenues } from "./use-teams";
+export {
+  useFootballTeams,
+  useFootballTeamStatistics,
+  useFootballVenues,
+} from "./use-football-teams";
 
 // Timezone hook
-export { useTimezone } from "./use-timezone";
+export { useFootballTimezone } from "./use-football-timezone";
 
 // Transfers hook
-export { useTransfers } from "./use-transfers";
+export { useFootballTransfers } from "./use-football-transfers";
 
 // Trophies hook
-export { useTrophies } from "./use-trophies";
+export { useFootballTrophies } from "./use-football-trophies";

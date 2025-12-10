@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-seasons
+ * @module hooks/use-football-seasons
  * @description React hook for seasons endpoint
  */
 
@@ -34,7 +34,9 @@ import { apiFootballKeys, type UseApiFootballQueryOptions } from "./types";
  * }
  * ```
  */
-export function useSeasons(options?: UseApiFootballQueryOptions<number, void>) {
+export function useFootballSeasons(
+  options?: UseApiFootballQueryOptions<number, void>,
+) {
   const client = useApiFootballClient();
   const { seasons, setSeasons, isCacheValid, cacheTTL } = useApiFootballStore();
 

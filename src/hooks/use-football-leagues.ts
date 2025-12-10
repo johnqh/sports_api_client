@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-leagues
+ * @module hooks/use-football-leagues
  * @description React hooks for leagues endpoints
  */
 
@@ -39,7 +39,7 @@ import type { FootballLeagueResponse, FootballLeaguesParams } from "../types";
  * }
  * ```
  */
-export function useLeagues(
+export function useFootballLeagues(
   options?: UseApiFootballQueryOptions<
     FootballLeagueResponse,
     FootballLeaguesParams

@@ -1,5 +1,5 @@
 /**
- * @module hooks/use-timezone
+ * @module hooks/use-football-timezone
  * @description React hook for timezone endpoint
  */
 
@@ -34,7 +34,7 @@ import type { FootballTimezone } from "../types";
  * }
  * ```
  */
-export function useTimezone(
+export function useFootballTimezone(
   options?: UseApiFootballQueryOptions<FootballTimezone, void>,
 ) {
   const client = useApiFootballClient();
