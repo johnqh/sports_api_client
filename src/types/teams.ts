@@ -7,7 +7,7 @@ import type { Optional } from "@sudobility/types";
 /**
  * Team information
  */
-export interface Team {
+export interface FootballTeam {
   /** Team ID */
   id: number;
   /** Team name */
@@ -27,7 +27,7 @@ export interface Team {
 /**
  * Venue/Stadium information
  */
-export interface Venue {
+export interface FootballVenue {
   /** Venue ID */
   id: Optional<number>;
   /** Venue name */
@@ -47,17 +47,17 @@ export interface Venue {
 /**
  * Complete team response including venue
  */
-export interface TeamResponse {
+export interface FootballTeamResponse {
   /** Team information */
-  team: Team;
+  team: FootballTeam;
   /** Venue information */
-  venue: Venue;
+  venue: FootballVenue;
 }
 
 /**
  * Parameters for teams endpoint
  */
-export interface TeamsParams {
+export interface FootballTeamsParams {
   /** Filter by team ID */
   id?: Optional<number>;
   /** Filter by team name */
@@ -79,7 +79,7 @@ export interface TeamsParams {
 /**
  * Parameters for venues endpoint
  */
-export interface VenuesParams {
+export interface FootballVenuesParams {
   /** Filter by venue ID */
   id?: Optional<number>;
   /** Filter by venue name */
@@ -95,7 +95,7 @@ export interface VenuesParams {
 /**
  * Team statistics for a league/season
  */
-export interface TeamStatistics {
+export interface FootballTeamStatistics {
   /** League information */
   league: {
     id: number;
@@ -106,41 +106,41 @@ export interface TeamStatistics {
     season: number;
   };
   /** Team information */
-  team: Team;
+  team: FootballTeam;
   /** Form string (e.g., "WWDLW") */
   form: Optional<string>;
   /** Fixtures statistics */
-  fixtures: TeamFixturesStats;
+  fixtures: FootballTeamFixturesStats;
   /** Goals statistics */
-  goals: TeamGoalsStats;
+  goals: FootballTeamGoalsStats;
   /** Biggest statistics */
-  biggest: TeamBiggestStats;
+  biggest: FootballTeamBiggestStats;
   /** Clean sheet statistics */
-  clean_sheet: TeamHomeAwayTotal;
+  clean_sheet: FootballTeamHomeAwayTotal;
   /** Failed to score statistics */
-  failed_to_score: TeamHomeAwayTotal;
+  failed_to_score: FootballTeamHomeAwayTotal;
   /** Penalty statistics */
-  penalty: TeamPenaltyStats;
+  penalty: FootballTeamPenaltyStats;
   /** Lineups used */
-  lineups: TeamLineup[];
+  lineups: FootballTeamLineup[];
   /** Cards statistics */
-  cards: TeamCardsStats;
+  cards: FootballTeamCardsStats;
 }
 
 /**
  * Team fixtures statistics
  */
-export interface TeamFixturesStats {
-  played: TeamHomeAwayTotal;
-  wins: TeamHomeAwayTotal;
-  draws: TeamHomeAwayTotal;
-  loses: TeamHomeAwayTotal;
+export interface FootballTeamFixturesStats {
+  played: FootballTeamHomeAwayTotal;
+  wins: FootballTeamHomeAwayTotal;
+  draws: FootballTeamHomeAwayTotal;
+  loses: FootballTeamHomeAwayTotal;
 }
 
 /**
  * Home/Away/Total breakdown
  */
-export interface TeamHomeAwayTotal {
+export interface FootballTeamHomeAwayTotal {
   home: number;
   away: number;
   total: number;
@@ -149,16 +149,16 @@ export interface TeamHomeAwayTotal {
 /**
  * Team goals statistics
  */
-export interface TeamGoalsStats {
-  for: TeamGoalsDetail;
-  against: TeamGoalsDetail;
+export interface FootballTeamGoalsStats {
+  for: FootballTeamGoalsDetail;
+  against: FootballTeamGoalsDetail;
 }
 
 /**
  * Goals detail with minute breakdown
  */
-export interface TeamGoalsDetail {
-  total: TeamHomeAwayTotal;
+export interface FootballTeamGoalsDetail {
+  total: FootballTeamHomeAwayTotal;
   average: {
     home: string;
     away: string;
@@ -173,7 +173,7 @@ export interface TeamGoalsDetail {
 /**
  * Biggest wins/losses/streaks
  */
-export interface TeamBiggestStats {
+export interface FootballTeamBiggestStats {
   streak: {
     wins: number;
     draws: number;
@@ -202,7 +202,7 @@ export interface TeamBiggestStats {
 /**
  * Penalty statistics
  */
-export interface TeamPenaltyStats {
+export interface FootballTeamPenaltyStats {
   scored: {
     total: number;
     percentage: string;
@@ -217,7 +217,7 @@ export interface TeamPenaltyStats {
 /**
  * Lineup formation used
  */
-export interface TeamLineup {
+export interface FootballTeamLineup {
   formation: string;
   played: number;
 }
@@ -225,7 +225,7 @@ export interface TeamLineup {
 /**
  * Cards statistics by minute
  */
-export interface TeamCardsStats {
+export interface FootballTeamCardsStats {
   yellow: Record<
     string,
     { total: Optional<number>; percentage: Optional<string> }
@@ -239,7 +239,7 @@ export interface TeamCardsStats {
 /**
  * Parameters for team statistics endpoint
  */
-export interface TeamStatisticsParams {
+export interface FootballTeamStatisticsParams {
   /** League ID (required) */
   league: number;
   /** Season year (required) */

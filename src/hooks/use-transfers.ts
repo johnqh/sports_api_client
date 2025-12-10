@@ -10,7 +10,10 @@ import {
   apiFootballKeys,
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
-import type { TransferResponse, TransfersParams } from "../types";
+import type {
+  FootballTransferResponse,
+  FootballTransfersParams,
+} from "../types";
 
 /**
  * Hook to fetch player transfers
@@ -36,8 +39,8 @@ import type { TransferResponse, TransfersParams } from "../types";
  */
 export function useTransfers(
   options: UseApiFootballQueryOptionsRequired<
-    TransferResponse,
-    TransfersParams
+    FootballTransferResponse,
+    FootballTransfersParams
   >,
 ) {
   const client = useApiFootballClient();

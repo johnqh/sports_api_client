@@ -12,12 +12,12 @@ import {
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
 import type {
-  TeamResponse,
-  TeamsParams,
-  TeamStatistics,
-  TeamStatisticsParams,
-  Venue,
-  VenuesParams,
+  FootballTeamResponse,
+  FootballTeamsParams,
+  FootballTeamStatistics,
+  FootballTeamStatisticsParams,
+  FootballVenue,
+  FootballVenuesParams,
 } from "../types";
 
 /**
@@ -47,7 +47,10 @@ import type {
  * ```
  */
 export function useTeams(
-  options: UseApiFootballQueryOptionsRequired<TeamResponse, TeamsParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballTeamResponse,
+    FootballTeamsParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getTeams, setTeams, cacheTTL } = useApiFootballStore();
@@ -103,8 +106,8 @@ export function useTeams(
  */
 export function useTeamStatistics(
   options: UseApiFootballQueryOptionsRequired<
-    TeamStatistics,
-    TeamStatisticsParams
+    FootballTeamStatistics,
+    FootballTeamStatisticsParams
   >,
 ) {
   const client = useApiFootballClient();
@@ -166,7 +169,7 @@ export function useTeamStatistics(
  * ```
  */
 export function useVenues(
-  options?: UseApiFootballQueryOptions<Venue, VenuesParams>,
+  options?: UseApiFootballQueryOptions<FootballVenue, FootballVenuesParams>,
 ) {
   const client = useApiFootballClient();
   const { getVenues, setVenues, cacheTTL } = useApiFootballStore();

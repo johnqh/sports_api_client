@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useApiFootballClient, useApiFootballStore } from "./context";
 import { generateCacheKey } from "../store/cache-utils";
 import { apiFootballKeys, type UseApiFootballQueryOptions } from "./types";
-import type { LeagueResponse, LeaguesParams } from "../types";
+import type { FootballLeagueResponse, FootballLeaguesParams } from "../types";
 
 /**
  * Hook to fetch leagues
@@ -40,7 +40,10 @@ import type { LeagueResponse, LeaguesParams } from "../types";
  * ```
  */
 export function useLeagues(
-  options?: UseApiFootballQueryOptions<LeagueResponse, LeaguesParams>,
+  options?: UseApiFootballQueryOptions<
+    FootballLeagueResponse,
+    FootballLeaguesParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getLeagues, setLeagues, cacheTTL } = useApiFootballStore();

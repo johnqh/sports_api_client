@@ -3,12 +3,12 @@
  */
 
 import type { Optional } from "@sudobility/types";
-import type { Country } from "./countries";
+import type { FootballCountry } from "./countries";
 
 /**
  * League information
  */
-export interface League {
+export interface FootballLeague {
   /** League ID */
   id: number;
   /** League name */
@@ -22,7 +22,7 @@ export interface League {
 /**
  * Season information within a league
  */
-export interface Season {
+export interface FootballSeason {
   /** Season year (e.g., 2023) */
   year: number;
   /** Season start date (YYYY-MM-DD) */
@@ -32,15 +32,15 @@ export interface Season {
   /** Whether this is the current season */
   current: boolean;
   /** Coverage information for this season */
-  coverage: SeasonCoverage;
+  coverage: FootballSeasonCoverage;
 }
 
 /**
  * Coverage information for a season
  */
-export interface SeasonCoverage {
+export interface FootballSeasonCoverage {
   /** Fixtures coverage */
-  fixtures: FixturesCoverage;
+  fixtures: FootballFixturesCoverage;
   /** Whether standings are available */
   standings: boolean;
   /** Whether players data is available */
@@ -62,7 +62,7 @@ export interface SeasonCoverage {
 /**
  * Fixtures coverage details
  */
-export interface FixturesCoverage {
+export interface FootballFixturesCoverage {
   /** Whether events are available */
   events: boolean;
   /** Whether lineups are available */
@@ -76,19 +76,19 @@ export interface FixturesCoverage {
 /**
  * Complete league response including country and seasons
  */
-export interface LeagueResponse {
+export interface FootballLeagueResponse {
   /** League information */
-  league: League;
+  league: FootballLeague;
   /** Country information */
-  country: Country;
+  country: FootballCountry;
   /** Available seasons */
-  seasons: Season[];
+  seasons: FootballSeason[];
 }
 
 /**
  * Parameters for leagues endpoint
  */
-export interface LeaguesParams {
+export interface FootballLeaguesParams {
   /** Filter by league ID */
   id?: Optional<number>;
   /** Filter by league name */

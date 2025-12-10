@@ -7,15 +7,15 @@ import type { Optional } from "@sudobility/types";
 /**
  * Standings response wrapper
  */
-export interface StandingsResponse {
+export interface FootballStandingsResponse {
   /** League information */
-  league: StandingsLeague;
+  league: FootballStandingsLeague;
 }
 
 /**
  * League with standings
  */
-export interface StandingsLeague {
+export interface FootballStandingsLeague {
   /** League ID */
   id: number;
   /** League name */
@@ -29,17 +29,17 @@ export interface StandingsLeague {
   /** Season year */
   season: number;
   /** Standings groups (array of arrays for multiple groups) */
-  standings: Standing[][];
+  standings: FootballStanding[][];
 }
 
 /**
  * Individual team standing
  */
-export interface Standing {
+export interface FootballStanding {
   /** Position/Rank */
   rank: number;
   /** Team information */
-  team: StandingTeam;
+  team: FootballStandingTeam;
   /** Points */
   points: number;
   /** Goal difference */
@@ -53,11 +53,11 @@ export interface Standing {
   /** Description of position */
   description: Optional<string>;
   /** All matches statistics */
-  all: StandingStats;
+  all: FootballStandingStats;
   /** Home matches statistics */
-  home: StandingStats;
+  home: FootballStandingStats;
   /** Away matches statistics */
-  away: StandingStats;
+  away: FootballStandingStats;
   /** Last update timestamp */
   update: string;
 }
@@ -65,7 +65,7 @@ export interface Standing {
 /**
  * Team info in standing context
  */
-export interface StandingTeam {
+export interface FootballStandingTeam {
   /** Team ID */
   id: number;
   /** Team name */
@@ -77,7 +77,7 @@ export interface StandingTeam {
 /**
  * Standing statistics
  */
-export interface StandingStats {
+export interface FootballStandingStats {
   /** Matches played */
   played: number;
   /** Matches won */
@@ -98,7 +98,7 @@ export interface StandingStats {
 /**
  * Parameters for standings endpoint
  */
-export interface StandingsParams {
+export interface FootballStandingsParams {
   /** League ID (required) */
   league: number;
   /** Season year (required) */

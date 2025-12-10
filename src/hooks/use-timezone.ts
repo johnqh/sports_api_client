@@ -6,7 +6,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useApiFootballClient, useApiFootballStore } from "./context";
 import { apiFootballKeys, type UseApiFootballQueryOptions } from "./types";
-import type { Timezone } from "../types";
+import type { FootballTimezone } from "../types";
 
 /**
  * Hook to fetch available timezones
@@ -35,7 +35,7 @@ import type { Timezone } from "../types";
  * ```
  */
 export function useTimezone(
-  options?: UseApiFootballQueryOptions<Timezone, void>,
+  options?: UseApiFootballQueryOptions<FootballTimezone, void>,
 ) {
   const client = useApiFootballClient();
   const { timezones, setTimezones, isCacheValid, cacheTTL } =

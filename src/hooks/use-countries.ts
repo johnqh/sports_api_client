@@ -6,7 +6,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useApiFootballClient, useApiFootballStore } from "./context";
 import { apiFootballKeys, type UseApiFootballQueryOptions } from "./types";
-import type { CountriesParams, Country } from "../types";
+import type { FootballCountriesParams, FootballCountry } from "../types";
 
 /**
  * Hook to fetch countries
@@ -32,7 +32,10 @@ import type { CountriesParams, Country } from "../types";
  * ```
  */
 export function useCountries(
-  options?: UseApiFootballQueryOptions<Country, CountriesParams>,
+  options?: UseApiFootballQueryOptions<
+    FootballCountry,
+    FootballCountriesParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { countries, setCountries, isCacheValid, cacheTTL } =

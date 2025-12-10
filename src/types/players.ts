@@ -3,12 +3,12 @@
  */
 
 import type { Optional } from "@sudobility/types";
-import type { Birth } from "./common";
+import type { FootballBirth } from "./common";
 
 /**
  * Player information
  */
-export interface Player {
+export interface FootballPlayer {
   /** Player ID */
   id: number;
   /** Full name */
@@ -20,7 +20,7 @@ export interface Player {
   /** Age */
   age: number;
   /** Birth information */
-  birth: Birth;
+  birth: FootballBirth;
   /** Nationality */
   nationality: string;
   /** Height (e.g., "180 cm") */
@@ -36,7 +36,7 @@ export interface Player {
 /**
  * Player statistics for a season
  */
-export interface PlayerStatistics {
+export interface FootballPlayerStatistics {
   /** Team information */
   team: {
     id: number;
@@ -127,17 +127,17 @@ export interface PlayerStatistics {
 /**
  * Complete player response with statistics
  */
-export interface PlayerResponse {
+export interface FootballPlayerResponse {
   /** Player information */
-  player: Player;
+  player: FootballPlayer;
   /** Statistics by team/league/season */
-  statistics: PlayerStatistics[];
+  statistics: FootballPlayerStatistics[];
 }
 
 /**
  * Parameters for players endpoint
  */
-export interface PlayersParams {
+export interface FootballPlayersParams {
   /** Filter by player ID */
   id?: Optional<number>;
   /** Filter by team ID */
@@ -155,7 +155,7 @@ export interface PlayersParams {
 /**
  * Parameters for player seasons endpoint
  */
-export interface PlayersSeasonParams {
+export interface FootballPlayersSeasonParams {
   /** Filter by player ID */
   player?: Optional<number>;
 }
@@ -163,7 +163,7 @@ export interface PlayersSeasonParams {
 /**
  * Squad member (simplified player in squad context)
  */
-export interface SquadPlayer {
+export interface FootballSquadPlayer {
   /** Player ID */
   id: number;
   /** Player name */
@@ -181,7 +181,7 @@ export interface SquadPlayer {
 /**
  * Squad response
  */
-export interface SquadResponse {
+export interface FootballSquadResponse {
   /** Team information */
   team: {
     id: number;
@@ -189,13 +189,13 @@ export interface SquadResponse {
     logo: string;
   };
   /** Players in the squad */
-  players: SquadPlayer[];
+  players: FootballSquadPlayer[];
 }
 
 /**
  * Parameters for squads endpoint
  */
-export interface SquadsParams {
+export interface FootballSquadsParams {
   /** Team ID (required if player not provided) */
   team?: Optional<number>;
   /** Player ID (required if team not provided) */
@@ -205,7 +205,7 @@ export interface SquadsParams {
 /**
  * Parameters for top scorers endpoint
  */
-export interface TopScorersParams {
+export interface FootballTopScorersParams {
   /** League ID (required) */
   league: number;
   /** Season year (required) */
@@ -215,7 +215,7 @@ export interface TopScorersParams {
 /**
  * Parameters for top assists endpoint
  */
-export interface TopAssistsParams {
+export interface FootballTopAssistsParams {
   /** League ID (required) */
   league: number;
   /** Season year (required) */
@@ -225,7 +225,7 @@ export interface TopAssistsParams {
 /**
  * Parameters for top cards endpoint
  */
-export interface TopCardsParams {
+export interface FootballTopCardsParams {
   /** League ID (required) */
   league: number;
   /** Season year (required) */

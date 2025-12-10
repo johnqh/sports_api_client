@@ -12,17 +12,17 @@ import {
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
 import type {
-  FixtureEvent,
-  FixtureEventsParams,
-  FixtureLineup,
-  FixtureLineupsParams,
-  FixturePlayersParams,
-  FixturePlayerStats,
-  FixtureResponse,
-  FixturesParams,
-  FixtureStatistics,
-  FixtureStatisticsParams,
-  HeadToHeadParams,
+  FootballFixtureEvent,
+  FootballFixtureEventsParams,
+  FootballFixtureLineup,
+  FootballFixtureLineupsParams,
+  FootballFixturePlayersParams,
+  FootballFixturePlayerStats,
+  FootballFixtureResponse,
+  FootballFixturesParams,
+  FootballFixtureStatistics,
+  FootballFixtureStatisticsParams,
+  FootballHeadToHeadParams,
 } from "../types";
 
 /**
@@ -56,7 +56,10 @@ import type {
  * ```
  */
 export function useFixtures(
-  options?: UseApiFootballQueryOptions<FixtureResponse, FixturesParams>,
+  options?: UseApiFootballQueryOptions<
+    FootballFixtureResponse,
+    FootballFixturesParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getFixtures, setFixtures, cacheTTL } = useApiFootballStore();
@@ -125,8 +128,8 @@ export function useFixtures(
  */
 export function useFixturesHeadToHead(
   options: UseApiFootballQueryOptionsRequired<
-    FixtureResponse,
-    HeadToHeadParams
+    FootballFixtureResponse,
+    FootballHeadToHeadParams
   >,
 ) {
   const client = useApiFootballClient();
@@ -183,8 +186,8 @@ export function useFixturesHeadToHead(
  */
 export function useFixtureStatistics(
   options: UseApiFootballQueryOptionsRequired<
-    FixtureStatistics,
-    FixtureStatisticsParams
+    FootballFixtureStatistics,
+    FootballFixtureStatisticsParams
   >,
 ) {
   const client = useApiFootballClient();
@@ -247,8 +250,8 @@ export function useFixtureStatistics(
  */
 export function useFixtureEvents(
   options: UseApiFootballQueryOptionsRequired<
-    FixtureEvent,
-    FixtureEventsParams
+    FootballFixtureEvent,
+    FootballFixtureEventsParams
   >,
 ) {
   const client = useApiFootballClient();
@@ -306,8 +309,8 @@ export function useFixtureEvents(
  */
 export function useFixtureLineups(
   options: UseApiFootballQueryOptionsRequired<
-    FixtureLineup,
-    FixtureLineupsParams
+    FootballFixtureLineup,
+    FootballFixtureLineupsParams
   >,
 ) {
   const client = useApiFootballClient();
@@ -366,8 +369,8 @@ export function useFixtureLineups(
  */
 export function useFixturePlayers(
   options: UseApiFootballQueryOptionsRequired<
-    FixturePlayerStats,
-    FixturePlayersParams
+    FootballFixturePlayerStats,
+    FootballFixturePlayersParams
   >,
 ) {
   const client = useApiFootballClient();

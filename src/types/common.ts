@@ -49,7 +49,7 @@ export interface ApiFootballConfig {
 /**
  * Common image/logo type
  */
-export interface Logo {
+export interface FootballLogo {
   /** URL of the logo image */
   logo: string;
 }
@@ -57,7 +57,7 @@ export interface Logo {
 /**
  * Common birth information
  */
-export interface Birth {
+export interface FootballBirth {
   /** Date of birth (YYYY-MM-DD) */
   date: Optional<string>;
   /** Place of birth */
@@ -69,7 +69,7 @@ export interface Birth {
 /**
  * Common paging parameters for list endpoints
  */
-export interface PagingParams {
+export interface FootballPagingParams {
   /** Page number (default: 1) */
   page?: Optional<number>;
 }
@@ -77,7 +77,7 @@ export interface PagingParams {
 /**
  * Rate limit information from response headers
  */
-export interface RateLimitInfo {
+export interface FootballRateLimitInfo {
   /** Requests remaining in current period */
   requestsRemaining: number;
   /** Total requests limit */

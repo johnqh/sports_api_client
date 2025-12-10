@@ -10,7 +10,7 @@ import {
   apiFootballKeys,
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
-import type { TrophiesParams, Trophy } from "../types";
+import type { FootballTrophiesParams, FootballTrophy } from "../types";
 
 /**
  * Hook to fetch trophies
@@ -36,7 +36,10 @@ import type { TrophiesParams, Trophy } from "../types";
  * ```
  */
 export function useTrophies(
-  options: UseApiFootballQueryOptionsRequired<Trophy, TrophiesParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballTrophy,
+    FootballTrophiesParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getTrophies, setTrophies, cacheTTL } = useApiFootballStore();

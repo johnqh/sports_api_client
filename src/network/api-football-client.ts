@@ -24,48 +24,48 @@ import type { NetworkClient } from "@sudobility/types";
 import type {
   ApiFootballConfig,
   ApiFootballResponse,
-  Coach,
-  CoachsParams,
-  CountriesParams,
-  Country,
-  FixtureEvent,
-  FixtureEventsParams,
-  FixtureLineup,
-  FixtureLineupsParams,
-  FixturePlayersParams,
-  FixturePlayerStats,
-  FixtureResponse,
-  FixturesParams,
-  FixtureStatistics,
-  FixtureStatisticsParams,
-  HeadToHeadParams,
-  InjuriesParams,
-  Injury,
-  LeagueResponse,
-  LeaguesParams,
-  PlayerResponse,
-  PlayersParams,
-  PlayersSeasonParams,
-  Sidelined,
-  SidelinedParams,
-  SquadResponse,
-  SquadsParams,
-  StandingsParams,
-  StandingsResponse,
-  TeamResponse,
-  TeamsParams,
-  TeamStatistics,
-  TeamStatisticsParams,
-  Timezone,
-  TopAssistsParams,
-  TopCardsParams,
-  TopScorersParams,
-  TransferResponse,
-  TransfersParams,
-  TrophiesParams,
-  Trophy,
-  Venue,
-  VenuesParams,
+  FootballCoach,
+  FootballCoachsParams,
+  FootballCountriesParams,
+  FootballCountry,
+  FootballFixtureEvent,
+  FootballFixtureEventsParams,
+  FootballFixtureLineup,
+  FootballFixtureLineupsParams,
+  FootballFixturePlayersParams,
+  FootballFixturePlayerStats,
+  FootballFixtureResponse,
+  FootballFixturesParams,
+  FootballFixtureStatistics,
+  FootballFixtureStatisticsParams,
+  FootballHeadToHeadParams,
+  FootballInjuriesParams,
+  FootballInjury,
+  FootballLeagueResponse,
+  FootballLeaguesParams,
+  FootballPlayerResponse,
+  FootballPlayersParams,
+  FootballPlayersSeasonParams,
+  FootballSidelined,
+  FootballSidelinedParams,
+  FootballSquadResponse,
+  FootballSquadsParams,
+  FootballStandingsParams,
+  FootballStandingsResponse,
+  FootballTeamResponse,
+  FootballTeamsParams,
+  FootballTeamStatistics,
+  FootballTeamStatisticsParams,
+  FootballTimezone,
+  FootballTopAssistsParams,
+  FootballTopCardsParams,
+  FootballTopScorersParams,
+  FootballTransferResponse,
+  FootballTransfersParams,
+  FootballTrophiesParams,
+  FootballTrophy,
+  FootballVenue,
+  FootballVenuesParams,
 } from "../types";
 import { buildQueryString } from "../utils/query-params";
 import {
@@ -171,8 +171,8 @@ export class ApiFootballClient {
    * console.log(timezones.response); // ["Europe/London", "America/New_York", ...]
    * ```
    */
-  async getTimezone(): Promise<ApiFootballResponse<Timezone>> {
-    return this.request<Timezone>(ENDPOINTS.TIMEZONE);
+  async getTimezone(): Promise<ApiFootballResponse<FootballTimezone>> {
+    return this.request<FootballTimezone>(ENDPOINTS.TIMEZONE);
   }
 
   /**
@@ -195,10 +195,10 @@ export class ApiFootballClient {
    * ```
    */
   async getCountries(
-    params?: CountriesParams,
-  ): Promise<ApiFootballResponse<Country>> {
+    params?: FootballCountriesParams,
+  ): Promise<ApiFootballResponse<FootballCountry>> {
     const query = params ? buildQueryString(params) : "";
-    return this.request<Country>(`${ENDPOINTS.COUNTRIES}${query}`);
+    return this.request<FootballCountry>(`${ENDPOINTS.COUNTRIES}${query}`);
   }
 
   // ============================================================================
@@ -246,10 +246,10 @@ export class ApiFootballClient {
    * ```
    */
   async getLeagues(
-    params?: LeaguesParams,
-  ): Promise<ApiFootballResponse<LeagueResponse>> {
+    params?: FootballLeaguesParams,
+  ): Promise<ApiFootballResponse<FootballLeagueResponse>> {
     const query = params ? buildQueryString(params) : "";
-    return this.request<LeagueResponse>(`${ENDPOINTS.LEAGUES}${query}`);
+    return this.request<FootballLeagueResponse>(`${ENDPOINTS.LEAGUES}${query}`);
   }
 
   // ============================================================================
@@ -260,20 +260,20 @@ export class ApiFootballClient {
    * Get teams
    */
   async getTeams(
-    params: TeamsParams,
-  ): Promise<ApiFootballResponse<TeamResponse>> {
+    params: FootballTeamsParams,
+  ): Promise<ApiFootballResponse<FootballTeamResponse>> {
     const query = buildQueryString(params);
-    return this.request<TeamResponse>(`${ENDPOINTS.TEAMS}${query}`);
+    return this.request<FootballTeamResponse>(`${ENDPOINTS.TEAMS}${query}`);
   }
 
   /**
    * Get team statistics
    */
   async getTeamStatistics(
-    params: TeamStatisticsParams,
-  ): Promise<ApiFootballResponse<TeamStatistics>> {
+    params: FootballTeamStatisticsParams,
+  ): Promise<ApiFootballResponse<FootballTeamStatistics>> {
     const query = buildQueryString(params);
-    return this.request<TeamStatistics>(
+    return this.request<FootballTeamStatistics>(
       `${ENDPOINTS.TEAMS_STATISTICS}${query}`,
     );
   }
@@ -281,9 +281,11 @@ export class ApiFootballClient {
   /**
    * Get venues/stadiums
    */
-  async getVenues(params?: VenuesParams): Promise<ApiFootballResponse<Venue>> {
+  async getVenues(
+    params?: FootballVenuesParams,
+  ): Promise<ApiFootballResponse<FootballVenue>> {
     const query = params ? buildQueryString(params) : "";
-    return this.request<Venue>(`${ENDPOINTS.VENUES}${query}`);
+    return this.request<FootballVenue>(`${ENDPOINTS.VENUES}${query}`);
   }
 
   // ============================================================================
@@ -308,10 +310,12 @@ export class ApiFootballClient {
    * ```
    */
   async getStandings(
-    params: StandingsParams,
-  ): Promise<ApiFootballResponse<StandingsResponse>> {
+    params: FootballStandingsParams,
+  ): Promise<ApiFootballResponse<FootballStandingsResponse>> {
     const query = buildQueryString(params);
-    return this.request<StandingsResponse>(`${ENDPOINTS.STANDINGS}${query}`);
+    return this.request<FootballStandingsResponse>(
+      `${ENDPOINTS.STANDINGS}${query}`,
+    );
   }
 
   // ============================================================================
@@ -348,20 +352,22 @@ export class ApiFootballClient {
    * ```
    */
   async getFixtures(
-    params?: FixturesParams,
-  ): Promise<ApiFootballResponse<FixtureResponse>> {
+    params?: FootballFixturesParams,
+  ): Promise<ApiFootballResponse<FootballFixtureResponse>> {
     const query = params ? buildQueryString(params) : "";
-    return this.request<FixtureResponse>(`${ENDPOINTS.FIXTURES}${query}`);
+    return this.request<FootballFixtureResponse>(
+      `${ENDPOINTS.FIXTURES}${query}`,
+    );
   }
 
   /**
    * Get head to head fixtures between two teams
    */
   async getFixturesHeadToHead(
-    params: HeadToHeadParams,
-  ): Promise<ApiFootballResponse<FixtureResponse>> {
+    params: FootballHeadToHeadParams,
+  ): Promise<ApiFootballResponse<FootballFixtureResponse>> {
     const query = buildQueryString(params);
-    return this.request<FixtureResponse>(
+    return this.request<FootballFixtureResponse>(
       `${ENDPOINTS.FIXTURES_HEAD_TO_HEAD}${query}`,
     );
   }
@@ -370,10 +376,10 @@ export class ApiFootballClient {
    * Get fixture statistics
    */
   async getFixtureStatistics(
-    params: FixtureStatisticsParams,
-  ): Promise<ApiFootballResponse<FixtureStatistics>> {
+    params: FootballFixtureStatisticsParams,
+  ): Promise<ApiFootballResponse<FootballFixtureStatistics>> {
     const query = buildQueryString(params);
-    return this.request<FixtureStatistics>(
+    return this.request<FootballFixtureStatistics>(
       `${ENDPOINTS.FIXTURES_STATISTICS}${query}`,
     );
   }
@@ -382,30 +388,34 @@ export class ApiFootballClient {
    * Get fixture events (goals, cards, substitutions, VAR)
    */
   async getFixtureEvents(
-    params: FixtureEventsParams,
-  ): Promise<ApiFootballResponse<FixtureEvent>> {
+    params: FootballFixtureEventsParams,
+  ): Promise<ApiFootballResponse<FootballFixtureEvent>> {
     const query = buildQueryString(params);
-    return this.request<FixtureEvent>(`${ENDPOINTS.FIXTURES_EVENTS}${query}`);
+    return this.request<FootballFixtureEvent>(
+      `${ENDPOINTS.FIXTURES_EVENTS}${query}`,
+    );
   }
 
   /**
    * Get fixture lineups
    */
   async getFixtureLineups(
-    params: FixtureLineupsParams,
-  ): Promise<ApiFootballResponse<FixtureLineup>> {
+    params: FootballFixtureLineupsParams,
+  ): Promise<ApiFootballResponse<FootballFixtureLineup>> {
     const query = buildQueryString(params);
-    return this.request<FixtureLineup>(`${ENDPOINTS.FIXTURES_LINEUPS}${query}`);
+    return this.request<FootballFixtureLineup>(
+      `${ENDPOINTS.FIXTURES_LINEUPS}${query}`,
+    );
   }
 
   /**
    * Get player statistics for a fixture
    */
   async getFixturePlayers(
-    params: FixturePlayersParams,
-  ): Promise<ApiFootballResponse<FixturePlayerStats>> {
+    params: FootballFixturePlayersParams,
+  ): Promise<ApiFootballResponse<FootballFixturePlayerStats>> {
     const query = buildQueryString(params);
-    return this.request<FixturePlayerStats>(
+    return this.request<FootballFixturePlayerStats>(
       `${ENDPOINTS.FIXTURES_PLAYERS}${query}`,
     );
   }
@@ -418,17 +428,17 @@ export class ApiFootballClient {
    * Get players
    */
   async getPlayers(
-    params: PlayersParams,
-  ): Promise<ApiFootballResponse<PlayerResponse>> {
+    params: FootballPlayersParams,
+  ): Promise<ApiFootballResponse<FootballPlayerResponse>> {
     const query = buildQueryString(params);
-    return this.request<PlayerResponse>(`${ENDPOINTS.PLAYERS}${query}`);
+    return this.request<FootballPlayerResponse>(`${ENDPOINTS.PLAYERS}${query}`);
   }
 
   /**
    * Get available player seasons
    */
   async getPlayersSeasons(
-    params?: PlayersSeasonParams,
+    params?: FootballPlayersSeasonParams,
   ): Promise<ApiFootballResponse<number>> {
     const query = params ? buildQueryString(params) : "";
     return this.request<number>(`${ENDPOINTS.PLAYERS_SEASONS}${query}`);
@@ -438,20 +448,22 @@ export class ApiFootballClient {
    * Get team squads or player's teams
    */
   async getSquads(
-    params: SquadsParams,
-  ): Promise<ApiFootballResponse<SquadResponse>> {
+    params: FootballSquadsParams,
+  ): Promise<ApiFootballResponse<FootballSquadResponse>> {
     const query = buildQueryString(params);
-    return this.request<SquadResponse>(`${ENDPOINTS.PLAYERS_SQUADS}${query}`);
+    return this.request<FootballSquadResponse>(
+      `${ENDPOINTS.PLAYERS_SQUADS}${query}`,
+    );
   }
 
   /**
    * Get top scorers for a league/season
    */
   async getTopScorers(
-    params: TopScorersParams,
-  ): Promise<ApiFootballResponse<PlayerResponse>> {
+    params: FootballTopScorersParams,
+  ): Promise<ApiFootballResponse<FootballPlayerResponse>> {
     const query = buildQueryString(params);
-    return this.request<PlayerResponse>(
+    return this.request<FootballPlayerResponse>(
       `${ENDPOINTS.PLAYERS_TOP_SCORERS}${query}`,
     );
   }
@@ -460,10 +472,10 @@ export class ApiFootballClient {
    * Get top assists for a league/season
    */
   async getTopAssists(
-    params: TopAssistsParams,
-  ): Promise<ApiFootballResponse<PlayerResponse>> {
+    params: FootballTopAssistsParams,
+  ): Promise<ApiFootballResponse<FootballPlayerResponse>> {
     const query = buildQueryString(params);
-    return this.request<PlayerResponse>(
+    return this.request<FootballPlayerResponse>(
       `${ENDPOINTS.PLAYERS_TOP_ASSISTS}${query}`,
     );
   }
@@ -472,10 +484,10 @@ export class ApiFootballClient {
    * Get top cards (most carded players) for a league/season
    */
   async getTopCards(
-    params: TopCardsParams,
-  ): Promise<ApiFootballResponse<PlayerResponse>> {
+    params: FootballTopCardsParams,
+  ): Promise<ApiFootballResponse<FootballPlayerResponse>> {
     const query = buildQueryString(params);
-    return this.request<PlayerResponse>(
+    return this.request<FootballPlayerResponse>(
       `${ENDPOINTS.PLAYERS_TOP_CARDS}${query}`,
     );
   }
@@ -488,10 +500,12 @@ export class ApiFootballClient {
    * Get player transfers
    */
   async getTransfers(
-    params: TransfersParams,
-  ): Promise<ApiFootballResponse<TransferResponse>> {
+    params: FootballTransfersParams,
+  ): Promise<ApiFootballResponse<FootballTransferResponse>> {
     const query = buildQueryString(params);
-    return this.request<TransferResponse>(`${ENDPOINTS.TRANSFERS}${query}`);
+    return this.request<FootballTransferResponse>(
+      `${ENDPOINTS.TRANSFERS}${query}`,
+    );
   }
 
   // ============================================================================
@@ -502,10 +516,10 @@ export class ApiFootballClient {
    * Get trophies for a player or coach
    */
   async getTrophies(
-    params: TrophiesParams,
-  ): Promise<ApiFootballResponse<Trophy>> {
+    params: FootballTrophiesParams,
+  ): Promise<ApiFootballResponse<FootballTrophy>> {
     const query = buildQueryString(params);
-    return this.request<Trophy>(`${ENDPOINTS.TROPHIES}${query}`);
+    return this.request<FootballTrophy>(`${ENDPOINTS.TROPHIES}${query}`);
   }
 
   // ============================================================================
@@ -516,10 +530,10 @@ export class ApiFootballClient {
    * Get sidelined players (injured/suspended)
    */
   async getSidelined(
-    params: SidelinedParams,
-  ): Promise<ApiFootballResponse<Sidelined>> {
+    params: FootballSidelinedParams,
+  ): Promise<ApiFootballResponse<FootballSidelined>> {
     const query = buildQueryString(params);
-    return this.request<Sidelined>(`${ENDPOINTS.SIDELINED}${query}`);
+    return this.request<FootballSidelined>(`${ENDPOINTS.SIDELINED}${query}`);
   }
 
   // ============================================================================
@@ -529,9 +543,11 @@ export class ApiFootballClient {
   /**
    * Get coach information
    */
-  async getCoachs(params: CoachsParams): Promise<ApiFootballResponse<Coach>> {
+  async getCoachs(
+    params: FootballCoachsParams,
+  ): Promise<ApiFootballResponse<FootballCoach>> {
     const query = buildQueryString(params);
-    return this.request<Coach>(`${ENDPOINTS.COACHS}${query}`);
+    return this.request<FootballCoach>(`${ENDPOINTS.COACHS}${query}`);
   }
 
   // ============================================================================
@@ -542,10 +558,10 @@ export class ApiFootballClient {
    * Get injuries
    */
   async getInjuries(
-    params: InjuriesParams,
-  ): Promise<ApiFootballResponse<Injury>> {
+    params: FootballInjuriesParams,
+  ): Promise<ApiFootballResponse<FootballInjury>> {
     const query = buildQueryString(params);
-    return this.request<Injury>(`${ENDPOINTS.INJURIES}${query}`);
+    return this.request<FootballInjury>(`${ENDPOINTS.INJURIES}${query}`);
   }
 }
 

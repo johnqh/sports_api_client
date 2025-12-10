@@ -8,12 +8,12 @@ import type { Optional } from "@sudobility/types";
 /**
  * Generic statistic value that can be number, string, or percentage
  */
-export type StatValue = Optional<number | string>;
+export type FootballStatValue = Optional<number | string>;
 
 /**
  * Percentage statistic with value and percentage
  */
-export interface PercentageStat {
+export interface FootballPercentageStat {
   /** Absolute value */
   total: Optional<number>;
   /** Percentage string (e.g., "45%") */
@@ -23,21 +23,21 @@ export interface PercentageStat {
 /**
  * Minute range statistic breakdown
  */
-export interface MinuteStats {
-  "0-15": PercentageStat;
-  "16-30": PercentageStat;
-  "31-45": PercentageStat;
-  "46-60": PercentageStat;
-  "61-75": PercentageStat;
-  "76-90": PercentageStat;
-  "91-105": PercentageStat;
-  "106-120": PercentageStat;
+export interface FootballMinuteStats {
+  "0-15": FootballPercentageStat;
+  "16-30": FootballPercentageStat;
+  "31-45": FootballPercentageStat;
+  "46-60": FootballPercentageStat;
+  "61-75": FootballPercentageStat;
+  "76-90": FootballPercentageStat;
+  "91-105": FootballPercentageStat;
+  "106-120": FootballPercentageStat;
 }
 
 /**
  * Common statistic types for fixture statistics
  */
-export type FixtureStatType =
+export type FootballFixtureStatType =
   | "Shots on Goal"
   | "Shots off Goal"
   | "Total Shots"
@@ -59,7 +59,7 @@ export type FixtureStatType =
 /**
  * Player position types
  */
-export type PlayerPosition =
+export type FootballPlayerPosition =
   | "Goalkeeper"
   | "Defender"
   | "Midfielder"
@@ -68,12 +68,12 @@ export type PlayerPosition =
 /**
  * Card type
  */
-export type CardType = "Yellow Card" | "Red Card" | "Yellow/Red Card";
+export type FootballCardType = "Yellow Card" | "Red Card" | "Yellow/Red Card";
 
 /**
  * Goal type
  */
-export type GoalType =
+export type FootballGoalType =
   | "Normal Goal"
   | "Own Goal"
   | "Penalty"
@@ -82,12 +82,12 @@ export type GoalType =
 /**
  * Event type
  */
-export type EventType = "Goal" | "Card" | "subst" | "Var";
+export type FootballEventType = "Goal" | "Card" | "subst" | "Var";
 
 /**
  * VAR decision types
  */
-export type VarDecision =
+export type FootballVarDecision =
   | "Goal cancelled"
   | "Penalty confirmed"
   | "Goal confirmed"

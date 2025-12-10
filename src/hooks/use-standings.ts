@@ -10,7 +10,10 @@ import {
   apiFootballKeys,
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
-import type { StandingsParams, StandingsResponse } from "../types";
+import type {
+  FootballStandingsParams,
+  FootballStandingsResponse,
+} from "../types";
 
 /**
  * Hook to fetch league standings
@@ -45,8 +48,8 @@ import type { StandingsParams, StandingsResponse } from "../types";
  */
 export function useStandings(
   options: UseApiFootballQueryOptionsRequired<
-    StandingsResponse,
-    StandingsParams
+    FootballStandingsResponse,
+    FootballStandingsParams
   >,
 ) {
   const client = useApiFootballClient();

@@ -9,7 +9,7 @@ import {
   apiFootballKeys,
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
-import type { InjuriesParams, Injury } from "../types";
+import type { FootballInjuriesParams, FootballInjury } from "../types";
 
 /**
  * Hook to fetch injuries
@@ -35,7 +35,10 @@ import type { InjuriesParams, Injury } from "../types";
  * ```
  */
 export function useInjuries(
-  options: UseApiFootballQueryOptionsRequired<Injury, InjuriesParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballInjury,
+    FootballInjuriesParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { params, ...queryOptions } = options;

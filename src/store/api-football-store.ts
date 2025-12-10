@@ -37,23 +37,23 @@
 import { create, StateCreator } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
 import type {
-  Coach,
-  Country,
-  FixtureEvent,
-  FixtureLineup,
-  FixturePlayerStats,
-  FixtureResponse,
-  FixtureStatistics,
-  LeagueResponse,
-  PlayerResponse,
-  Sidelined,
-  SquadResponse,
-  StandingsResponse,
-  TeamResponse,
-  TeamStatistics,
-  TransferResponse,
-  Trophy,
-  Venue,
+  FootballCoach,
+  FootballCountry,
+  FootballFixtureEvent,
+  FootballFixtureLineup,
+  FootballFixturePlayerStats,
+  FootballFixtureResponse,
+  FootballFixtureStatistics,
+  FootballLeagueResponse,
+  FootballPlayerResponse,
+  FootballSidelined,
+  FootballSquadResponse,
+  FootballStandingsResponse,
+  FootballTeamResponse,
+  FootballTeamStatistics,
+  FootballTransferResponse,
+  FootballTrophy,
+  FootballVenue,
 } from "../types";
 import {
   CachedData,
@@ -94,7 +94,7 @@ export interface ApiFootballState {
   // ============================================================================
 
   /** Cached countries */
-  countries: CachedData<Country[]> | null;
+  countries: CachedData<FootballCountry[]> | null;
 
   /** Cached timezones */
   timezones: CachedData<string[]> | null;
@@ -103,52 +103,52 @@ export interface ApiFootballState {
   seasons: CachedData<number[]> | null;
 
   /** Cached leagues by key */
-  leagues: Map<string, CachedData<LeagueResponse[]>>;
+  leagues: Map<string, CachedData<FootballLeagueResponse[]>>;
 
   /** Cached teams by key */
-  teams: Map<string, CachedData<TeamResponse[]>>;
+  teams: Map<string, CachedData<FootballTeamResponse[]>>;
 
   /** Cached team statistics by key */
-  teamStatistics: Map<string, CachedData<TeamStatistics>>;
+  teamStatistics: Map<string, CachedData<FootballTeamStatistics>>;
 
   /** Cached venues by key */
-  venues: Map<string, CachedData<Venue[]>>;
+  venues: Map<string, CachedData<FootballVenue[]>>;
 
   /** Cached fixtures by key */
-  fixtures: Map<string, CachedData<FixtureResponse[]>>;
+  fixtures: Map<string, CachedData<FootballFixtureResponse[]>>;
 
   /** Cached fixture statistics by key */
-  fixtureStatistics: Map<string, CachedData<FixtureStatistics[]>>;
+  fixtureStatistics: Map<string, CachedData<FootballFixtureStatistics[]>>;
 
   /** Cached fixture events by key */
-  fixtureEvents: Map<string, CachedData<FixtureEvent[]>>;
+  fixtureEvents: Map<string, CachedData<FootballFixtureEvent[]>>;
 
   /** Cached fixture lineups by key */
-  fixtureLineups: Map<string, CachedData<FixtureLineup[]>>;
+  fixtureLineups: Map<string, CachedData<FootballFixtureLineup[]>>;
 
   /** Cached fixture players by key */
-  fixturePlayers: Map<string, CachedData<FixturePlayerStats[]>>;
+  fixturePlayers: Map<string, CachedData<FootballFixturePlayerStats[]>>;
 
   /** Cached standings by key */
-  standings: Map<string, CachedData<StandingsResponse[]>>;
+  standings: Map<string, CachedData<FootballStandingsResponse[]>>;
 
   /** Cached players by key */
-  players: Map<string, CachedData<PlayerResponse[]>>;
+  players: Map<string, CachedData<FootballPlayerResponse[]>>;
 
   /** Cached squads by key */
-  squads: Map<string, CachedData<SquadResponse[]>>;
+  squads: Map<string, CachedData<FootballSquadResponse[]>>;
 
   /** Cached transfers by key */
-  transfers: Map<string, CachedData<TransferResponse[]>>;
+  transfers: Map<string, CachedData<FootballTransferResponse[]>>;
 
   /** Cached coaches by key */
-  coaches: Map<string, CachedData<Coach[]>>;
+  coaches: Map<string, CachedData<FootballCoach[]>>;
 
   /** Cached trophies by key */
-  trophies: Map<string, CachedData<Trophy[]>>;
+  trophies: Map<string, CachedData<FootballTrophy[]>>;
 
   /** Cached sidelined by key */
-  sidelined: Map<string, CachedData<Sidelined[]>>;
+  sidelined: Map<string, CachedData<FootballSidelined[]>>;
 
   // ============================================================================
   // Cache Settings
@@ -162,45 +162,48 @@ export interface ApiFootballState {
   // ============================================================================
 
   // Setters for single-value caches
-  setCountries: (data: Country[]) => void;
+  setCountries: (data: FootballCountry[]) => void;
   setTimezones: (data: string[]) => void;
   setSeasons: (data: number[]) => void;
 
   // Setters for keyed caches
-  setLeagues: (key: string, data: LeagueResponse[]) => void;
-  setTeams: (key: string, data: TeamResponse[]) => void;
-  setTeamStatistics: (key: string, data: TeamStatistics) => void;
-  setVenues: (key: string, data: Venue[]) => void;
-  setFixtures: (key: string, data: FixtureResponse[]) => void;
-  setFixtureStatistics: (key: string, data: FixtureStatistics[]) => void;
-  setFixtureEvents: (key: string, data: FixtureEvent[]) => void;
-  setFixtureLineups: (key: string, data: FixtureLineup[]) => void;
-  setFixturePlayers: (key: string, data: FixturePlayerStats[]) => void;
-  setStandings: (key: string, data: StandingsResponse[]) => void;
-  setPlayers: (key: string, data: PlayerResponse[]) => void;
-  setSquads: (key: string, data: SquadResponse[]) => void;
-  setTransfers: (key: string, data: TransferResponse[]) => void;
-  setCoaches: (key: string, data: Coach[]) => void;
-  setTrophies: (key: string, data: Trophy[]) => void;
-  setSidelined: (key: string, data: Sidelined[]) => void;
+  setLeagues: (key: string, data: FootballLeagueResponse[]) => void;
+  setTeams: (key: string, data: FootballTeamResponse[]) => void;
+  setTeamStatistics: (key: string, data: FootballTeamStatistics) => void;
+  setVenues: (key: string, data: FootballVenue[]) => void;
+  setFixtures: (key: string, data: FootballFixtureResponse[]) => void;
+  setFixtureStatistics: (
+    key: string,
+    data: FootballFixtureStatistics[],
+  ) => void;
+  setFixtureEvents: (key: string, data: FootballFixtureEvent[]) => void;
+  setFixtureLineups: (key: string, data: FootballFixtureLineup[]) => void;
+  setFixturePlayers: (key: string, data: FootballFixturePlayerStats[]) => void;
+  setStandings: (key: string, data: FootballStandingsResponse[]) => void;
+  setPlayers: (key: string, data: FootballPlayerResponse[]) => void;
+  setSquads: (key: string, data: FootballSquadResponse[]) => void;
+  setTransfers: (key: string, data: FootballTransferResponse[]) => void;
+  setCoaches: (key: string, data: FootballCoach[]) => void;
+  setTrophies: (key: string, data: FootballTrophy[]) => void;
+  setSidelined: (key: string, data: FootballSidelined[]) => void;
 
   // Getters for keyed caches (returns null if not found or expired)
-  getLeagues: (key: string) => LeagueResponse[] | null;
-  getTeams: (key: string) => TeamResponse[] | null;
-  getTeamStatistics: (key: string) => TeamStatistics | null;
-  getVenues: (key: string) => Venue[] | null;
-  getFixtures: (key: string) => FixtureResponse[] | null;
-  getFixtureStatistics: (key: string) => FixtureStatistics[] | null;
-  getFixtureEvents: (key: string) => FixtureEvent[] | null;
-  getFixtureLineups: (key: string) => FixtureLineup[] | null;
-  getFixturePlayers: (key: string) => FixturePlayerStats[] | null;
-  getStandings: (key: string) => StandingsResponse[] | null;
-  getPlayers: (key: string) => PlayerResponse[] | null;
-  getSquads: (key: string) => SquadResponse[] | null;
-  getTransfers: (key: string) => TransferResponse[] | null;
-  getCoaches: (key: string) => Coach[] | null;
-  getTrophies: (key: string) => Trophy[] | null;
-  getSidelined: (key: string) => Sidelined[] | null;
+  getLeagues: (key: string) => FootballLeagueResponse[] | null;
+  getTeams: (key: string) => FootballTeamResponse[] | null;
+  getTeamStatistics: (key: string) => FootballTeamStatistics | null;
+  getVenues: (key: string) => FootballVenue[] | null;
+  getFixtures: (key: string) => FootballFixtureResponse[] | null;
+  getFixtureStatistics: (key: string) => FootballFixtureStatistics[] | null;
+  getFixtureEvents: (key: string) => FootballFixtureEvent[] | null;
+  getFixtureLineups: (key: string) => FootballFixtureLineup[] | null;
+  getFixturePlayers: (key: string) => FootballFixturePlayerStats[] | null;
+  getStandings: (key: string) => FootballStandingsResponse[] | null;
+  getPlayers: (key: string) => FootballPlayerResponse[] | null;
+  getSquads: (key: string) => FootballSquadResponse[] | null;
+  getTransfers: (key: string) => FootballTransferResponse[] | null;
+  getCoaches: (key: string) => FootballCoach[] | null;
+  getTrophies: (key: string) => FootballTrophy[] | null;
+  getSidelined: (key: string) => FootballSidelined[] | null;
 
   // Cache utilities
   isCacheValid: (timestamp: number) => boolean;

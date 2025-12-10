@@ -7,7 +7,7 @@ import type { Optional } from "@sudobility/types";
 /**
  * Fixture information
  */
-export interface Fixture {
+export interface FootballFixture {
   /** Fixture ID */
   id: number;
   /** Referee name */
@@ -19,17 +19,17 @@ export interface Fixture {
   /** Unix timestamp */
   timestamp: number;
   /** Match periods */
-  periods: FixturePeriods;
+  periods: FootballFixturePeriods;
   /** Venue information */
-  venue: FixtureVenue;
+  venue: FootballFixtureVenue;
   /** Match status */
-  status: FixtureStatus;
+  status: FootballFixtureStatus;
 }
 
 /**
  * Fixture periods (kickoff times)
  */
-export interface FixturePeriods {
+export interface FootballFixturePeriods {
   /** First half start timestamp */
   first: Optional<number>;
   /** Second half start timestamp */
@@ -39,7 +39,7 @@ export interface FixturePeriods {
 /**
  * Simplified venue for fixture
  */
-export interface FixtureVenue {
+export interface FootballFixtureVenue {
   /** Venue ID */
   id: Optional<number>;
   /** Venue name */
@@ -51,11 +51,11 @@ export interface FixtureVenue {
 /**
  * Fixture status
  */
-export interface FixtureStatus {
+export interface FootballFixtureStatus {
   /** Long status description */
   long: string;
   /** Short status code */
-  short: FixtureStatusCode;
+  short: FootballFixtureStatusCode;
   /** Elapsed minutes */
   elapsed: Optional<number>;
 }
@@ -63,7 +63,7 @@ export interface FixtureStatus {
 /**
  * Fixture status codes
  */
-export type FixtureStatusCode =
+export type FootballFixtureStatusCode =
   | "TBD" // Time To Be Defined
   | "NS" // Not Started
   | "1H" // First Half
@@ -87,7 +87,7 @@ export type FixtureStatusCode =
 /**
  * League info in fixture context
  */
-export interface FixtureLeague {
+export interface FootballFixtureLeague {
   /** League ID */
   id: number;
   /** League name */
@@ -107,17 +107,17 @@ export interface FixtureLeague {
 /**
  * Teams in a fixture
  */
-export interface FixtureTeams {
+export interface FootballFixtureTeams {
   /** Home team */
-  home: FixtureTeam;
+  home: FootballFixtureTeam;
   /** Away team */
-  away: FixtureTeam;
+  away: FootballFixtureTeam;
 }
 
 /**
  * Team in fixture context
  */
-export interface FixtureTeam {
+export interface FootballFixtureTeam {
   /** Team ID */
   id: number;
   /** Team name */
@@ -131,7 +131,7 @@ export interface FixtureTeam {
 /**
  * Goals in a fixture
  */
-export interface FixtureGoals {
+export interface FootballFixtureGoals {
   /** Home team goals */
   home: Optional<number>;
   /** Away team goals */
@@ -141,37 +141,37 @@ export interface FixtureGoals {
 /**
  * Score breakdown by period
  */
-export interface FixtureScore {
+export interface FootballFixtureScore {
   /** Halftime score */
-  halftime: FixtureGoals;
+  halftime: FootballFixtureGoals;
   /** Fulltime score */
-  fulltime: FixtureGoals;
+  fulltime: FootballFixtureGoals;
   /** Extra time score */
-  extratime: FixtureGoals;
+  extratime: FootballFixtureGoals;
   /** Penalty shootout score */
-  penalty: FixtureGoals;
+  penalty: FootballFixtureGoals;
 }
 
 /**
  * Complete fixture response
  */
-export interface FixtureResponse {
+export interface FootballFixtureResponse {
   /** Fixture information */
-  fixture: Fixture;
+  fixture: FootballFixture;
   /** League information */
-  league: FixtureLeague;
+  league: FootballFixtureLeague;
   /** Teams */
-  teams: FixtureTeams;
+  teams: FootballFixtureTeams;
   /** Goals */
-  goals: FixtureGoals;
+  goals: FootballFixtureGoals;
   /** Score by period */
-  score: FixtureScore;
+  score: FootballFixtureScore;
 }
 
 /**
  * Parameters for fixtures endpoint
  */
-export interface FixturesParams {
+export interface FootballFixturesParams {
   /** Filter by fixture ID */
   id?: Optional<number>;
   /** Get live fixtures */
@@ -205,7 +205,7 @@ export interface FixturesParams {
 /**
  * Parameters for head to head endpoint
  */
-export interface HeadToHeadParams {
+export interface FootballHeadToHeadParams {
   /** Head to head teams (format: "team1-team2") */
   h2h: string;
   /** Filter by date */
@@ -233,7 +233,7 @@ export interface HeadToHeadParams {
 /**
  * Fixture event (goal, card, substitution, etc.)
  */
-export interface FixtureEvent {
+export interface FootballFixtureEvent {
   /** Time of the event */
   time: {
     elapsed: number;
@@ -266,7 +266,7 @@ export interface FixtureEvent {
 /**
  * Parameters for fixture events endpoint
  */
-export interface FixtureEventsParams {
+export interface FootballFixtureEventsParams {
   /** Fixture ID (required) */
   fixture: number;
   /** Filter by team ID */
@@ -280,20 +280,20 @@ export interface FixtureEventsParams {
 /**
  * Fixture lineup
  */
-export interface FixtureLineup {
+export interface FootballFixtureLineup {
   /** Team information */
   team: {
     id: number;
     name: string;
     logo: string;
-    colors: Optional<TeamColors>;
+    colors: Optional<FootballTeamColors>;
   };
   /** Formation */
   formation: Optional<string>;
   /** Starting XI */
-  startXI: LineupPlayer[];
+  startXI: FootballLineupPlayer[];
   /** Substitutes */
-  substitutes: LineupPlayer[];
+  substitutes: FootballLineupPlayer[];
   /** Coach */
   coach: {
     id: Optional<number>;
@@ -305,15 +305,15 @@ export interface FixtureLineup {
 /**
  * Team colors for lineup
  */
-export interface TeamColors {
-  player: ColorSet;
-  goalkeeper: ColorSet;
+export interface FootballTeamColors {
+  player: FootballColorSet;
+  goalkeeper: FootballColorSet;
 }
 
 /**
  * Color set (primary, number, border)
  */
-export interface ColorSet {
+export interface FootballColorSet {
   primary: string;
   number: string;
   border: string;
@@ -322,7 +322,7 @@ export interface ColorSet {
 /**
  * Player in lineup
  */
-export interface LineupPlayer {
+export interface FootballLineupPlayer {
   player: {
     id: number;
     name: string;
@@ -335,7 +335,7 @@ export interface LineupPlayer {
 /**
  * Parameters for fixture lineups endpoint
  */
-export interface FixtureLineupsParams {
+export interface FootballFixtureLineupsParams {
   /** Fixture ID (required) */
   fixture: number;
   /** Filter by team ID */
@@ -349,7 +349,7 @@ export interface FixtureLineupsParams {
 /**
  * Fixture statistics
  */
-export interface FixtureStatistics {
+export interface FootballFixtureStatistics {
   /** Team information */
   team: {
     id: number;
@@ -357,13 +357,13 @@ export interface FixtureStatistics {
     logo: string;
   };
   /** Statistics array */
-  statistics: StatisticItem[];
+  statistics: FootballStatisticItem[];
 }
 
 /**
  * Single statistic item
  */
-export interface StatisticItem {
+export interface FootballStatisticItem {
   /** Statistic type */
   type: string;
   /** Statistic value */
@@ -373,7 +373,7 @@ export interface StatisticItem {
 /**
  * Parameters for fixture statistics endpoint
  */
-export interface FixtureStatisticsParams {
+export interface FootballFixtureStatisticsParams {
   /** Fixture ID (required) */
   fixture: number;
   /** Filter by team ID */
@@ -385,7 +385,7 @@ export interface FixtureStatisticsParams {
 /**
  * Player statistics in a fixture
  */
-export interface FixturePlayerStats {
+export interface FootballFixturePlayerStats {
   /** Team information */
   team: {
     id: number;
@@ -394,13 +394,13 @@ export interface FixturePlayerStats {
     update: string;
   };
   /** Players with their statistics */
-  players: PlayerFixtureStats[];
+  players: FootballPlayerFixtureStats[];
 }
 
 /**
  * Individual player's fixture statistics
  */
-export interface PlayerFixtureStats {
+export interface FootballPlayerFixtureStats {
   /** Player information */
   player: {
     id: number;
@@ -408,13 +408,13 @@ export interface PlayerFixtureStats {
     photo: string;
   };
   /** Statistics array (different for each position) */
-  statistics: PlayerStatDetail[];
+  statistics: FootballPlayerStatDetail[];
 }
 
 /**
  * Player statistic detail
  */
-export interface PlayerStatDetail {
+export interface FootballPlayerStatDetail {
   games: {
     minutes: Optional<number>;
     number: number;
@@ -473,7 +473,7 @@ export interface PlayerStatDetail {
 /**
  * Parameters for fixture players endpoint
  */
-export interface FixturePlayersParams {
+export interface FootballFixturePlayersParams {
   /** Fixture ID (required) */
   fixture: number;
   /** Filter by team ID */

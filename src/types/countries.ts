@@ -7,7 +7,7 @@ import type { Optional } from "@sudobility/types";
 /**
  * Country information
  */
-export interface Country {
+export interface FootballCountry {
   /** Country name */
   name: string;
   /** ISO 3166-1 alpha-2 country code */
@@ -19,7 +19,7 @@ export interface Country {
 /**
  * Parameters for countries endpoint
  */
-export interface CountriesParams {
+export interface FootballCountriesParams {
   /** Filter by country name */
   name?: Optional<string>;
   /** Filter by country code */
@@ -31,4 +31,4 @@ export interface CountriesParams {
 /**
  * Timezone is returned as a simple string
  */
-export type Timezone = string;
+export type FootballTimezone = string;

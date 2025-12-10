@@ -10,7 +10,7 @@ import {
   apiFootballKeys,
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
-import type { Coach, CoachsParams } from "../types";
+import type { FootballCoach, FootballCoachsParams } from "../types";
 
 /**
  * Hook to fetch coach information
@@ -35,7 +35,10 @@ import type { Coach, CoachsParams } from "../types";
  * ```
  */
 export function useCoaches(
-  options: UseApiFootballQueryOptionsRequired<Coach, CoachsParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballCoach,
+    FootballCoachsParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getCoaches, setCoaches, cacheTTL } = useApiFootballStore();

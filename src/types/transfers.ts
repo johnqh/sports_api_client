@@ -3,12 +3,12 @@
  */
 
 import type { Optional } from "@sudobility/types";
-import type { Birth } from "./common";
+import type { FootballBirth } from "./common";
 
 /**
  * Transfer record
  */
-export interface Transfer {
+export interface FootballTransfer {
   /** Transfer date */
   date: string;
   /** Transfer type */
@@ -33,7 +33,7 @@ export interface Transfer {
 /**
  * Transfer response (player with transfers)
  */
-export interface TransferResponse {
+export interface FootballTransferResponse {
   /** Player information */
   player: {
     id: number;
@@ -42,13 +42,13 @@ export interface TransferResponse {
   /** Update timestamp */
   update: string;
   /** Transfer history */
-  transfers: Transfer[];
+  transfers: FootballTransfer[];
 }
 
 /**
  * Parameters for transfers endpoint
  */
-export interface TransfersParams {
+export interface FootballTransfersParams {
   /** Filter by player ID */
   player?: Optional<number>;
   /** Filter by team ID */
@@ -58,7 +58,7 @@ export interface TransfersParams {
 /**
  * Trophy record
  */
-export interface Trophy {
+export interface FootballTrophy {
   /** League/Competition name */
   league: string;
   /** Country */
@@ -72,7 +72,7 @@ export interface Trophy {
 /**
  * Parameters for trophies endpoint
  */
-export interface TrophiesParams {
+export interface FootballTrophiesParams {
   /** Filter by player ID */
   player?: Optional<number>;
   /** Filter by coach ID */
@@ -82,7 +82,7 @@ export interface TrophiesParams {
 /**
  * Sidelined record (injury/suspension)
  */
-export interface Sidelined {
+export interface FootballSidelined {
   /** Type of absence */
   type: string;
   /** Start date */
@@ -94,7 +94,7 @@ export interface Sidelined {
 /**
  * Parameters for sidelined endpoint
  */
-export interface SidelinedParams {
+export interface FootballSidelinedParams {
   /** Filter by player ID */
   player?: Optional<number>;
   /** Filter by coach ID */
@@ -104,7 +104,7 @@ export interface SidelinedParams {
 /**
  * Coach information
  */
-export interface Coach {
+export interface FootballCoach {
   /** Coach ID */
   id: number;
   /** Coach name */
@@ -116,7 +116,7 @@ export interface Coach {
   /** Age */
   age: number;
   /** Birth information */
-  birth: Birth;
+  birth: FootballBirth;
   /** Nationality */
   nationality: string;
   /** Height */
@@ -132,13 +132,13 @@ export interface Coach {
     logo: string;
   };
   /** Career history */
-  career: CoachCareer[];
+  career: FootballCoachCareer[];
 }
 
 /**
  * Coach career entry
  */
-export interface CoachCareer {
+export interface FootballCoachCareer {
   /** Team information */
   team: {
     id: number;
@@ -154,7 +154,7 @@ export interface CoachCareer {
 /**
  * Parameters for coachs endpoint
  */
-export interface CoachsParams {
+export interface FootballCoachsParams {
   /** Filter by coach ID */
   id?: Optional<number>;
   /** Filter by team ID */
@@ -166,7 +166,7 @@ export interface CoachsParams {
 /**
  * Injury record
  */
-export interface Injury {
+export interface FootballInjury {
   /** Player information */
   player: {
     id: number;
@@ -202,7 +202,7 @@ export interface Injury {
 /**
  * Parameters for injuries endpoint
  */
-export interface InjuriesParams {
+export interface FootballInjuriesParams {
   /** Filter by league ID */
   league?: Optional<number>;
   /** Filter by season */

@@ -10,7 +10,7 @@ import {
   apiFootballKeys,
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
-import type { Sidelined, SidelinedParams } from "../types";
+import type { FootballSidelined, FootballSidelinedParams } from "../types";
 
 /**
  * Hook to fetch sidelined players (injured/suspended)
@@ -27,7 +27,10 @@ import type { Sidelined, SidelinedParams } from "../types";
  * ```
  */
 export function useSidelined(
-  options: UseApiFootballQueryOptionsRequired<Sidelined, SidelinedParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballSidelined,
+    FootballSidelinedParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getSidelined, setSidelined, cacheTTL } = useApiFootballStore();

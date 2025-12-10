@@ -12,14 +12,14 @@ import {
   type UseApiFootballQueryOptionsRequired,
 } from "./types";
 import type {
-  PlayerResponse,
-  PlayersParams,
-  PlayersSeasonParams,
-  SquadResponse,
-  SquadsParams,
-  TopAssistsParams,
-  TopCardsParams,
-  TopScorersParams,
+  FootballPlayerResponse,
+  FootballPlayersParams,
+  FootballPlayersSeasonParams,
+  FootballSquadResponse,
+  FootballSquadsParams,
+  FootballTopAssistsParams,
+  FootballTopCardsParams,
+  FootballTopScorersParams,
 } from "../types";
 
 /**
@@ -50,7 +50,10 @@ import type {
  * ```
  */
 export function usePlayers(
-  options: UseApiFootballQueryOptionsRequired<PlayerResponse, PlayersParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballPlayerResponse,
+    FootballPlayersParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getPlayers, setPlayers, cacheTTL } = useApiFootballStore();
@@ -101,7 +104,7 @@ export function usePlayers(
  * ```
  */
 export function usePlayersSeasons(
-  options?: UseApiFootballQueryOptions<number, PlayersSeasonParams>,
+  options?: UseApiFootballQueryOptions<number, FootballPlayersSeasonParams>,
 ) {
   const client = useApiFootballClient();
   const params = options?.params;
@@ -137,7 +140,10 @@ export function usePlayersSeasons(
  * ```
  */
 export function useSquads(
-  options: UseApiFootballQueryOptionsRequired<SquadResponse, SquadsParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballSquadResponse,
+    FootballSquadsParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getSquads, setSquads, cacheTTL } = useApiFootballStore();
@@ -199,7 +205,10 @@ export function useSquads(
  * ```
  */
 export function useTopScorers(
-  options: UseApiFootballQueryOptionsRequired<PlayerResponse, TopScorersParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballPlayerResponse,
+    FootballTopScorersParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getPlayers, setPlayers, cacheTTL } = useApiFootballStore();
@@ -252,7 +261,10 @@ export function useTopScorers(
  * ```
  */
 export function useTopAssists(
-  options: UseApiFootballQueryOptionsRequired<PlayerResponse, TopAssistsParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballPlayerResponse,
+    FootballTopAssistsParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getPlayers, setPlayers, cacheTTL } = useApiFootballStore();
@@ -305,7 +317,10 @@ export function useTopAssists(
  * ```
  */
 export function useTopCards(
-  options: UseApiFootballQueryOptionsRequired<PlayerResponse, TopCardsParams>,
+  options: UseApiFootballQueryOptionsRequired<
+    FootballPlayerResponse,
+    FootballTopCardsParams
+  >,
 ) {
   const client = useApiFootballClient();
   const { getPlayers, setPlayers, cacheTTL } = useApiFootballStore();
