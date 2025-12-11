@@ -62,3 +62,6 @@ export * from "./football/hooks";
 
 // Basketball exports
 export * from "./basketball";
+
+// Hockey exports
+export * from "./hockey";
