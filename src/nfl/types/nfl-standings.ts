@@ -3,21 +3,17 @@
  */
 
 import type { Optional } from "@sudobility/types";
-import type { NflCountry } from "./nfl-common";
 
 /**
- * NFL standing entry
+ * NFL standing entry - matches actual API response
  */
 export interface NflStanding {
   /** Position in standings */
   position: number;
-  /** Stage (e.g., "Regular Season") */
-  stage: string;
-  /** Group/Division information */
-  group: {
-    name: string;
-    points: Optional<number>;
-  };
+  /** Conference name (e.g., "American Football Conference") */
+  conference: string;
+  /** Division name (e.g., "AFC East") */
+  division: string;
   /** Team information */
   team: {
     id: number;
@@ -28,31 +24,48 @@ export interface NflStanding {
   league: {
     id: number;
     name: string;
-    type: string;
     season: number;
     logo: Optional<string>;
+    country: {
+      name: string;
+      code: string;
+      flag: Optional<string>;
+    };
   };
-  /** Country information */
-  country: NflCountry;
-  /** Games statistics */
-  games: {
-    played: number;
-    win: number;
-    lose: number;
-    ties: Optional<number>;
-  };
+  /** Games won */
+  won: number;
+  /** Games lost */
+  lost: number;
+  /** Games tied */
+  ties: number;
   /** Points statistics */
   points: {
     for: number;
     against: number;
     difference: number;
   };
-  /** Win percentage */
-  win_percentage: Optional<string>;
-  /** Form (recent results) */
-  form: Optional<string>;
-  /** Description (playoff position, etc.) */
-  description: Optional<string>;
+  /** Records breakdown */
+  records: {
+    home: string;
+    road: string;
+    conference: string;
+    division: string;
+  };
+  /** Current streak (e.g., "W5", "L2") */
+  streak: Optional<string>;
+  /** NCAA conference stats (for college) */
+  ncaa_conference: {
+    won: Optional<number>;
+    lost: Optional<number>;
+    points: {
+      for: Optional<number>;
+      against: Optional<number>;
+    };
+  };
+  /** Group info (optional, for compatibility) */
+  group?: {
+    name: string;
+  };
 }
 
 /**

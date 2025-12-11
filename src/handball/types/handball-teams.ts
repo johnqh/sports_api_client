@@ -24,10 +24,14 @@ export interface HandballTeamCountry {
 }
 
 /**
- * Handball team response
+ * Handball team response - flat structure from API
+ * API returns: { id, name, logo, national, country: {...} }
  */
 export interface HandballTeamResponse {
-  team: HandballTeam;
+  id: number;
+  name: string;
+  logo: string | null;
+  national: boolean;
   country: HandballTeamCountry;
 }
 

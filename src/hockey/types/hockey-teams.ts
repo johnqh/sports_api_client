@@ -20,11 +20,18 @@ export interface HockeyTeam {
 }
 
 /**
- * Hockey team response with country
+ * Hockey team response - flat structure from API
+ * API returns: { id, name, logo, national, country: {...} }
  */
 export interface HockeyTeamResponse {
-  /** Team information */
-  team: HockeyTeam;
+  /** Team ID */
+  id: number;
+  /** Team name */
+  name: string;
+  /** Team logo URL */
+  logo: Optional<string>;
+  /** Whether team is a national team */
+  national: boolean;
   /** Country information */
   country: HockeyCountry;
 }

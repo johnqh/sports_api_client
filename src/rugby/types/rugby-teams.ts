@@ -16,10 +16,14 @@ export interface RugbyTeam {
 }
 
 /**
- * Team response with country
+ * Team response - flat structure from API
+ * API returns: { id, name, logo, national, country: {...} }
  */
 export interface RugbyTeamResponse {
-  team: RugbyTeam;
+  id: number;
+  name: string;
+  logo: string | null;
+  national: boolean;
   country: RugbyCountry;
 }
 

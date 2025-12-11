@@ -34,11 +34,32 @@ export interface NflTeam {
 }
 
 /**
- * NFL team response with country
+ * NFL team response - flat structure from API
+ * API returns: { id, name, logo, city, code, coach, owner, stadium, capacity, established, national, country: {...} }
  */
 export interface NflTeamResponse {
-  /** Team information */
-  team: NflTeam;
+  /** Team ID */
+  id: number;
+  /** Team name */
+  name: string;
+  /** Team logo URL */
+  logo: Optional<string>;
+  /** Team city */
+  city: Optional<string>;
+  /** Team code/abbreviation */
+  code: Optional<string>;
+  /** Team coach */
+  coach: Optional<string>;
+  /** Team owner */
+  owner: Optional<string>;
+  /** Stadium name */
+  stadium: Optional<string>;
+  /** Stadium capacity */
+  capacity: Optional<number>;
+  /** Year established */
+  established: Optional<number>;
+  /** Whether team is a national team */
+  national: boolean;
   /** Country information */
   country: NflCountry;
 }

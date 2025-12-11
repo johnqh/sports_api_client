@@ -24,10 +24,14 @@ export interface VolleyballTeamCountry {
 }
 
 /**
- * Volleyball team response
+ * Volleyball team response - flat structure from API
+ * API returns: { id, name, logo, national, country: {...} }
  */
 export interface VolleyballTeamResponse {
-  team: VolleyballTeam;
+  id: number;
+  name: string;
+  logo: string | null;
+  national: boolean;
   country: VolleyballTeamCountry;
 }
 
