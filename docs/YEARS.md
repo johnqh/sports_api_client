@@ -1,59 +1,89 @@
 # Available Seasons by Sport (Free Tier)
 
-This document lists the seasons accessible on the **free tier** for each sport API, verified by calling data endpoints with API key `56f202374ed1937d98005fa2e6a35100`.
+This document lists the seasons and data availability on the **free tier**, verified with API key `56f202374ed1937d98005fa2e6a35100`.
 
 **Last verified:** 2024-12-11
 
 ---
 
-## API-Football (Soccer)
+## Working Sports (Free Tier)
 
-**Free tier access:** All seasons (2008 - 2027)
+### API-Football (Soccer)
 
-Football API appears to have no season restrictions on the free tier.
+**Status:** ✅ Works well
+
+**Free tier seasons:** 2021 - 2023 (same as other sports)
+
+Good data coverage across many countries and leagues.
+
+### API-Formula-1
+
+**Status:** ✅ Works well
+
+**Free tier seasons:** 2021 - 2023
+
+F1 doesn't use country filtering - races are returned directly by season.
 
 ---
 
-## All Other Sports (Free Tier Restriction)
+## Limited Data Coverage Sports
 
-The following sports have the same free tier restriction:
-
-> "Free plans do not have access to this season, try from 2021 to 2023."
-
-**Free tier access:** 2021, 2022, 2023 only
+The following sports have the free tier season restriction (2021-2023), but also have **limited data coverage**. The `/countries` endpoint returns many countries, but most countries have no leagues in the database.
 
 ### API-Basketball
-- Free tier: **2021 - 2023**
-- Season formats: `2021`, `2021-2022`, `2022`, `2022-2023`, `2023`, `2023-2024`
+
+**Free tier seasons:** 2021 - 2023
+
+**Countries with data:** USA (7 leagues), limited international coverage
 
 ### API-Hockey
-- Free tier: **2021 - 2023**
+
+**Free tier seasons:** 2021 - 2023
+
+**Countries with data:** USA, Canada, some European countries
 
 ### API-NFL (American Football)
-- Free tier: **2021 - 2023**
+
+**Free tier seasons:** 2021 - 2023
+
+**Note:** No country filter - leagues endpoint doesn't support `country` parameter
 
 ### API-Baseball
-- Free tier: **2021 - 2023**
+
+**Free tier seasons:** 2021 - 2023
+
+**Countries with data:** USA (5 leagues), Japan (3 leagues), limited others
 
 ### API-Rugby
-- Free tier: **2021 - 2023**
 
-### API-Formula-1
-- Free tier: **2021 - 2023**
+**Free tier seasons:** 2021 - 2023
+
+**Countries with data:** England, limited international coverage
 
 ### API-Handball
-- Free tier: **2021 - 2023**
+
+**Free tier seasons:** 2021 - 2023
+
+**Countries with data:** France, Germany, limited others
 
 ### API-Volleyball
-- Free tier: **2021 - 2023**
+
+**Free tier seasons:** 2021 - 2023
+
+**Countries with data:** Brazil, limited international coverage
 
 ### API-MMA
-- Free tier: **2022 - 2023** (MMA API only has data from 2022 onwards)
+
+**Free tier seasons:** 2022 - 2023
+
+**Note:** MMA API only has data from 2022 onwards. No country/league structure - fights returned directly.
 
 ---
 
 ## Notes
 
-- The `/seasons` endpoint returns all seasons that exist in the database, but free tier accounts can only access data from 2021-2023 for most sports.
-- Attempting to access seasons outside the free tier range returns an error: `"Free plans do not have access to this season, try from 2021 to 2023."`
-- Football (API-Football) is an exception and allows access to all seasons on the free tier.
+1. **Season restriction:** All sports on free tier are limited to 2021-2023 (MMA: 2022-2023)
+
+2. **Data coverage:** The `/countries` endpoint returns all countries in the database, but most have no league data. Only major markets (USA, major European countries) have good coverage.
+
+3. **Recommendation:** Use Football or Formula 1 for best free tier experience. Other sports have very limited data.
