@@ -4,8 +4,11 @@
  */
 
 import { useQuery } from "@tanstack/react-query";
-import { useApiFootballClient, useApiFootballStore } from "./context";
-import { apiFootballKeys, type UseApiFootballQueryOptions } from "./types";
+import { useApiFootballClient, useApiFootballStore } from "./football-context";
+import {
+  apiFootballKeys,
+  type UseApiFootballQueryOptions,
+} from "./football-types";
 import type { FootballCountriesParams, FootballCountry } from "../types";
 
 /**

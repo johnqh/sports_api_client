@@ -4,9 +4,12 @@
  */
 
 import { useQuery } from "@tanstack/react-query";
-import { useApiFootballClient, useApiFootballStore } from "./context";
+import { useApiFootballClient, useApiFootballStore } from "./football-context";
 import { generateCacheKey } from "../../utils/cache-utils";
-import { apiFootballKeys, type UseApiFootballQueryOptions } from "./types";
+import {
+  apiFootballKeys,
+  type UseApiFootballQueryOptions,
+} from "./football-types";
 import type { FootballLeagueResponse, FootballLeaguesParams } from "../types";
 
 /**

@@ -21,6 +21,13 @@ import type { StorageService } from "@sudobility/di";
 import type { Optional } from "@sudobility/types";
 
 /**
+ * Query key factory type for consistent cache key generation
+ */
+export type QueryKeyFactory<TParams = void> = TParams extends void
+  ? readonly string[]
+  : (params: TParams) => readonly (string | TParams)[];
+
+/**
  * Default cache TTL in milliseconds (5 minutes)
  *
  * @constant {number}

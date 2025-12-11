@@ -48,15 +48,15 @@ export {
   useApiFootballClient,
   useApiFootballStore,
   useApiFootballStoreContext,
-} from "./context";
-export type { ApiFootballProviderProps } from "./context";
+} from "./football-context";
+export type { ApiFootballProviderProps } from "./football-context";
 
 // Types and keys
-export { apiFootballKeys } from "./types";
+export { apiFootballKeys } from "./football-types";
 export type {
   UseApiFootballQueryOptions,
   UseApiFootballQueryOptionsRequired,
-} from "./types";
+} from "./football-types";
 
 // Coaches hook
 export { useFootballCoaches } from "./use-football-coaches";

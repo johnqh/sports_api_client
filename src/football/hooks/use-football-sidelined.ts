@@ -4,12 +4,12 @@
  */
 
 import { useQuery } from "@tanstack/react-query";
-import { useApiFootballClient, useApiFootballStore } from "./context";
+import { useApiFootballClient, useApiFootballStore } from "./football-context";
 import { generateCacheKey } from "../../utils/cache-utils";
 import {
   apiFootballKeys,
   type UseApiFootballQueryOptionsRequired,
-} from "./types";
+} from "./football-types";
 import type { FootballSidelined, FootballSidelinedParams } from "../types";
 
 /**
