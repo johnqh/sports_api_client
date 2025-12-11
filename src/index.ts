@@ -68,3 +68,6 @@ export * from "./hockey";
 
 // NFL exports
 export * from "./nfl";
+
+// Baseball exports
+export * from "./baseball";
