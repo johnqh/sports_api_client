@@ -34,11 +34,18 @@ export interface HockeySeason {
 }
 
 /**
- * Hockey league response with country and seasons
+ * Hockey league response with country and seasons.
+ * Note: Hockey API returns flat structure (not nested under `league`).
  */
 export interface HockeyLeagueResponse {
-  /** League information */
-  league: HockeyLeague;
+  /** League ID */
+  id: number;
+  /** League name */
+  name: string;
+  /** League type (League, Cup, etc.) */
+  type: string;
+  /** League logo URL */
+  logo: Optional<string>;
   /** Country information */
   country: HockeyCountry;
   /** Available seasons */
@@ -57,10 +64,9 @@ export interface HockeyLeaguesParams {
    * Filter by country name (NOT country code).
    * Use full country name like "Japan", not "JP".
    * Get valid names from the /countries endpoint.
+   * Note: The `code` parameter does NOT work for Hockey API.
    */
   country?: Optional<string>;
-  /** Filter by 2-letter country code (e.g., "JP", "US") */
-  code?: Optional<string>;
   /** Filter by season (free tier: 2021-2023 only) */
   season?: Optional<number>;
   /** Filter by league type */

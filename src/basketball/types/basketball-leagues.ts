@@ -32,11 +32,18 @@ export interface BasketballSeason {
 }
 
 /**
- * Complete league response including country and seasons
+ * Complete league response including country and seasons.
+ * Note: Basketball API returns flat structure (not nested under `league`).
  */
 export interface BasketballLeagueResponse {
-  /** League information */
-  league: BasketballLeague;
+  /** League ID */
+  id: number;
+  /** League name */
+  name: string;
+  /** Type of competition */
+  type: string;
+  /** URL to league logo */
+  logo: Optional<string>;
   /** Country information */
   country: BasketballCountry;
   /** Available seasons */
@@ -55,10 +62,9 @@ export interface BasketballLeaguesParams {
    * Filter by country name (NOT country code).
    * Use full country name like "Japan", not "JP".
    * Get valid names from the /countries endpoint.
+   * Note: The `code` parameter does NOT work for Basketball API.
    */
   country?: Optional<string>;
-  /** Filter by 2-letter country code (e.g., "JP", "US") */
-  code?: Optional<string>;
   /** Filter by season (free tier: 2021-2023 only) */
   season?: Optional<string>;
   /** Filter by league type */
