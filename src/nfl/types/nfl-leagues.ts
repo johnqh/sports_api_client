@@ -53,11 +53,15 @@ export interface NflLeaguesParams {
   id?: Optional<number>;
   /** Filter by league name */
   name?: Optional<string>;
-  /** Filter by country name */
+  /**
+   * Filter by country name (NOT country code).
+   * Use full country name like "Japan", not "JP".
+   * Get valid names from the /countries endpoint.
+   */
   country?: Optional<string>;
-  /** Filter by country code */
+  /** Filter by 2-letter country code (e.g., "JP", "US") */
   code?: Optional<string>;
-  /** Filter by season */
+  /** Filter by season (free tier: 2021-2023 only) */
   season?: Optional<number>;
   /** Filter by league type */
   type?: Optional<string>;
