@@ -14,6 +14,19 @@ Attempting to access other seasons returns: `"Free plans do not have access to t
 
 ---
 
+## Important: Country Parameter
+
+The `/leagues` endpoint requires the full country **name**, NOT the country **code**.
+
+```
+❌ /leagues?country=JP        → 0 results
+✅ /leagues?country=Japan     → 3 results
+```
+
+The `/countries` endpoint returns both `name` and `code`, but only `name` works for filtering.
+
+---
+
 ## Data Available for Season 2023
 
 | Sport | Endpoint | Results |
@@ -34,37 +47,47 @@ Attempting to access other seasons returns: `"Free plans do not have access to t
 ## Notes by Sport
 
 ### API-Football (Soccer)
+
 - Best coverage: 939 leagues across many countries
 - Recommended for free tier usage
 
 ### API-Formula-1
+
 - Good coverage: 180 races
 - No country/league structure - races returned directly by season
 
 ### API-Basketball
+
 - 143 leagues globally
 - Season formats: `2023` or `2023-2024`
 
 ### API-Hockey
+
 - 151 leagues globally
 
 ### API-NFL (American Football)
+
 - Only 2 leagues (NFL, CFL)
 - No country filter supported
 
 ### API-Baseball
+
 - 48 leagues globally
 
 ### API-Rugby
+
 - 74 leagues globally
 
 ### API-Handball
+
 - 164 leagues globally
 
 ### API-Volleyball
+
 - 202 leagues globally
 
 ### API-MMA
+
 - 583 fights in 2023
 - No league structure - fights returned directly
 - Data only available from 2022 onwards
