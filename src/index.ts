@@ -80,3 +80,6 @@ export * from "./formula1";
 
 // MMA exports
 export * from "./mma";
+
+// Handball exports
+export * from "./handball";
