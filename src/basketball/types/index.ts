@@ -43,11 +43,3 @@ export type {
   BasketballStanding,
   BasketballStandingsParams,
 } from "./basketball-standings";
-
-// Statistics types
-export type {
-  BasketballGameStatistics,
-  BasketballGameStatisticsParams,
-  BasketballStatItem,
-  BasketballStatType,
-} from "./basketball-statistics";

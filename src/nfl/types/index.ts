@@ -40,11 +40,3 @@ export type {
 
 // Standings types
 export type { NflStanding, NflStandingsParams } from "./nfl-standings";
-
-// Statistics types
-export type {
-  NflGameStatistics,
-  NflGameStatisticsParams,
-  NflStatItem,
-  NflStatType,
-} from "./nfl-statistics";

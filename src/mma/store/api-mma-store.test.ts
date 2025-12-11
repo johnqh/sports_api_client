@@ -32,7 +32,6 @@ describe("ApiMmaStore", () => {
 
     it("should have empty Maps for keyed caches", () => {
       const state = store.getState();
-      expect(state.leagues.size).toBe(0);
       expect(state.categories.size).toBe(0);
       expect(state.fighters.size).toBe(0);
       expect(state.fights.size).toBe(0);
@@ -49,24 +48,10 @@ describe("ApiMmaStore", () => {
     });
   });
 
-  describe("setLeagues/getLeagues", () => {
-    it("should set and get leagues cache", () => {
-      const leagues = [
-        {
-          league: { id: 1, name: "UFC", type: "League", logo: null },
-          country: { id: 1, name: "USA", code: "US", flag: null },
-          seasons: [],
-        },
-      ];
-
-      store.getState().setLeagues("all", leagues);
-      expect(store.getState().getLeagues("all")).toEqual(leagues);
-    });
-  });
-
   describe("setCategories/getCategories", () => {
     it("should set and get categories cache", () => {
-      const categories = [{ id: 1, name: "Heavyweight", weight: "265 lbs" }];
+      // Categories are strings in the MMA API
+      const categories = ["Heavyweight", "Lightweight", "Middleweight"];
 
       store.getState().setCategories("all", categories);
       expect(store.getState().getCategories("all")).toEqual(categories);
@@ -78,22 +63,19 @@ describe("ApiMmaStore", () => {
       const fighters = [
         {
           id: 1,
-          name: "Fighter",
-          nickname: null,
-          image: null,
-          category: { id: 1, name: "Heavyweight", weight: null },
-          nationality: null,
-          country: null,
-          birthdate: null,
-          birthplace: null,
-          age: null,
-          height: null,
-          reach: null,
-          stance: null,
-          wins: null,
-          losses: null,
-          draws: null,
-          no_contests: null,
+          name: "Jon Jones",
+          nickname: "Bones",
+          photo: "https://example.com/photo.jpg",
+          gender: "Male",
+          birth_date: "1987-07-19",
+          age: 36,
+          height: "6'4\"",
+          weight: "248 lbs",
+          reach: "84.5\"",
+          stance: "Orthodox",
+          category: "Light Heavyweight",
+          team: { id: 1, name: "Jackson Wink MMA" },
+          last_update: "2023-07-15",
         },
       ];
 
@@ -111,51 +93,24 @@ describe("ApiMmaStore", () => {
           time: "22:00",
           timestamp: 1689458400,
           timezone: "UTC",
-          league: { id: 1, name: "UFC", type: "League", logo: null },
-          category: { id: 1, name: "Heavyweight", weight: null },
           slug: "fight-slug",
+          is_main: true,
+          category: "Heavyweight",
           status: { long: "Finished", short: "FT" },
           fighters: {
             first: {
               id: 1,
               name: "Fighter 1",
-              nickname: null,
-              image: null,
-              category: { id: 1, name: "Heavyweight", weight: null },
-              nationality: null,
-              country: null,
-              birthdate: null,
-              birthplace: null,
-              age: null,
-              height: null,
-              reach: null,
-              stance: null,
-              wins: null,
-              losses: null,
-              draws: null,
-              no_contests: null,
+              logo: null,
+              winner: true,
             },
             second: {
               id: 2,
               name: "Fighter 2",
-              nickname: null,
-              image: null,
-              category: { id: 1, name: "Heavyweight", weight: null },
-              nationality: null,
-              country: null,
-              birthdate: null,
-              birthplace: null,
-              age: null,
-              height: null,
-              reach: null,
-              stance: null,
-              wins: null,
-              losses: null,
-              draws: null,
-              no_contests: null,
+              logo: null,
+              winner: false,
             },
           },
-          result: { winner: null, method: null, round: null, time: null },
         },
       ];
 
@@ -179,12 +134,12 @@ describe("ApiMmaStore", () => {
   describe("clearCache", () => {
     it("should clear all cached data", () => {
       store.getState().setTimezones(["UTC"]);
-      store.getState().setLeagues("test", []);
+      store.getState().setCategories("test", ["Heavyweight"]);
 
       store.getState().clearCache();
 
       expect(store.getState().timezones).toBeNull();
-      expect(store.getState().leagues.size).toBe(0);
+      expect(store.getState().categories.size).toBe(0);
     });
   });
 

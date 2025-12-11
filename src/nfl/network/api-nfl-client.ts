@@ -25,8 +25,6 @@ import type {
   NflCountry,
   NflGame,
   NflGamesParams,
-  NflGameStatistics,
-  NflGameStatisticsParams,
   NflHeadToHeadParams,
   NflLeagueResponse,
   NflLeaguesParams,
@@ -197,18 +195,6 @@ export class ApiNflClient {
   ): Promise<ApiNflResponse<NflGame>> {
     const query = buildQueryString(params);
     return this.request<NflGame>(`${NFL_ENDPOINTS.GAMES_HEAD_TO_HEAD}${query}`);
-  }
-
-  /**
-   * Get game statistics
-   */
-  async getGameStatistics(
-    params: NflGameStatisticsParams,
-  ): Promise<ApiNflResponse<NflGameStatistics>> {
-    const query = buildQueryString(params);
-    return this.request<NflGameStatistics>(
-      `${NFL_ENDPOINTS.GAMES_STATISTICS}${query}`,
-    );
   }
 
   // ============================================================================

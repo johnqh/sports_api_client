@@ -22,9 +22,5 @@ export { useRugbyCountries } from "./use-rugby-countries";
 export { useRugbySeasons } from "./use-rugby-seasons";
 export { useRugbyLeagues } from "./use-rugby-leagues";
 export { useRugbyTeams, useRugbyTeamStatistics } from "./use-rugby-teams";
-export {
-  useRugbyGames,
-  useRugbyGamesHeadToHead,
-  useRugbyGameStatistics,
-} from "./use-rugby-games";
+export { useRugbyGames, useRugbyGamesHeadToHead } from "./use-rugby-games";
 export { useRugbyStandings } from "./use-rugby-standings";

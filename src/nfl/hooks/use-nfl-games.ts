@@ -11,13 +11,7 @@ import {
   type UseApiNflQueryOptions,
   type UseApiNflQueryOptionsRequired,
 } from "./nfl-types";
-import type {
-  NflGame,
-  NflGamesParams,
-  NflGameStatistics,
-  NflGameStatisticsParams,
-  NflHeadToHeadParams,
-} from "../types";
+import type { NflGame, NflGamesParams, NflHeadToHeadParams } from "../types";
 
 /**
  * Hook to fetch games
@@ -92,53 +86,6 @@ export function useNflGamesHeadToHead(
       if (cached) {
         return {
           get: "games/h2h",
-          parameters: {} as Record<string, string>,
-          errors: [] as string[],
-          results: cached.length,
-          response: cached,
-        };
-      }
-      return undefined;
-    },
-    staleTime: cacheTTL,
-    ...queryOptions,
-  });
-}
-
-/**
- * Hook to fetch game statistics
- *
- * Requires game ID parameter.
- *
- * @param options - Query options with required params
- * @returns Query result with game statistics data
- */
-export function useNflGameStatistics(
-  options: UseApiNflQueryOptionsRequired<
-    NflGameStatistics,
-    NflGameStatisticsParams
-  >,
-) {
-  const client = useApiNflClient();
-  const { getGameStatistics, setGameStatistics, cacheTTL } = useApiNflStore();
-  const { params, ...queryOptions } = options;
-  const cacheKey = generateCacheKey(
-    "game-statistics",
-    params as unknown as Record<string, unknown>,
-  );
-
-  return useQuery({
-    queryKey: apiNflKeys.games.statistics(params),
-    queryFn: async () => {
-      const response = await client.getGameStatistics(params);
-      setGameStatistics(cacheKey, response.response);
-      return response;
-    },
-    initialData: () => {
-      const cached = getGameStatistics(cacheKey);
-      if (cached) {
-        return {
-          get: "games/statistics",
           parameters: {} as Record<string, string>,
           errors: [] as string[],
           results: cached.length,

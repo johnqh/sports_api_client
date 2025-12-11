@@ -36,11 +36,3 @@ export type {
 } from "./rugby-games";
 
 export type { RugbyStanding, RugbyStandingsParams } from "./rugby-standings";
-
-export type {
-  RugbyGameStatistics,
-  RugbyGameStatisticsParams,
-  RugbyStatItem,
-  RugbyStatType,
-  RugbyTeamGameStats,
-} from "./rugby-statistics";

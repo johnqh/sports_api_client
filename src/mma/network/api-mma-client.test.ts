@@ -67,29 +67,7 @@ describe("ApiMmaClient", () => {
     });
   });
 
-  describe("getLeagues", () => {
-    it("should fetch leagues", async () => {
-      const mockResponse = {
-        data: {
-          get: "leagues",
-          parameters: {},
-          errors: [],
-          results: 1,
-          response: [
-            {
-              league: { id: 1, name: "UFC", type: "League", logo: null },
-              country: { id: 1, name: "USA", code: "US", flag: null },
-              seasons: [{ season: 2023, start: "2023-01-01", end: "2023-12-31" }],
-            },
-          ],
-        },
-      };
-
-      vi.mocked(mockNetworkClient.get).mockResolvedValue(mockResponse);
-      const result = await client.getLeagues();
-      expect(result.results).toBe(1);
-    });
-  });
+  // Note: MMA API does not have a /leagues endpoint
 
   describe("getCategories", () => {
     it("should fetch categories", async () => {

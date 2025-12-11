@@ -15,8 +15,6 @@ import type {
   MmaFighter,
   MmaFightersParams,
   MmaFightsParams,
-  MmaLeagueResponse,
-  MmaLeaguesParams,
   MmaSeasonsParams,
   MmaTimezone,
 } from "../types";
@@ -91,12 +89,7 @@ export class ApiMmaClient {
     return this.request<number>(`${MMA_ENDPOINTS.SEASONS}${query}`);
   }
 
-  async getLeagues(
-    params?: MmaLeaguesParams,
-  ): Promise<ApiMmaResponse<MmaLeagueResponse>> {
-    const query = params ? buildQueryString(params) : "";
-    return this.request<MmaLeagueResponse>(`${MMA_ENDPOINTS.LEAGUES}${query}`);
-  }
+  // Note: MMA API does NOT have a /leagues endpoint
 
   async getCategories(
     params?: MmaCategoriesParams,

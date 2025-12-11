@@ -39,7 +39,6 @@ export const RUGBY_ENDPOINTS = {
   // Games
   GAMES: "/games",
   GAMES_HEAD_TO_HEAD: "/games/h2h",
-  GAMES_STATISTICS: "/games/statistics",
 
   // Standings
   STANDINGS: "/standings",

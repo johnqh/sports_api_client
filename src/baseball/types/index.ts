@@ -39,11 +39,3 @@ export type {
   BaseballStanding,
   BaseballStandingsParams,
 } from "./baseball-standings";
-
-export type {
-  BaseballGameStatistics,
-  BaseballGameStatisticsParams,
-  BaseballStatItem,
-  BaseballStatType,
-  BaseballTeamGameStats,
-} from "./baseball-statistics";

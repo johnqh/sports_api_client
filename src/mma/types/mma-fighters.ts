@@ -6,40 +6,41 @@
 import type { MmaCategory } from "./mma-categories";
 
 /**
- * Fighter information
+ * Fighter team information
+ */
+export interface MmaTeam {
+  id: number;
+  name: string;
+}
+
+/**
+ * Full fighter information (from /fighters endpoint)
  */
 export interface MmaFighter {
   id: number;
   name: string;
   nickname: string | null;
-  image: string | null;
-  category: MmaCategory;
-  nationality: string | null;
-  country: {
-    name: string | null;
-    code: string | null;
-    flag: string | null;
-  } | null;
-  birthdate: string | null;
-  birthplace: string | null;
+  photo: string | null;
+  gender: string | null;
+  birth_date: string | null;
   age: number | null;
   height: string | null;
+  weight: string | null;
   reach: string | null;
   stance: string | null;
-  wins: {
-    total: number | null;
-    knockouts: number | null;
-    submissions: number | null;
-    decisions: number | null;
-  } | null;
-  losses: {
-    total: number | null;
-    knockouts: number | null;
-    submissions: number | null;
-    decisions: number | null;
-  } | null;
-  draws: number | null;
-  no_contests: number | null;
+  category: MmaCategory | null;
+  team: MmaTeam | null;
+  last_update: string | null;
+}
+
+/**
+ * Fighter summary in fight context
+ */
+export interface MmaFightFighter {
+  id: number;
+  name: string;
+  logo: string | null;
+  winner: boolean;
 }
 
 /**

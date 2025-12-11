@@ -37,12 +37,6 @@ export const apiMmaKeys = {
       [...MMA_BASE_KEY, "seasons", params ?? {}] as const,
   },
 
-  leagues: {
-    all: [...MMA_BASE_KEY, "leagues"] as const,
-    list: (params?: object) =>
-      [...MMA_BASE_KEY, "leagues", params ?? {}] as const,
-  },
-
   categories: {
     all: [...MMA_BASE_KEY, "categories"] as const,
     list: (params?: object) =>

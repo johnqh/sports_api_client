@@ -4,8 +4,7 @@
  */
 
 import type { MmaCategory } from "./mma-categories";
-import type { MmaFighter } from "./mma-fighters";
-import type { MmaLeague } from "./mma-leagues";
+import type { MmaFightFighter } from "./mma-fighters";
 
 /**
  * Fight status
@@ -13,19 +12,6 @@ import type { MmaLeague } from "./mma-leagues";
 export interface MmaFightStatus {
   long: string;
   short: string;
-}
-
-/**
- * Fight result
- */
-export interface MmaFightResult {
-  winner: {
-    id: number | null;
-    name: string | null;
-  } | null;
-  method: string | null;
-  round: number | null;
-  time: string | null;
 }
 
 /**
@@ -37,15 +23,14 @@ export interface MmaFight {
   time: string;
   timestamp: number;
   timezone: string;
-  league: MmaLeague;
-  category: MmaCategory;
   slug: string | null;
+  is_main: boolean;
+  category: MmaCategory | null;
   status: MmaFightStatus;
   fighters: {
-    first: MmaFighter;
-    second: MmaFighter;
+    first: MmaFightFighter;
+    second: MmaFightFighter;
   };
-  result: MmaFightResult;
 }
 
 /**

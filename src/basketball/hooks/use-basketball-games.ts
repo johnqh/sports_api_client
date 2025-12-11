@@ -17,8 +17,6 @@ import {
 import type {
   BasketballGame,
   BasketballGamesParams,
-  BasketballGameStatistics,
-  BasketballGameStatisticsParams,
   BasketballHeadToHeadParams,
 } from "../types";
 
@@ -127,64 +125,6 @@ export function useBasketballGamesHeadToHead(
       if (cached) {
         return {
           get: "games/h2h",
-          parameters: {} as Record<string, string>,
-          errors: [] as string[],
-          results: cached.length,
-          response: cached,
-        };
-      }
-      return undefined;
-    },
-    staleTime: cacheTTL,
-    ...queryOptions,
-  });
-}
-
-/**
- * Hook to fetch game statistics
- *
- * Requires game ID parameter.
- *
- * @param options - Query options with required params
- * @returns Query result with game statistics data
- *
- * @example
- * ```typescript
- * function GameStats({ gameId }: Props) {
- *   const { data, isLoading } = useBasketballGameStatistics({
- *     params: { id: gameId },
- *   });
- *   // ...
- * }
- * ```
- */
-export function useBasketballGameStatistics(
-  options: UseApiBasketballQueryOptionsRequired<
-    BasketballGameStatistics,
-    BasketballGameStatisticsParams
-  >,
-) {
-  const client = useApiBasketballClient();
-  const { getGameStatistics, setGameStatistics, cacheTTL } =
-    useApiBasketballStore();
-  const { params, ...queryOptions } = options;
-  const cacheKey = generateCacheKey(
-    "game-statistics",
-    params as unknown as Record<string, unknown>,
-  );
-
-  return useQuery({
-    queryKey: apiBasketballKeys.games.statistics(params),
-    queryFn: async () => {
-      const response = await client.getGameStatistics(params);
-      setGameStatistics(cacheKey, response.response);
-      return response;
-    },
-    initialData: () => {
-      const cached = getGameStatistics(cacheKey);
-      if (cached) {
-        return {
-          get: "games/statistics",
           parameters: {} as Record<string, string>,
           errors: [] as string[],
           results: cached.length,

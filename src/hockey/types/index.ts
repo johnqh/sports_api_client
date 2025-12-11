@@ -41,11 +41,3 @@ export type {
 
 // Standings types
 export type { HockeyStanding, HockeyStandingsParams } from "./hockey-standings";
-
-// Statistics types
-export type {
-  HockeyGameStatistics,
-  HockeyGameStatisticsParams,
-  HockeyStatItem,
-  HockeyStatType,
-} from "./hockey-statistics";

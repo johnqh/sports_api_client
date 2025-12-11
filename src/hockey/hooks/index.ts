@@ -23,11 +23,7 @@ export type {
 export { useHockeyCountries } from "./use-hockey-countries";
 
 // Games hooks
-export {
-  useHockeyGames,
-  useHockeyGamesHeadToHead,
-  useHockeyGameStatistics,
-} from "./use-hockey-games";
+export { useHockeyGames, useHockeyGamesHeadToHead } from "./use-hockey-games";
 
 // Leagues hook
 export { useHockeyLeagues } from "./use-hockey-leagues";

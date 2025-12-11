@@ -12,20 +12,13 @@ export type {
   MmaTimezone,
 } from "./mma-common";
 
-export type {
-  MmaLeague,
-  MmaLeagueResponse,
-  MmaLeaguesParams,
-  MmaSeason,
-} from "./mma-leagues";
-
 export type { MmaCategory, MmaCategoriesParams } from "./mma-categories";
 
-export type { MmaFighter, MmaFightersParams } from "./mma-fighters";
-
 export type {
-  MmaFight,
-  MmaFightResult,
-  MmaFightsParams,
-  MmaFightStatus,
-} from "./mma-fights";
+  MmaFighter,
+  MmaFightersParams,
+  MmaFightFighter,
+  MmaTeam,
+} from "./mma-fighters";
+
+export type { MmaFight, MmaFightsParams, MmaFightStatus } from "./mma-fights";

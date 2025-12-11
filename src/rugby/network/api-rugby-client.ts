@@ -25,8 +25,6 @@ import type {
   RugbyCountry,
   RugbyGame,
   RugbyGamesParams,
-  RugbyGameStatistics,
-  RugbyGameStatisticsParams,
   RugbyHeadToHeadParams,
   RugbyLeagueResponse,
   RugbyLeaguesParams,
@@ -204,18 +202,6 @@ export class ApiRugbyClient {
     const query = buildQueryString(params);
     return this.request<RugbyGame>(
       `${RUGBY_ENDPOINTS.GAMES_HEAD_TO_HEAD}${query}`,
-    );
-  }
-
-  /**
-   * Get game statistics
-   */
-  async getGameStatistics(
-    params: RugbyGameStatisticsParams,
-  ): Promise<ApiRugbyResponse<RugbyGameStatistics>> {
-    const query = buildQueryString(params);
-    return this.request<RugbyGameStatistics>(
-      `${RUGBY_ENDPOINTS.GAMES_STATISTICS}${query}`,
     );
   }
 

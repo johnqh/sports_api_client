@@ -4,13 +4,9 @@
  */
 
 /**
- * Category (weight class) information
+ * Category (weight class) - returned as string from API
  */
-export interface MmaCategory {
-  id: number;
-  name: string;
-  weight: string | null;
-}
+export type MmaCategory = string;
 
 /**
  * Parameters for categories endpoint

@@ -25,8 +25,6 @@ import type {
   HockeyCountry,
   HockeyGame,
   HockeyGamesParams,
-  HockeyGameStatistics,
-  HockeyGameStatisticsParams,
   HockeyHeadToHeadParams,
   HockeyLeagueResponse,
   HockeyLeaguesParams,
@@ -206,18 +204,6 @@ export class ApiHockeyClient {
     const query = buildQueryString(params);
     return this.request<HockeyGame>(
       `${HOCKEY_ENDPOINTS.GAMES_HEAD_TO_HEAD}${query}`,
-    );
-  }
-
-  /**
-   * Get game statistics
-   */
-  async getGameStatistics(
-    params: HockeyGameStatisticsParams,
-  ): Promise<ApiHockeyResponse<HockeyGameStatistics>> {
-    const query = buildQueryString(params);
-    return this.request<HockeyGameStatistics>(
-      `${HOCKEY_ENDPOINTS.GAMES_STATISTICS}${query}`,
     );
   }
 

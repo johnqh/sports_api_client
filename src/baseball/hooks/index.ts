@@ -28,6 +28,5 @@ export {
 export {
   useBaseballGames,
   useBaseballGamesHeadToHead,
-  useBaseballGameStatistics,
 } from "./use-baseball-games";
 export { useBaseballStandings } from "./use-baseball-standings";

@@ -23,11 +23,7 @@ export type {
 export { useNflCountries } from "./use-nfl-countries";
 
 // Games hooks
-export {
-  useNflGames,
-  useNflGamesHeadToHead,
-  useNflGameStatistics,
-} from "./use-nfl-games";
+export { useNflGames, useNflGamesHeadToHead } from "./use-nfl-games";
 
 // Leagues hook
 export { useNflLeagues } from "./use-nfl-leagues";

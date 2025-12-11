@@ -14,8 +14,6 @@ import {
 import type {
   HockeyGame,
   HockeyGamesParams,
-  HockeyGameStatistics,
-  HockeyGameStatisticsParams,
   HockeyHeadToHeadParams,
 } from "../types";
 
@@ -92,54 +90,6 @@ export function useHockeyGamesHeadToHead(
       if (cached) {
         return {
           get: "games/h2h",
-          parameters: {} as Record<string, string>,
-          errors: [] as string[],
-          results: cached.length,
-          response: cached,
-        };
-      }
-      return undefined;
-    },
-    staleTime: cacheTTL,
-    ...queryOptions,
-  });
-}
-
-/**
- * Hook to fetch game statistics
- *
- * Requires game ID parameter.
- *
- * @param options - Query options with required params
- * @returns Query result with game statistics data
- */
-export function useHockeyGameStatistics(
-  options: UseApiHockeyQueryOptionsRequired<
-    HockeyGameStatistics,
-    HockeyGameStatisticsParams
-  >,
-) {
-  const client = useApiHockeyClient();
-  const { getGameStatistics, setGameStatistics, cacheTTL } =
-    useApiHockeyStore();
-  const { params, ...queryOptions } = options;
-  const cacheKey = generateCacheKey(
-    "game-statistics",
-    params as unknown as Record<string, unknown>,
-  );
-
-  return useQuery({
-    queryKey: apiHockeyKeys.games.statistics(params),
-    queryFn: async () => {
-      const response = await client.getGameStatistics(params);
-      setGameStatistics(cacheKey, response.response);
-      return response;
-    },
-    initialData: () => {
-      const cached = getGameStatistics(cacheKey);
-      if (cached) {
-        return {
-          get: "games/statistics",
           parameters: {} as Record<string, string>,
           errors: [] as string[],
           results: cached.length,

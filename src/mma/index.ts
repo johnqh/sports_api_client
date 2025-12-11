@@ -14,14 +14,11 @@ export type {
   MmaFight,
   MmaFighter,
   MmaFightersParams,
-  MmaFightResult,
+  MmaFightFighter,
   MmaFightsParams,
   MmaFightStatus,
-  MmaLeague,
-  MmaLeagueResponse,
-  MmaLeaguesParams,
-  MmaSeason,
   MmaSeasonsParams,
+  MmaTeam,
   MmaTimezone,
 } from "./types";
 
@@ -39,6 +36,7 @@ export {
 export { createApiMmaStore, type ApiMmaState, type ApiMmaStore } from "./store";
 
 // Hooks
+// Note: useMmaLeagues removed - MMA API does not have a /leagues endpoint
 export {
   ApiMmaProvider,
   apiMmaKeys,
@@ -49,7 +47,6 @@ export {
   useMmaCountries,
   useMmaFighters,
   useMmaFights,
-  useMmaLeagues,
   useMmaSeasons,
   useMmaTimezone,
   type ApiMmaProviderProps,

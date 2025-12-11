@@ -8,7 +8,6 @@ import { persist, PersistOptions } from "zustand/middleware";
 import type {
   NflCountry,
   NflGame,
-  NflGameStatistics,
   NflLeagueResponse,
   NflStanding,
   NflTeamResponse,
@@ -51,9 +50,6 @@ export interface ApiNflState {
   /** Cached games by key */
   games: Map<string, CachedData<NflGame[]>>;
 
-  /** Cached game statistics by key */
-  gameStatistics: Map<string, CachedData<NflGameStatistics[]>>;
-
   /** Cached standings by key */
   standings: Map<string, CachedData<NflStanding[]>>;
 
@@ -78,7 +74,6 @@ export interface ApiNflState {
   setTeams: (key: string, data: NflTeamResponse[]) => void;
   setTeamStatistics: (key: string, data: NflTeamStatistics) => void;
   setGames: (key: string, data: NflGame[]) => void;
-  setGameStatistics: (key: string, data: NflGameStatistics[]) => void;
   setStandings: (key: string, data: NflStanding[]) => void;
 
   // Getters for keyed caches (returns null if not found or expired)
@@ -86,7 +81,6 @@ export interface ApiNflState {
   getTeams: (key: string) => NflTeamResponse[] | null;
   getTeamStatistics: (key: string) => NflTeamStatistics | null;
   getGames: (key: string) => NflGame[] | null;
-  getGameStatistics: (key: string) => NflGameStatistics[] | null;
   getStandings: (key: string) => NflStanding[] | null;
 
   // Cache utilities
@@ -107,7 +101,6 @@ const createStoreSlice: StateCreator<ApiNflState> = (set, get) => ({
   teams: new Map(),
   teamStatistics: new Map(),
   games: new Map(),
-  gameStatistics: new Map(),
   standings: new Map(),
   cacheTTL: DEFAULT_CACHE_TTL,
 
@@ -149,13 +142,6 @@ const createStoreSlice: StateCreator<ApiNflState> = (set, get) => ({
       return { games: newGames };
     }),
 
-  setGameStatistics: (key, data) =>
-    set((state) => {
-      const newStats = new Map(state.gameStatistics);
-      newStats.set(key, createCacheEntry(key, data));
-      return { gameStatistics: newStats };
-    }),
-
   setStandings: (key, data) =>
     set((state) => {
       const newStandings = new Map(state.standings);
@@ -188,12 +174,6 @@ const createStoreSlice: StateCreator<ApiNflState> = (set, get) => ({
     return cached.data;
   },
 
-  getGameStatistics: (key) => {
-    const cached = get().gameStatistics.get(key);
-    if (!cached || !get().isCacheValid(cached.timestamp)) return null;
-    return cached.data;
-  },
-
   getStandings: (key) => {
     const cached = get().standings.get(key);
     if (!cached || !get().isCacheValid(cached.timestamp)) return null;
@@ -212,7 +192,6 @@ const createStoreSlice: StateCreator<ApiNflState> = (set, get) => ({
       teams: new Map(),
       teamStatistics: new Map(),
       games: new Map(),
-      gameStatistics: new Map(),
       standings: new Map(),
     }),
 
@@ -241,7 +220,6 @@ const createCustomStorage = (storage: StorageAdapter) => ({
         "teams",
         "teamStatistics",
         "games",
-        "gameStatistics",
         "standings",
       ];
 
@@ -289,7 +267,6 @@ export const createApiNflStore = (storage: StorageAdapter) => {
       teams: state.teams,
       teamStatistics: state.teamStatistics,
       games: state.games,
-      gameStatistics: state.gameStatistics,
       standings: state.standings,
       cacheTTL: state.cacheTTL,
     }),

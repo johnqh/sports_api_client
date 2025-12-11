@@ -57,7 +57,6 @@ export { useBasketballCountries } from "./use-basketball-countries";
 export {
   useBasketballGames,
   useBasketballGamesHeadToHead,
-  useBasketballGameStatistics,
 } from "./use-basketball-games";
 
 // Leagues hook

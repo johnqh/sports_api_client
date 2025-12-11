@@ -28,8 +28,6 @@ import type {
   BasketballCountry,
   BasketballGame,
   BasketballGamesParams,
-  BasketballGameStatistics,
-  BasketballGameStatisticsParams,
   BasketballHeadToHeadParams,
   BasketballLeagueResponse,
   BasketballLeaguesParams,
@@ -218,18 +216,6 @@ export class ApiBasketballClient {
     const query = buildQueryString(params);
     return this.request<BasketballGame>(
       `${BASKETBALL_ENDPOINTS.GAMES_HEAD_TO_HEAD}${query}`,
-    );
-  }
-
-  /**
-   * Get game statistics
-   */
-  async getGameStatistics(
-    params: BasketballGameStatisticsParams,
-  ): Promise<ApiBasketballResponse<BasketballGameStatistics>> {
-    const query = buildQueryString(params);
-    return this.request<BasketballGameStatistics>(
-      `${BASKETBALL_ENDPOINTS.GAMES_STATISTICS}${query}`,
     );
   }
 

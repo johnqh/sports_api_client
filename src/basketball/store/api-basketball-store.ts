@@ -33,7 +33,6 @@ import { persist, PersistOptions } from "zustand/middleware";
 import type {
   BasketballCountry,
   BasketballGame,
-  BasketballGameStatistics,
   BasketballLeagueResponse,
   BasketballStanding,
   BasketballTeamResponse,
@@ -79,9 +78,6 @@ export interface ApiBasketballState {
   /** Cached games by key */
   games: Map<string, CachedData<BasketballGame[]>>;
 
-  /** Cached game statistics by key */
-  gameStatistics: Map<string, CachedData<BasketballGameStatistics[]>>;
-
   /** Cached standings by key */
   standings: Map<string, CachedData<BasketballStanding[]>>;
 
@@ -106,7 +102,6 @@ export interface ApiBasketballState {
   setTeams: (key: string, data: BasketballTeamResponse[]) => void;
   setTeamStatistics: (key: string, data: BasketballTeamStatistics) => void;
   setGames: (key: string, data: BasketballGame[]) => void;
-  setGameStatistics: (key: string, data: BasketballGameStatistics[]) => void;
   setStandings: (key: string, data: BasketballStanding[]) => void;
 
   // Getters for keyed caches (returns null if not found or expired)
@@ -114,7 +109,6 @@ export interface ApiBasketballState {
   getTeams: (key: string) => BasketballTeamResponse[] | null;
   getTeamStatistics: (key: string) => BasketballTeamStatistics | null;
   getGames: (key: string) => BasketballGame[] | null;
-  getGameStatistics: (key: string) => BasketballGameStatistics[] | null;
   getStandings: (key: string) => BasketballStanding[] | null;
 
   // Cache utilities
@@ -135,7 +129,6 @@ const createStoreSlice: StateCreator<ApiBasketballState> = (set, get) => ({
   teams: new Map(),
   teamStatistics: new Map(),
   games: new Map(),
-  gameStatistics: new Map(),
   standings: new Map(),
   cacheTTL: DEFAULT_CACHE_TTL,
 
@@ -177,13 +170,6 @@ const createStoreSlice: StateCreator<ApiBasketballState> = (set, get) => ({
       return { games: newGames };
     }),
 
-  setGameStatistics: (key, data) =>
-    set((state) => {
-      const newStats = new Map(state.gameStatistics);
-      newStats.set(key, createCacheEntry(key, data));
-      return { gameStatistics: newStats };
-    }),
-
   setStandings: (key, data) =>
     set((state) => {
       const newStandings = new Map(state.standings);
@@ -216,12 +202,6 @@ const createStoreSlice: StateCreator<ApiBasketballState> = (set, get) => ({
     return cached.data;
   },
 
-  getGameStatistics: (key) => {
-    const cached = get().gameStatistics.get(key);
-    if (!cached || !get().isCacheValid(cached.timestamp)) return null;
-    return cached.data;
-  },
-
   getStandings: (key) => {
     const cached = get().standings.get(key);
     if (!cached || !get().isCacheValid(cached.timestamp)) return null;
@@ -240,7 +220,6 @@ const createStoreSlice: StateCreator<ApiBasketballState> = (set, get) => ({
       teams: new Map(),
       teamStatistics: new Map(),
       games: new Map(),
-      gameStatistics: new Map(),
       standings: new Map(),
     }),
 
@@ -272,7 +251,6 @@ const createCustomStorage = (storage: StorageAdapter) => ({
         "teams",
         "teamStatistics",
         "games",
-        "gameStatistics",
         "standings",
       ];
 
@@ -336,7 +314,6 @@ export const createApiBasketballStore = (storage: StorageAdapter) => {
       teams: state.teams,
       teamStatistics: state.teamStatistics,
       games: state.games,
-      gameStatistics: state.gameStatistics,
       standings: state.standings,
       cacheTTL: state.cacheTTL,
     }),

@@ -5,13 +5,7 @@
 
 import { create, StateCreator } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
-import type {
-  MmaCategory,
-  MmaCountry,
-  MmaFight,
-  MmaFighter,
-  MmaLeagueResponse,
-} from "../types";
+import type { MmaCategory, MmaCountry, MmaFight, MmaFighter } from "../types";
 import {
   CachedData,
   isCacheValid as checkCacheValid,
@@ -24,7 +18,6 @@ export interface ApiMmaState {
   countries: CachedData<MmaCountry[]> | null;
   timezones: CachedData<string[]> | null;
   seasons: CachedData<number[]> | null;
-  leagues: Map<string, CachedData<MmaLeagueResponse[]>>;
   categories: Map<string, CachedData<MmaCategory[]>>;
   fighters: Map<string, CachedData<MmaFighter[]>>;
   fights: Map<string, CachedData<MmaFight[]>>;
@@ -33,12 +26,10 @@ export interface ApiMmaState {
   setCountries: (data: MmaCountry[]) => void;
   setTimezones: (data: string[]) => void;
   setSeasons: (data: number[]) => void;
-  setLeagues: (key: string, data: MmaLeagueResponse[]) => void;
   setCategories: (key: string, data: MmaCategory[]) => void;
   setFighters: (key: string, data: MmaFighter[]) => void;
   setFights: (key: string, data: MmaFight[]) => void;
 
-  getLeagues: (key: string) => MmaLeagueResponse[] | null;
   getCategories: (key: string) => MmaCategory[] | null;
   getFighters: (key: string) => MmaFighter[] | null;
   getFights: (key: string) => MmaFight[] | null;
@@ -52,7 +43,6 @@ const createStoreSlice: StateCreator<ApiMmaState> = (set, get) => ({
   countries: null,
   timezones: null,
   seasons: null,
-  leagues: new Map(),
   categories: new Map(),
   fighters: new Map(),
   fights: new Map(),
@@ -63,13 +53,6 @@ const createStoreSlice: StateCreator<ApiMmaState> = (set, get) => ({
   setTimezones: (data) =>
     set({ timezones: createCacheEntry("timezones", data) }),
   setSeasons: (data) => set({ seasons: createCacheEntry("seasons", data) }),
-
-  setLeagues: (key, data) =>
-    set((state) => {
-      const newLeagues = new Map(state.leagues);
-      newLeagues.set(key, createCacheEntry(key, data));
-      return { leagues: newLeagues };
-    }),
 
   setCategories: (key, data) =>
     set((state) => {
@@ -91,12 +74,6 @@ const createStoreSlice: StateCreator<ApiMmaState> = (set, get) => ({
       newFights.set(key, createCacheEntry(key, data));
       return { fights: newFights };
     }),
-
-  getLeagues: (key) => {
-    const cached = get().leagues.get(key);
-    if (!cached || !get().isCacheValid(cached.timestamp)) return null;
-    return cached.data;
-  },
 
   getCategories: (key) => {
     const cached = get().categories.get(key);
@@ -123,7 +100,6 @@ const createStoreSlice: StateCreator<ApiMmaState> = (set, get) => ({
       countries: null,
       timezones: null,
       seasons: null,
-      leagues: new Map(),
       categories: new Map(),
       fighters: new Map(),
       fights: new Map(),
@@ -141,7 +117,7 @@ const createCustomStorage = (storage: StorageAdapter) => ({
 
     try {
       const parsed = JSON.parse(value);
-      const mapFields = ["leagues", "categories", "fighters", "fights"];
+      const mapFields = ["categories", "fighters", "fights"];
 
       for (const field of mapFields) {
         if (parsed.state && Array.isArray(parsed.state[field])) {
@@ -176,7 +152,6 @@ export const createApiMmaStore = (storage: StorageAdapter) => {
       countries: state.countries,
       timezones: state.timezones,
       seasons: state.seasons,
-      leagues: state.leagues,
       categories: state.categories,
       fighters: state.fighters,
       fights: state.fights,

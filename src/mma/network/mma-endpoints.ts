@@ -22,6 +22,7 @@ export const MMA_DEFAULT_HEADERS = {
 
 /**
  * API-MMA endpoint paths
+ * Note: MMA API does NOT have a /leagues endpoint
  */
 export const MMA_ENDPOINTS = {
   // General
@@ -29,10 +30,7 @@ export const MMA_ENDPOINTS = {
   COUNTRIES: "/countries",
   SEASONS: "/seasons",
 
-  // Leagues
-  LEAGUES: "/leagues",
-
-  // Categories
+  // Categories (weight classes)
   CATEGORIES: "/categories",
 
   // Fighters

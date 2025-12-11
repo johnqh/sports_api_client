@@ -25,8 +25,6 @@ import type {
   BaseballCountry,
   BaseballGame,
   BaseballGamesParams,
-  BaseballGameStatistics,
-  BaseballGameStatisticsParams,
   BaseballHeadToHeadParams,
   BaseballLeagueResponse,
   BaseballLeaguesParams,
@@ -208,18 +206,6 @@ export class ApiBaseballClient {
     const query = buildQueryString(params);
     return this.request<BaseballGame>(
       `${BASEBALL_ENDPOINTS.GAMES_HEAD_TO_HEAD}${query}`,
-    );
-  }
-
-  /**
-   * Get game statistics
-   */
-  async getGameStatistics(
-    params: BaseballGameStatisticsParams,
-  ): Promise<ApiBaseballResponse<BaseballGameStatistics>> {
-    const query = buildQueryString(params);
-    return this.request<BaseballGameStatistics>(
-      `${BASEBALL_ENDPOINTS.GAMES_STATISTICS}${query}`,
     );
   }
 
