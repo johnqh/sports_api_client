@@ -27,17 +27,28 @@ export interface HandballLeagueCountry {
  * Handball league season
  */
 export interface HandballLeagueSeason {
-  year: number;
+  season: number;
   start: string;
   end: string;
+  current: boolean;
 }
 
 /**
- * Full league response
+ * Full league response.
+ * Note: Handball API returns flat structure (not nested under `league`).
  */
 export interface HandballLeagueResponse {
-  league: HandballLeague;
+  /** League ID */
+  id: number;
+  /** League name */
+  name: string;
+  /** League type */
+  type: string;
+  /** League logo URL */
+  logo: string | null;
+  /** Country information */
   country: HandballLeagueCountry;
+  /** Available seasons */
   seasons: HandballLeagueSeason[];
 }
 

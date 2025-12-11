@@ -22,14 +22,25 @@ export interface RugbySeason {
   season: number | string;
   start: string;
   end: string;
+  current: boolean;
 }
 
 /**
- * League response with country and seasons
+ * League response with country and seasons.
+ * Note: Rugby API returns flat structure (not nested under `league`).
  */
 export interface RugbyLeagueResponse {
-  league: RugbyLeague;
+  /** League ID */
+  id: number;
+  /** League name */
+  name: string;
+  /** League type */
+  type: string;
+  /** League logo URL */
+  logo: string | null;
+  /** Country information */
   country: RugbyCountry;
+  /** Available seasons */
   seasons: RugbySeason[];
 }
 

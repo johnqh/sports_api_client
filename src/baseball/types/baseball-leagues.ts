@@ -22,14 +22,25 @@ export interface BaseballSeason {
   season: number;
   start: string;
   end: string;
+  current: boolean;
 }
 
 /**
- * League response with country and seasons
+ * League response with country and seasons.
+ * Note: Baseball API returns flat structure (not nested under `league`).
  */
 export interface BaseballLeagueResponse {
-  league: BaseballLeague;
+  /** League ID */
+  id: number;
+  /** League name */
+  name: string;
+  /** League type */
+  type: string;
+  /** League logo URL */
+  logo: string | null;
+  /** Country information */
   country: BaseballCountry;
+  /** Available seasons */
   seasons: BaseballSeason[];
 }
 

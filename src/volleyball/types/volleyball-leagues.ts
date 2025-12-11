@@ -27,17 +27,28 @@ export interface VolleyballLeagueCountry {
  * Volleyball league season
  */
 export interface VolleyballLeagueSeason {
-  year: number;
+  season: number;
   start: string;
   end: string;
+  current: boolean;
 }
 
 /**
- * Full league response
+ * Full league response.
+ * Note: Volleyball API returns flat structure (not nested under `league`).
  */
 export interface VolleyballLeagueResponse {
-  league: VolleyballLeague;
+  /** League ID */
+  id: number;
+  /** League name */
+  name: string;
+  /** League type */
+  type: string;
+  /** League logo URL */
+  logo: string | null;
+  /** Country information */
   country: VolleyballLeagueCountry;
+  /** Available seasons */
   seasons: VolleyballLeagueSeason[];
 }
 
