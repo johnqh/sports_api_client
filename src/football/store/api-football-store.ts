@@ -61,7 +61,7 @@ import {
   createCacheEntry,
   DEFAULT_CACHE_TTL,
   StorageAdapter,
-} from "./cache-utils";
+} from "../../utils/cache-utils";
 
 /**
  * API Football Store State interface

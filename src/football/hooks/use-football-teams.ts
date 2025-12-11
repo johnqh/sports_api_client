@@ -5,7 +5,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useApiFootballClient, useApiFootballStore } from "./context";
-import { generateCacheKey } from "../store/cache-utils";
+import { generateCacheKey } from "../../utils/cache-utils";
 import {
   apiFootballKeys,
   type UseApiFootballQueryOptions,

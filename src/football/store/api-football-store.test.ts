@@ -8,7 +8,7 @@ import {
   isCacheValid,
   generateCacheKey,
   DEFAULT_CACHE_TTL,
-} from "./cache-utils";
+} from "../../utils/cache-utils";
 
 describe("ApiFootballStore", () => {
   let store: ReturnType<typeof createApiFootballStore>;

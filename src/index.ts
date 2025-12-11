@@ -42,16 +42,16 @@
  */
 
 // Export network client and factory
-export * from "./network";
+export * from "./football/network";
 
 // Export store and cache utilities
-export * from "./store";
+export * from "./football/store";
 
 // Export all types
-export * from "./types";
+export * from "./football/types";
 
 // Export utilities
 export * from "./utils";
 
 // Export React hooks
-export * from "./hooks";
+export * from "./football/hooks";

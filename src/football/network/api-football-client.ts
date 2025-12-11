@@ -67,7 +67,7 @@ import type {
   FootballVenue,
   FootballVenuesParams,
 } from "../types";
-import { buildQueryString } from "../utils/query-params";
+import { buildQueryString } from "../../utils/query-params";
 import {
   FOOTBALL_API_BASE_URL,
   FOOTBALL_DEFAULT_HEADERS,
