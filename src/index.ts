@@ -1,7 +1,8 @@
 /**
- * @sudobility/sports_api_client - API-Football v3 Client Library
+ * @sudobility/sports_api_client - Multi-Sport API Client Library
  *
- * React and React Native compatible client for API-Football v3 API.
+ * React and React Native compatible client for api-sports.io APIs.
+ * Supports multiple sports: Football, Basketball, Hockey, NFL, and more.
  * Uses dependency injection for network requests, React Query for data fetching,
  * and Zustand for persistent local caching.
  *
@@ -10,7 +11,7 @@
  *
  * @example
  * ```typescript
- * // Using the client directly
+ * // Using the Football client directly
  * import { ApiFootballClient, createApiFootballStore } from '@sudobility/sports_api_client';
  *
  * const client = new ApiFootballClient(networkClient, { apiKey: 'YOUR_KEY' });
@@ -19,8 +20,8 @@
  * // Using React hooks
  * import {
  *   ApiFootballProvider,
- *   useLeagues,
- *   useFixtures,
+ *   useFootballLeagues,
+ *   useFootballFixtures,
  * } from '@sudobility/sports_api_client';
  * import { QueryClientProvider } from '@tanstack/react-query';
  *
@@ -35,13 +36,16 @@
  * }
  *
  * function LeagueList() {
- *   const { data, isLoading } = useLeagues({ params: { country: 'England' } });
+ *   const { data, isLoading } = useFootballLeagues({ params: { country: 'England' } });
  *   // ...
  * }
  * ```
  */
 
-// Export network client and factory
+// Export common/shared types
+export * from "./common";
+
+// Football exports
 export * from "./football/network";
 
 // Export store and cache utilities

@@ -3,47 +3,34 @@
  */
 
 import type { Optional } from "@sudobility/types";
+import type {
+  BaseApiConfig,
+  BaseApiPaging,
+  BaseApiResponse,
+} from "../../common";
 
 /**
- * Base response wrapper for all API-Football endpoints
+ * Pagination information for API-Football
+ *
+ * Uses the base paging type - football doesn't need additional fields.
  */
-export interface ApiFootballResponse<T> {
-  /** The endpoint that was called */
-  get: string;
-  /** Parameters that were passed to the endpoint */
-  parameters: Record<string, string>;
-  /** Array of error messages or error object */
-  errors: string[] | Record<string, string>;
-  /** Number of results returned */
-  results: number;
-  /** Pagination information */
-  paging: ApiFootballPaging;
-  /** Array of response data */
-  response: T[];
-}
-
-/**
- * Pagination information
- */
-export interface ApiFootballPaging {
-  /** Current page number */
-  current: number;
-  /** Total number of pages */
-  total: number;
-}
+export type ApiFootballPaging = BaseApiPaging;
 
 /**
  * Configuration for API-Football client
+ *
+ * Uses the base config type - football doesn't need additional fields.
  */
-export interface ApiFootballConfig {
-  /** Base URL for the API (default: https://v3.football.api-sports.io) */
-  baseUrl?: Optional<string>;
-  /** API key from API-Football dashboard */
-  apiKey: string;
-  /** RapidAPI host for RapidAPI usage */
-  rapidApiHost?: Optional<string>;
-  /** Use RapidAPI authentication instead of direct API */
-  useRapidApi?: Optional<boolean>;
+export type ApiFootballConfig = BaseApiConfig;
+
+/**
+ * Base response wrapper for all API-Football endpoints
+ *
+ * Extends BaseApiResponse with football-specific paging field.
+ */
+export interface ApiFootballResponse<T> extends BaseApiResponse<T> {
+  /** Pagination information */
+  paging: ApiFootballPaging;
 }
 
 /**
