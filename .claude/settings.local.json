@@ -25,7 +25,8 @@
       "Bash(git mv:*)",
       "WebFetch(domain:www.api-basketball.com)",
       "WebFetch(domain:www.api-hockey.com)",
-      "WebFetch(domain:www.api-baseball.com)"
+      "WebFetch(domain:www.api-baseball.com)",
+      "Bash(git push:*)"
     ],
     "deny": [],
     "ask": []

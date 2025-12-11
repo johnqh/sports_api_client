@@ -71,3 +71,6 @@ export * from "./nfl";
 
 // Baseball exports
 export * from "./baseball";
+
+// Rugby exports
+export * from "./rugby";
