@@ -77,3 +77,6 @@ export * from "./rugby";
 
 // Formula 1 exports
 export * from "./formula1";
+
+// MMA exports
+export * from "./mma";
