@@ -5,17 +5,17 @@
 /**
  * Base URL for API-Football v3
  */
-export const API_FOOTBALL_BASE_URL = "https://v3.football.api-sports.io";
+export const FOOTBALL_API_BASE_URL = "https://v3.football.api-sports.io";
 
 /**
  * RapidAPI host for API-Football
  */
-export const RAPIDAPI_HOST = "api-football-v1.p.rapidapi.com";
+export const FOOTBALL_RAPIDAPI_HOST = "api-football-v1.p.rapidapi.com";
 
 /**
  * All API-Football v3 endpoints
  */
-export const ENDPOINTS = {
+export const FOOTBALL_ENDPOINTS = {
   // General
   TIMEZONE: "/timezone",
   COUNTRIES: "/countries",
@@ -72,7 +72,7 @@ export const ENDPOINTS = {
 /**
  * Default headers for API-Football
  */
-export const DEFAULT_HEADERS = {
+export const FOOTBALL_DEFAULT_HEADERS = {
   "Content-Type": "application/json",
   Accept: "application/json",
 };

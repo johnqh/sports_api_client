@@ -3,7 +3,7 @@
  */
 
 import type { Optional } from "@sudobility/types";
-import type { FootballCountry } from "./countries";
+import type { FootballCountry } from "./football-countries";
 
 /**
  * League information

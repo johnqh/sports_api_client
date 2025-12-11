@@ -3,7 +3,7 @@
  */
 
 import type { Optional } from "@sudobility/types";
-import type { FootballBirth } from "./common";
+import type { FootballBirth } from "./football-common";
 
 /**
  * Transfer record

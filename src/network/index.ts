@@ -7,8 +7,8 @@ export {
   createApiFootballClient,
 } from "./api-football-client";
 export {
-  API_FOOTBALL_BASE_URL,
-  RAPIDAPI_HOST,
-  ENDPOINTS,
-  DEFAULT_HEADERS,
-} from "./endpoints";
+  FOOTBALL_API_BASE_URL,
+  FOOTBALL_RAPIDAPI_HOST,
+  FOOTBALL_ENDPOINTS,
+  FOOTBALL_DEFAULT_HEADERS,
+} from "./football-endpoints";

@@ -15,14 +15,14 @@ export type {
   FootballBirth,
   FootballPagingParams,
   FootballRateLimitInfo,
-} from "./common";
+} from "./football-common";
 
 // Countries and Timezone types
 export type {
   FootballCountry,
   FootballCountriesParams,
   FootballTimezone,
-} from "./countries";
+} from "./football-countries";
 
 // Leagues and Seasons types
 export type {
@@ -32,7 +32,7 @@ export type {
   FootballFixturesCoverage,
   FootballLeagueResponse,
   FootballLeaguesParams,
-} from "./leagues";
+} from "./football-leagues";
 
 // Teams and Venues types
 export type {
@@ -51,7 +51,7 @@ export type {
   FootballTeamLineup,
   FootballTeamCardsStats,
   FootballTeamStatisticsParams,
-} from "./teams";
+} from "./football-teams";
 
 // Fixtures types
 export type {
@@ -82,7 +82,7 @@ export type {
   FootballPlayerFixtureStats,
   FootballPlayerStatDetail,
   FootballFixturePlayersParams,
-} from "./fixtures";
+} from "./football-fixtures";
 
 // Standings types
 export type {
@@ -92,7 +92,7 @@ export type {
   FootballStandingTeam,
   FootballStandingStats,
   FootballStandingsParams,
-} from "./standings";
+} from "./football-standings";
 
 // Players types
 export type {
@@ -107,7 +107,7 @@ export type {
   FootballTopScorersParams,
   FootballTopAssistsParams,
   FootballTopCardsParams,
-} from "./players";
+} from "./football-players";
 
 // Transfers, Trophies, Sidelined, Coachs types
 export type {
@@ -123,7 +123,7 @@ export type {
   FootballCoachsParams,
   FootballInjury,
   FootballInjuriesParams,
-} from "./transfers";
+} from "./football-transfers";
 
 // Statistics types
 export type {
@@ -136,4 +136,4 @@ export type {
   FootballGoalType,
   FootballEventType,
   FootballVarDecision,
-} from "./statistics";
+} from "./football-statistics";

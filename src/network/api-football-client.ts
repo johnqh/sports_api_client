@@ -69,11 +69,11 @@ import type {
 } from "../types";
 import { buildQueryString } from "../utils/query-params";
 import {
-  API_FOOTBALL_BASE_URL,
-  DEFAULT_HEADERS,
-  ENDPOINTS,
-  RAPIDAPI_HOST,
-} from "./endpoints";
+  FOOTBALL_API_BASE_URL,
+  FOOTBALL_DEFAULT_HEADERS,
+  FOOTBALL_ENDPOINTS,
+  FOOTBALL_RAPIDAPI_HOST,
+} from "./football-endpoints";
 
 /**
  * API-Football Client class
@@ -112,18 +112,18 @@ export class ApiFootballClient {
    */
   constructor(networkClient: NetworkClient, config: ApiFootballConfig) {
     this.networkClient = networkClient;
-    this.baseUrl = config.baseUrl || API_FOOTBALL_BASE_URL;
+    this.baseUrl = config.baseUrl || FOOTBALL_API_BASE_URL;
 
     // Set up authentication headers
     if (config.useRapidApi && config.rapidApiHost) {
       this.headers = {
-        ...DEFAULT_HEADERS,
-        "x-rapidapi-host": config.rapidApiHost || RAPIDAPI_HOST,
+        ...FOOTBALL_DEFAULT_HEADERS,
+        "x-rapidapi-host": config.rapidApiHost || FOOTBALL_RAPIDAPI_HOST,
         "x-rapidapi-key": config.apiKey,
       };
     } else {
       this.headers = {
-        ...DEFAULT_HEADERS,
+        ...FOOTBALL_DEFAULT_HEADERS,
         "x-apisports-key": config.apiKey,
       };
     }
@@ -172,7 +172,7 @@ export class ApiFootballClient {
    * ```
    */
   async getTimezone(): Promise<ApiFootballResponse<FootballTimezone>> {
-    return this.request<FootballTimezone>(ENDPOINTS.TIMEZONE);
+    return this.request<FootballTimezone>(FOOTBALL_ENDPOINTS.TIMEZONE);
   }
 
   /**
@@ -198,7 +198,9 @@ export class ApiFootballClient {
     params?: FootballCountriesParams,
   ): Promise<ApiFootballResponse<FootballCountry>> {
     const query = params ? buildQueryString(params) : "";
-    return this.request<FootballCountry>(`${ENDPOINTS.COUNTRIES}${query}`);
+    return this.request<FootballCountry>(
+      `${FOOTBALL_ENDPOINTS.COUNTRIES}${query}`,
+    );
   }
 
   // ============================================================================
@@ -218,7 +220,7 @@ export class ApiFootballClient {
    * ```
    */
   async getSeasons(): Promise<ApiFootballResponse<number>> {
-    return this.request<number>(ENDPOINTS.LEAGUES_SEASONS);
+    return this.request<number>(FOOTBALL_ENDPOINTS.LEAGUES_SEASONS);
   }
 
   /**
@@ -249,7 +251,9 @@ export class ApiFootballClient {
     params?: FootballLeaguesParams,
   ): Promise<ApiFootballResponse<FootballLeagueResponse>> {
     const query = params ? buildQueryString(params) : "";
-    return this.request<FootballLeagueResponse>(`${ENDPOINTS.LEAGUES}${query}`);
+    return this.request<FootballLeagueResponse>(
+      `${FOOTBALL_ENDPOINTS.LEAGUES}${query}`,
+    );
   }
 
   // ============================================================================
@@ -263,7 +267,9 @@ export class ApiFootballClient {
     params: FootballTeamsParams,
   ): Promise<ApiFootballResponse<FootballTeamResponse>> {
     const query = buildQueryString(params);
-    return this.request<FootballTeamResponse>(`${ENDPOINTS.TEAMS}${query}`);
+    return this.request<FootballTeamResponse>(
+      `${FOOTBALL_ENDPOINTS.TEAMS}${query}`,
+    );
   }
 
   /**
@@ -274,7 +280,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballTeamStatistics>> {
     const query = buildQueryString(params);
     return this.request<FootballTeamStatistics>(
-      `${ENDPOINTS.TEAMS_STATISTICS}${query}`,
+      `${FOOTBALL_ENDPOINTS.TEAMS_STATISTICS}${query}`,
     );
   }
 
@@ -285,7 +291,7 @@ export class ApiFootballClient {
     params?: FootballVenuesParams,
   ): Promise<ApiFootballResponse<FootballVenue>> {
     const query = params ? buildQueryString(params) : "";
-    return this.request<FootballVenue>(`${ENDPOINTS.VENUES}${query}`);
+    return this.request<FootballVenue>(`${FOOTBALL_ENDPOINTS.VENUES}${query}`);
   }
 
   // ============================================================================
@@ -314,7 +320,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballStandingsResponse>> {
     const query = buildQueryString(params);
     return this.request<FootballStandingsResponse>(
-      `${ENDPOINTS.STANDINGS}${query}`,
+      `${FOOTBALL_ENDPOINTS.STANDINGS}${query}`,
     );
   }
 
@@ -356,7 +362,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballFixtureResponse>> {
     const query = params ? buildQueryString(params) : "";
     return this.request<FootballFixtureResponse>(
-      `${ENDPOINTS.FIXTURES}${query}`,
+      `${FOOTBALL_ENDPOINTS.FIXTURES}${query}`,
     );
   }
 
@@ -368,7 +374,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballFixtureResponse>> {
     const query = buildQueryString(params);
     return this.request<FootballFixtureResponse>(
-      `${ENDPOINTS.FIXTURES_HEAD_TO_HEAD}${query}`,
+      `${FOOTBALL_ENDPOINTS.FIXTURES_HEAD_TO_HEAD}${query}`,
     );
   }
 
@@ -380,7 +386,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballFixtureStatistics>> {
     const query = buildQueryString(params);
     return this.request<FootballFixtureStatistics>(
-      `${ENDPOINTS.FIXTURES_STATISTICS}${query}`,
+      `${FOOTBALL_ENDPOINTS.FIXTURES_STATISTICS}${query}`,
     );
   }
 
@@ -392,7 +398,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballFixtureEvent>> {
     const query = buildQueryString(params);
     return this.request<FootballFixtureEvent>(
-      `${ENDPOINTS.FIXTURES_EVENTS}${query}`,
+      `${FOOTBALL_ENDPOINTS.FIXTURES_EVENTS}${query}`,
     );
   }
 
@@ -404,7 +410,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballFixtureLineup>> {
     const query = buildQueryString(params);
     return this.request<FootballFixtureLineup>(
-      `${ENDPOINTS.FIXTURES_LINEUPS}${query}`,
+      `${FOOTBALL_ENDPOINTS.FIXTURES_LINEUPS}${query}`,
     );
   }
 
@@ -416,7 +422,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballFixturePlayerStats>> {
     const query = buildQueryString(params);
     return this.request<FootballFixturePlayerStats>(
-      `${ENDPOINTS.FIXTURES_PLAYERS}${query}`,
+      `${FOOTBALL_ENDPOINTS.FIXTURES_PLAYERS}${query}`,
     );
   }
 
@@ -431,7 +437,9 @@ export class ApiFootballClient {
     params: FootballPlayersParams,
   ): Promise<ApiFootballResponse<FootballPlayerResponse>> {
     const query = buildQueryString(params);
-    return this.request<FootballPlayerResponse>(`${ENDPOINTS.PLAYERS}${query}`);
+    return this.request<FootballPlayerResponse>(
+      `${FOOTBALL_ENDPOINTS.PLAYERS}${query}`,
+    );
   }
 
   /**
@@ -441,7 +449,9 @@ export class ApiFootballClient {
     params?: FootballPlayersSeasonParams,
   ): Promise<ApiFootballResponse<number>> {
     const query = params ? buildQueryString(params) : "";
-    return this.request<number>(`${ENDPOINTS.PLAYERS_SEASONS}${query}`);
+    return this.request<number>(
+      `${FOOTBALL_ENDPOINTS.PLAYERS_SEASONS}${query}`,
+    );
   }
 
   /**
@@ -452,7 +462,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballSquadResponse>> {
     const query = buildQueryString(params);
     return this.request<FootballSquadResponse>(
-      `${ENDPOINTS.PLAYERS_SQUADS}${query}`,
+      `${FOOTBALL_ENDPOINTS.PLAYERS_SQUADS}${query}`,
     );
   }
 
@@ -464,7 +474,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballPlayerResponse>> {
     const query = buildQueryString(params);
     return this.request<FootballPlayerResponse>(
-      `${ENDPOINTS.PLAYERS_TOP_SCORERS}${query}`,
+      `${FOOTBALL_ENDPOINTS.PLAYERS_TOP_SCORERS}${query}`,
     );
   }
 
@@ -476,7 +486,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballPlayerResponse>> {
     const query = buildQueryString(params);
     return this.request<FootballPlayerResponse>(
-      `${ENDPOINTS.PLAYERS_TOP_ASSISTS}${query}`,
+      `${FOOTBALL_ENDPOINTS.PLAYERS_TOP_ASSISTS}${query}`,
     );
   }
 
@@ -488,7 +498,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballPlayerResponse>> {
     const query = buildQueryString(params);
     return this.request<FootballPlayerResponse>(
-      `${ENDPOINTS.PLAYERS_TOP_CARDS}${query}`,
+      `${FOOTBALL_ENDPOINTS.PLAYERS_TOP_CARDS}${query}`,
     );
   }
 
@@ -504,7 +514,7 @@ export class ApiFootballClient {
   ): Promise<ApiFootballResponse<FootballTransferResponse>> {
     const query = buildQueryString(params);
     return this.request<FootballTransferResponse>(
-      `${ENDPOINTS.TRANSFERS}${query}`,
+      `${FOOTBALL_ENDPOINTS.TRANSFERS}${query}`,
     );
   }
 
@@ -519,7 +529,9 @@ export class ApiFootballClient {
     params: FootballTrophiesParams,
   ): Promise<ApiFootballResponse<FootballTrophy>> {
     const query = buildQueryString(params);
-    return this.request<FootballTrophy>(`${ENDPOINTS.TROPHIES}${query}`);
+    return this.request<FootballTrophy>(
+      `${FOOTBALL_ENDPOINTS.TROPHIES}${query}`,
+    );
   }
 
   // ============================================================================
@@ -533,7 +545,9 @@ export class ApiFootballClient {
     params: FootballSidelinedParams,
   ): Promise<ApiFootballResponse<FootballSidelined>> {
     const query = buildQueryString(params);
-    return this.request<FootballSidelined>(`${ENDPOINTS.SIDELINED}${query}`);
+    return this.request<FootballSidelined>(
+      `${FOOTBALL_ENDPOINTS.SIDELINED}${query}`,
+    );
   }
 
   // ============================================================================
@@ -547,7 +561,7 @@ export class ApiFootballClient {
     params: FootballCoachsParams,
   ): Promise<ApiFootballResponse<FootballCoach>> {
     const query = buildQueryString(params);
-    return this.request<FootballCoach>(`${ENDPOINTS.COACHS}${query}`);
+    return this.request<FootballCoach>(`${FOOTBALL_ENDPOINTS.COACHS}${query}`);
   }
 
   // ============================================================================
@@ -561,7 +575,9 @@ export class ApiFootballClient {
     params: FootballInjuriesParams,
   ): Promise<ApiFootballResponse<FootballInjury>> {
     const query = buildQueryString(params);
-    return this.request<FootballInjury>(`${ENDPOINTS.INJURIES}${query}`);
+    return this.request<FootballInjury>(
+      `${FOOTBALL_ENDPOINTS.INJURIES}${query}`,
+    );
   }
 }
 
