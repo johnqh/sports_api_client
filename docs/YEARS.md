@@ -1,73 +1,59 @@
-# Available Seasons by Sport
+# Available Seasons by Sport (Free Tier)
 
-This document lists the available seasons for each sport API, verified by calling the `/seasons` endpoint with API key `56f202374ed1937d98005fa2e6a35100` (free plan).
+This document lists the seasons accessible on the **free tier** for each sport API, verified by calling data endpoints with API key `56f202374ed1937d98005fa2e6a35100`.
 
 **Last verified:** 2024-12-11
 
+---
+
 ## API-Football (Soccer)
 
-**Seasons:** 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027
+**Free tier access:** All seasons (2008 - 2027)
 
-**Range:** 2008 - 2027 (20 seasons)
+Football API appears to have no season restrictions on the free tier.
 
-## API-Basketball
+---
 
-**Seasons:** 2008, 2008-2009, 2009, 2009-2010, 2010, 2010-2011, 2011, 2011-2012, 2012, 2012-2013, 2013, 2013-2014, 2014, 2014-2015, 2015, 2015-2016, 2016, 2016-2017, 2017, 2017-2018, 2018, 2018-2019, 2019, 2019-2020, 2020, 2020-2021, 2021, 2021-2022, 2022, 2022-2023, 2022-2024, 2023, 2023-2024, 2023-2025, 2024, 2024-2025, 2025, 2025-2026, 2026, 2027
+## All Other Sports (Free Tier Restriction)
 
-**Range:** 2008 - 2027
+The following sports have the same free tier restriction:
 
-**Note:** Seasons can be in two formats depending on the league:
-- Single year: `2024` (calendar year leagues)
-- Season range: `2024-2025` (split-year leagues like NBA)
+> "Free plans do not have access to this season, try from 2021 to 2023."
 
-## API-Hockey
+**Free tier access:** 2021, 2022, 2023 only
 
-**Seasons:** 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026
+### API-Basketball
+- Free tier: **2021 - 2023**
+- Season formats: `2021`, `2021-2022`, `2022`, `2022-2023`, `2023`, `2023-2024`
 
-**Range:** 2008 - 2026 (19 seasons)
+### API-Hockey
+- Free tier: **2021 - 2023**
 
-## API-NFL (American Football)
+### API-NFL (American Football)
+- Free tier: **2021 - 2023**
 
-**Seasons:** 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025
+### API-Baseball
+- Free tier: **2021 - 2023**
 
-**Range:** 2010 - 2025 (16 seasons)
+### API-Rugby
+- Free tier: **2021 - 2023**
 
-## API-Baseball
+### API-Formula-1
+- Free tier: **2021 - 2023**
 
-**Seasons:** 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026
+### API-Handball
+- Free tier: **2021 - 2023**
 
-**Range:** 2008 - 2026 (19 seasons)
+### API-Volleyball
+- Free tier: **2021 - 2023**
 
-## API-Rugby
+### API-MMA
+- Free tier: **2022 - 2023** (MMA API only has data from 2022 onwards)
 
-**Seasons:** 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026, 2027
+---
 
-**Range:** 2008 - 2027 (20 seasons)
+## Notes
 
-## API-Formula-1
-
-**Seasons:** 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025
-
-**Range:** 2012 - 2025 (14 seasons)
-
-## API-Handball
-
-**Seasons:** 1970, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026
-
-**Range:** 1970, then 2008 - 2026 (20 seasons)
-
-**Note:** There is historical data from 1970, then a gap until 2008.
-
-## API-Volleyball
-
-**Seasons:** 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026
-
-**Range:** 2008 - 2026 (19 seasons)
-
-## API-MMA
-
-**Seasons:** 2022, 2023, 2024, 2025
-
-**Range:** 2022 - 2025 (4 seasons)
-
-**Note:** MMA API has limited historical data compared to other sports.
+- The `/seasons` endpoint returns all seasons that exist in the database, but free tier accounts can only access data from 2021-2023 for most sports.
+- Attempting to access seasons outside the free tier range returns an error: `"Free plans do not have access to this season, try from 2021 to 2023."`
+- Football (API-Football) is an exception and allows access to all seasons on the free tier.
