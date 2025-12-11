@@ -83,3 +83,6 @@ export * from "./mma";
 
 // Handball exports
 export * from "./handball";
+
+// Volleyball exports
+export * from "./volleyball";
