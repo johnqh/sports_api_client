@@ -27,7 +27,13 @@
       "WebFetch(domain:www.api-hockey.com)",
       "WebFetch(domain:www.api-baseball.com)",
       "Bash(git push:*)",
-      "WebFetch(domain:www.api-handball.com)"
+      "WebFetch(domain:www.api-handball.com)",
+      "WebFetch(domain:apisports.readthedocs.io)",
+      "Bash(curl:*)",
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)",
+      "WebFetch(domain:www.api-rugby.com)",
+      "WebFetch(domain:v1.rugby.api-sports.io)"
     ],
     "deny": [],
     "ask": []
