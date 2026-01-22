@@ -35,6 +35,7 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
+    "inlineSources": true,
 
     "jsx": "react"
   },
