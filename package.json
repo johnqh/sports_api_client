@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/sports_api_client",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "React and React Native compatible client library for API-Football v3 with TypeScript support",
   "type": "module",
   "main": "dist/index.js",
@@ -59,6 +59,7 @@
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "happy-dom": "^20.3.4",
     "prettier": "^3.6.2",
     "react": "^19.2.1",
     "typescript": "^5.9.3",
