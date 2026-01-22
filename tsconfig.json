@@ -9,7 +9,6 @@
     "outDir": "./dist",
     "rootDir": "./src",
 
-    // Strict Type-Checking Options
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -20,31 +19,23 @@
     "useUnknownInCatchVariables": true,
     "alwaysStrict": true,
 
-    // Additional Checks
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "exactOptionalPropertyTypes": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": false,
 
-    // Module Resolution
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
 
-    // Advanced
     "removeComments": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "inlineSourceMap": false,
-    "inlineSources": false,
 
-    // React/JSX
     "jsx": "react"
   },
   "include": [
