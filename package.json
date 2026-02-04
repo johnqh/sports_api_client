@@ -1,6 +1,6 @@
 {
   "name": "@sudobility/sports_api_client",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "React and React Native compatible client library for API-Football v3 with TypeScript support",
   "type": "module",
   "main": "dist/index.js",
@@ -37,19 +37,19 @@
     "zustand"
   ],
   "author": "Sudobility Team",
-  "license": "MIT",
+  "license": "BUSL-1.1",
   "peerDependencies": {
-    "@sudobility/di": "^1.5.33",
-    "@sudobility/types": "^1.9.49",
+    "@sudobility/di": "^1.5.34",
+    "@sudobility/types": "^1.9.50",
     "@tanstack/react-query": ">=5.0.0",
     "react": ">=18.0.0",
     "zustand": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@sudobility/configs": "^0.0.61",
-    "@sudobility/di": "^1.5.33",
-    "@sudobility/types": "^1.9.49",
+    "@sudobility/configs": "^0.0.62",
+    "@sudobility/di": "^1.5.34",
+    "@sudobility/types": "^1.9.50",
     "@tanstack/react-query": "^5.90.5",
     "@types/node": "^24.9.1",
     "@types/react": "^19.2.2",
