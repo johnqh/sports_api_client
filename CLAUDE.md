@@ -14,13 +14,34 @@ Multi-sport TypeScript client library for api-sports.io APIs. Cross-platform (Re
 ## Quick Commands
 
 ```bash
-bun run check-all     # Lint + typecheck + test (run before commits)
-bun run lint          # ESLint
-bun run lint:fix      # ESLint with auto-fix
-bun run typecheck     # TypeScript compilation check
-bun run test          # Run tests once (Vitest)
-bun run test:watch    # Run tests in watch mode
-bun run build         # Build for distribution
+bun run build              # Build for distribution (tsc)
+bun run build:watch        # Watch mode build
+bun run clean              # Remove dist/ directory
+bun run lint               # ESLint check
+bun run lint:fix           # ESLint with auto-fix
+bun run typecheck          # TypeScript compilation check
+bun run test               # Run tests once (Vitest)
+bun run test:watch         # Run tests in watch mode
+bun run format             # Prettier formatting (write)
+bun run format:check       # Prettier check (no write)
+```
+
+**Pre-commit check** (no `check-all` script; run manually):
+```bash
+bun run lint && bun run typecheck && bun run test
+```
+
+## Testing
+
+- **Framework**: Vitest with `happy-dom` environment
+- **Coverage**: v8 provider with 70% global thresholds (branches, functions, lines, statements)
+- **Reports**: text, json, html, lcov to `./coverage/`
+- **Path alias**: `@` maps to `./src`
+- **Excludes**: `node_modules/`, `dist/`, `*.d.ts`, `*.config.*`, `__tests__/`
+
+```bash
+bun run test               # Single run
+bun run test:watch         # Watch mode
 ```
 
 ## Project Structure
@@ -30,11 +51,15 @@ Each sport module follows the same pattern:
 ```
 src/
 ├── common/                   # Shared base types (BaseApiResponse, BaseApiConfig)
-├── utils/                    # Cache key generation, query param builders
+├── utils/                    # Cache key generation, query param builders, storage adapters
+│   ├── cache-utils.ts            # generateCacheKey, createCacheEntry, isCacheValid,
+│   │                             # getRemainingTTL, createStorageAdapter, StorageAdapter
+│   ├── query-params.ts           # buildQueryString utility
+│   └── index.ts
 ├── football/                 # Football (Soccer)
-│   ├── network/              # ApiFootballClient (27 methods)
-│   ├── hooks/                # 24 React hooks + context + query keys
-│   ├── store/                # Zustand store (18 cached data types)
+│   ├── network/              # ApiFootballClient (25 methods)
+│   ├── hooks/                # 13 hook files + context + query keys
+│   ├── store/                # Zustand store (19 cached data types)
 │   ├── types/                # TypeScript definitions
 │   └── index.ts
 ├── basketball/               # Same structure as football
@@ -67,7 +92,7 @@ src/
 ## Architecture Patterns
 
 ### Per-Sport Module Pattern
-Each sport has 4 layers: `network/` (API client) → `store/` (Zustand cache) → `hooks/` (React Query) → `types/`
+Each sport has 4 layers: `network/` (API client) -> `store/` (Zustand cache) -> `hooks/` (React Query) -> `types/`
 
 ### DI Pattern (Cross-Platform)
 All platform services come from DI - no direct `localStorage` or `fetch`:
@@ -106,12 +131,30 @@ apiFootballKeys.leagues.list(params);
 apiBasketballKeys.teams.list(params);
 ```
 
-### Cache Key Generation
-Deterministic keys from parameters:
+### Cache Utilities (`src/utils/cache-utils.ts`)
+
+**Functions**:
+- `generateCacheKey(prefix, params?)` - Deterministic keys from parameters (sorted alphabetically, nulls filtered)
+- `createCacheEntry(key, data)` - Wraps data with timestamp for TTL tracking
+- `isCacheValid(timestamp, ttl?)` - Check if cache entry is still fresh (default 5 min TTL)
+- `getRemainingTTL(timestamp, ttl?)` - Milliseconds until expiry
+- `createStorageAdapter(storageService)` - Converts DI `StorageService` to Zustand-compatible `StorageAdapter`
+
+**Types**:
+- `CachedData<T>` - Wrapper with `data`, `timestamp`, `key`
+- `StorageAdapter` - Interface for cross-platform persistence (`getItem`, `setItem`, `removeItem`)
+- `QueryKeyFactory<TParams>` - Type for query key factory functions
+
+### React Native Support (`createStorageAdapter`)
+For React Native, use `createStorageAdapter()` to bridge the DI `StorageService` to Zustand persist middleware:
 ```typescript
-generateCacheKey("leagues", { country: "England" });
-// → "leagues:country=England"
+import { createStorageAdapter, createApiFootballStore } from "@sudobility/sports_api_client";
+
+const adapter = createStorageAdapter(storageService);
+const useStore = createApiFootballStore(adapter);
 ```
+
+This enables AsyncStorage or any other React Native storage backend to work with the Zustand cache persistence layer.
 
 ## Code Conventions
 
@@ -133,7 +176,7 @@ generateCacheKey("leagues", { country: "England" });
 8. Create hooks (one per file) in `hooks/`
 9. Create barrel exports (`index.ts`) at each level
 10. Export from main `src/index.ts`
-11. Run `bun run check-all`
+11. Run `bun run lint && bun run typecheck && bun run test`
 
 ## Adding New Endpoints (existing sport)
 
@@ -144,7 +187,7 @@ generateCacheKey("leagues", { country: "England" });
 5. Add query keys to `src/{sport}/hooks/{sport}-types.ts`
 6. Create hook in `src/{sport}/hooks/use-{sport}-<feature>.ts`
 7. Export from `src/{sport}/hooks/index.ts`
-8. Run `bun run check-all`
+8. Run `bun run lint && bun run typecheck && bun run test`
 
 ## Authentication
 
