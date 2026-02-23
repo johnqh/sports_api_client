@@ -261,7 +261,11 @@ export class ApiFootballClient {
   // ============================================================================
 
   /**
-   * Get teams
+   * Get teams with optional filtering
+   *
+   * @param params - Filter parameters (id, name, league, season, country, code, venue, search)
+   * @returns Promise resolving to array of TeamResponse objects
+   * @throws Error if API returns an error or no data
    */
   async getTeams(
     params: FootballTeamsParams,
@@ -273,7 +277,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get team statistics
+   * Get team statistics for a league/season
+   *
+   * @param params - Required filter parameters (league, season, team; optional date)
+   * @returns Promise resolving to team statistics data
+   * @throws Error if API returns an error or no data
    */
   async getTeamStatistics(
     params: FootballTeamStatisticsParams,
@@ -285,7 +293,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get venues/stadiums
+   * Get venues/stadiums with optional filtering
+   *
+   * @param params - Optional filter parameters (id, name, city, country, search)
+   * @returns Promise resolving to array of Venue objects
+   * @throws Error if API returns an error or no data
    */
   async getVenues(
     params?: FootballVenuesParams,
@@ -367,7 +379,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get head to head fixtures between two teams
+   * Get head-to-head fixtures between two teams
+   *
+   * @param params - Parameters including h2h (team IDs), optional date/league/season filters
+   * @returns Promise resolving to array of FixtureResponse objects
+   * @throws Error if API returns an error or no data
    */
   async getFixturesHeadToHead(
     params: FootballHeadToHeadParams,
@@ -379,7 +395,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get fixture statistics
+   * Get statistics for a specific fixture
+   *
+   * @param params - Parameters including fixture ID, optional team and stat type filters
+   * @returns Promise resolving to array of FixtureStatistics objects
+   * @throws Error if API returns an error or no data
    */
   async getFixtureStatistics(
     params: FootballFixtureStatisticsParams,
@@ -391,7 +411,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get fixture events (goals, cards, substitutions, VAR)
+   * Get fixture events (goals, cards, substitutions, VAR decisions)
+   *
+   * @param params - Parameters including fixture ID, optional team/player/type filters
+   * @returns Promise resolving to array of FixtureEvent objects
+   * @throws Error if API returns an error or no data
    */
   async getFixtureEvents(
     params: FootballFixtureEventsParams,
@@ -403,7 +427,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get fixture lineups
+   * Get starting lineups for a fixture
+   *
+   * @param params - Parameters including fixture ID, optional team/player/type filters
+   * @returns Promise resolving to array of FixtureLineup objects
+   * @throws Error if API returns an error or no data
    */
   async getFixtureLineups(
     params: FootballFixtureLineupsParams,
@@ -415,7 +443,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get player statistics for a fixture
+   * Get player statistics for a specific fixture
+   *
+   * @param params - Parameters including fixture ID, optional team filter
+   * @returns Promise resolving to array of FixturePlayerStats objects
+   * @throws Error if API returns an error or no data
    */
   async getFixturePlayers(
     params: FootballFixturePlayersParams,
@@ -431,7 +463,11 @@ export class ApiFootballClient {
   // ============================================================================
 
   /**
-   * Get players
+   * Get players with optional filtering
+   *
+   * @param params - Filter parameters (id, team, league, season, search, page)
+   * @returns Promise resolving to array of PlayerResponse objects
+   * @throws Error if API returns an error or no data
    */
   async getPlayers(
     params: FootballPlayersParams,
@@ -443,7 +479,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get available player seasons
+   * Get available seasons for a player
+   *
+   * @param params - Optional filter parameters (player ID)
+   * @returns Promise resolving to array of season years
+   * @throws Error if API returns an error or no data
    */
   async getPlayersSeasons(
     params?: FootballPlayersSeasonParams,
@@ -455,7 +495,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get team squads or player's teams
+   * Get team squads or a player's teams
+   *
+   * @param params - Filter parameters (team ID or player ID)
+   * @returns Promise resolving to array of SquadResponse objects
+   * @throws Error if API returns an error or no data
    */
   async getSquads(
     params: FootballSquadsParams,
@@ -467,7 +511,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get top scorers for a league/season
+   * Get top scorers for a league and season
+   *
+   * @param params - Required parameters (league ID, season year)
+   * @returns Promise resolving to array of PlayerResponse objects ranked by goals
+   * @throws Error if API returns an error or no data
    */
   async getTopScorers(
     params: FootballTopScorersParams,
@@ -479,7 +527,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get top assists for a league/season
+   * Get top assists for a league and season
+   *
+   * @param params - Required parameters (league ID, season year)
+   * @returns Promise resolving to array of PlayerResponse objects ranked by assists
+   * @throws Error if API returns an error or no data
    */
   async getTopAssists(
     params: FootballTopAssistsParams,
@@ -491,7 +543,11 @@ export class ApiFootballClient {
   }
 
   /**
-   * Get top cards (most carded players) for a league/season
+   * Get most carded players for a league and season
+   *
+   * @param params - Required parameters (league ID, season year)
+   * @returns Promise resolving to array of PlayerResponse objects ranked by cards
+   * @throws Error if API returns an error or no data
    */
   async getTopCards(
     params: FootballTopCardsParams,
@@ -508,6 +564,10 @@ export class ApiFootballClient {
 
   /**
    * Get player transfers
+   *
+   * @param params - Filter parameters (player ID or team ID)
+   * @returns Promise resolving to array of TransferResponse objects
+   * @throws Error if API returns an error or no data
    */
   async getTransfers(
     params: FootballTransfersParams,
@@ -523,7 +583,11 @@ export class ApiFootballClient {
   // ============================================================================
 
   /**
-   * Get trophies for a player or coach
+   * Get trophies won by a player or coach
+   *
+   * @param params - Filter parameters (player ID or coach ID)
+   * @returns Promise resolving to array of Trophy objects
+   * @throws Error if API returns an error or no data
    */
   async getTrophies(
     params: FootballTrophiesParams,
@@ -539,7 +603,11 @@ export class ApiFootballClient {
   // ============================================================================
 
   /**
-   * Get sidelined players (injured/suspended)
+   * Get sidelined players (injured or suspended)
+   *
+   * @param params - Filter parameters (player ID or coach ID)
+   * @returns Promise resolving to array of Sidelined objects
+   * @throws Error if API returns an error or no data
    */
   async getSidelined(
     params: FootballSidelinedParams,
@@ -556,6 +624,10 @@ export class ApiFootballClient {
 
   /**
    * Get coach information
+   *
+   * @param params - Filter parameters (id, team, search)
+   * @returns Promise resolving to array of Coach objects
+   * @throws Error if API returns an error or no data
    */
   async getCoachs(
     params: FootballCoachsParams,
@@ -569,7 +641,11 @@ export class ApiFootballClient {
   // ============================================================================
 
   /**
-   * Get injuries
+   * Get injury information
+   *
+   * @param params - Filter parameters (league, season, fixture, team, player, date, timezone)
+   * @returns Promise resolving to array of Injury objects
+   * @throws Error if API returns an error or no data
    */
   async getInjuries(
     params: FootballInjuriesParams,

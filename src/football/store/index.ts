@@ -1,5 +1,9 @@
 /**
- * Store module exports
+ * @fileoverview Store module exports.
+ *
+ * Re-exports the API-Football Zustand store factory and cache utilities.
+ * Cache utilities from utils/cache-utils.ts are re-exported here for
+ * convenience, as they are the primary way consumers access cache functions.
  */
 
 export {

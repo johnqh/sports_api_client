@@ -1,5 +1,8 @@
 /**
- * Network module exports
+ * @fileoverview Network module exports for API-Football.
+ *
+ * Exports the API client class, factory function, endpoint definitions,
+ * and default configuration constants.
  */
 
 export {

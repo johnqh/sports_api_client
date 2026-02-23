@@ -7,26 +7,33 @@ This file provides context for Claude Code when working on this project.
 Multi-sport TypeScript client library for api-sports.io APIs. Cross-platform (React web + React Native) with dependency injection, React Query integration, and Zustand caching.
 
 - **Package**: `@sudobility/sports_api_client`
-- **Stack**: TypeScript, React, React Query, Zustand
-- **DI**: Uses `NetworkClient` and `StorageService` from `@sudobility/di`
-- **Package manager**: Bun
+- **Version**: `1.0.18`
+- **License**: BUSL-1.1
+- **Stack**: TypeScript, React, React Query (TanStack Query v5), Zustand v5
+- **DI**: Uses `NetworkClient` from `@sudobility/types` and `StorageService` from `@sudobility/di`
+- **Package manager**: Bun (always use `bun` instead of `npm`/`yarn`)
+- **Module format**: ESM only
+- **Build tool**: TypeScript compiler (`tsc`) directly (no bundler)
+- **Repository**: https://github.com/johnqh/sports_api_client.git
+- **Publish access**: restricted (private npm package)
 
 ## Quick Commands
 
 ```bash
-bun run build              # Build for distribution (tsc)
-bun run build:watch        # Watch mode build
+bun run build              # Build for distribution (bunx tsc -p tsconfig.build.json)
+bun run build:watch        # Watch mode build (bunx tsc --watch)
 bun run clean              # Remove dist/ directory
 bun run lint               # ESLint check
 bun run lint:fix           # ESLint with auto-fix
-bun run typecheck          # TypeScript compilation check
+bun run typecheck          # TypeScript compilation check (bunx tsc --noEmit)
 bun run test               # Run tests once (Vitest)
 bun run test:watch         # Run tests in watch mode
 bun run format             # Prettier formatting (write)
 bun run format:check       # Prettier check (no write)
+bun run prepublishOnly     # Clean + build before npm publish
 ```
 
-**Pre-commit check** (no `check-all` script; run manually):
+**Pre-commit check** (no `check-all` or `verify` script; run manually):
 ```bash
 bun run lint && bun run typecheck && bun run test
 ```
@@ -209,11 +216,51 @@ const client = new ApiFootballClient(networkClient, {
 ## Dependencies
 
 **Peer Dependencies** (consumers must provide):
-- `react` >=18.0.0
-- `@tanstack/react-query` >=5.0.0
-- `@sudobility/di` ^1.5.36
-- `@sudobility/types` ^1.9.51
-- `zustand` ^5.0.0
+| Package | Version |
+|---------|---------|
+| `react` | >=18.0.0 |
+| `@tanstack/react-query` | >=5.0.0 |
+| `@sudobility/di` | ^1.5.38 |
+| `@sudobility/types` | ^1.9.53 |
+| `zustand` | ^5.0.0 |
+
+**Key Dev Dependencies**:
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `typescript` | ^5.9.3 | Type checking and declaration emit |
+| `vitest` | ^4.0.4 | Test runner |
+| `happy-dom` | ^20.3.4 | DOM environment for Vitest |
+| `eslint` | ^9.38.0 | Linting (flat config) |
+| `@typescript-eslint/*` | ^8.46.2 | TypeScript ESLint parser and plugin |
+| `prettier` | ^3.6.2 | Code formatting |
+| `@sudobility/configs` | ^0.0.65 | Shared configs |
+
+## TypeScript Configuration
+
+- **Target**: ES2020 with DOM libs
+- **Module resolution**: `bundler`
+- **Strict mode**: Full strict (`strict: true` plus `noImplicitAny`, `strictNullChecks`, `strictFunctionTypes`, `strictBindCallApply`, `strictPropertyInitialization`, `noImplicitThis`, `useUnknownInCatchVariables`, `alwaysStrict`)
+- **Additional checks**: `noUnusedLocals`, `noUnusedParameters`, `noImplicitReturns`, `noFallthroughCasesInSwitch`, `noImplicitOverride`
+- **Output**: `removeComments: true`, `sourceMap: true`, `inlineSources: true`, `declaration: true`, `declarationMap: true`
+- **JSX**: `react` (classic transform)
+- **Path alias**: `@` maps to `./src`
+- Two tsconfig files: `tsconfig.json` (full config) and `tsconfig.build.json` (extends tsconfig.json, excludes test files)
+
+## Linting & Formatting
+
+- **ESLint 9** flat config with `@typescript-eslint`, `eslint-plugin-prettier`, `eslint-config-prettier`
+- Key rules: Prettier enforced as error, `no-explicit-any` off, unused vars with `_` prefix ignored, `prefer-const`, `no-var`, `object-shorthand`, `prefer-template`, sorted imports
+- Test files have relaxed rules (no-explicit-any off, no-console off)
+
+## Gotchas / Known Issues
+
+- **Cache utilities not re-exported from utils/index.ts**: `generateCacheKey`, `isCacheValid`, `createCacheEntry`, etc. are in `src/utils/cache-utils.ts` but NOT exported from `src/utils/index.ts`. They are re-exported through `src/football/store/index.ts` instead.
+- **Utils index only exports query-params**: `src/utils/index.ts` only exports `createQueryParams` and `buildQueryString`. Cache utilities must be imported from sport-specific store barrel exports.
+- **Football is the primary/reference sport**: Football has the most endpoints (25 methods) and richest type definitions. Other sports follow the same pattern but with fewer endpoints.
+- **MMA has no leagues endpoint**: Unlike other sports, MMA uses categories instead of leagues. The `useMmaLeagues` hook was intentionally removed.
+- **tsconfig.build.json uses `removeComments: true`**: All JSDoc comments are stripped from the dist output. Type information is preserved in `.d.ts` files.
+- **No `bun run verify` script**: Unlike other Sudobility projects, there is no combined verify/check-all command. Run `bun run lint && bun run typecheck && bun run test` manually before committing.
+- **publishConfig is `restricted`**: This is a private npm package, not published publicly.
 
 ## CI/CD
 
