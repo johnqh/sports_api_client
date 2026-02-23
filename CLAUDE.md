@@ -33,9 +33,9 @@ bun run format:check       # Prettier check (no write)
 bun run prepublishOnly     # Clean + build before npm publish
 ```
 
-**Pre-commit check** (no `check-all` or `verify` script; run manually):
+**Pre-commit check**:
 ```bash
-bun run lint && bun run typecheck && bun run test
+bun run verify                 # Combined: lint + typecheck + test
 ```
 
 ## Testing
@@ -254,12 +254,11 @@ const client = new ApiFootballClient(networkClient, {
 
 ## Gotchas / Known Issues
 
-- **Cache utilities not re-exported from utils/index.ts**: `generateCacheKey`, `isCacheValid`, `createCacheEntry`, etc. are in `src/utils/cache-utils.ts` but NOT exported from `src/utils/index.ts`. They are re-exported through `src/football/store/index.ts` instead.
-- **Utils index only exports query-params**: `src/utils/index.ts` only exports `createQueryParams` and `buildQueryString`. Cache utilities must be imported from sport-specific store barrel exports.
+- **Cache utilities are exported from both utils/index.ts and football/store/index.ts**: `generateCacheKey`, `isCacheValid`, `createCacheEntry`, etc. are in `src/utils/cache-utils.ts` and exported from both `src/utils/index.ts` and `src/football/store/index.ts`. Import from either location.
 - **Football is the primary/reference sport**: Football has the most endpoints (25 methods) and richest type definitions. Other sports follow the same pattern but with fewer endpoints.
 - **MMA has no leagues endpoint**: Unlike other sports, MMA uses categories instead of leagues. The `useMmaLeagues` hook was intentionally removed.
 - **tsconfig.build.json uses `removeComments: true`**: All JSDoc comments are stripped from the dist output. Type information is preserved in `.d.ts` files.
-- **No `bun run verify` script**: Unlike other Sudobility projects, there is no combined verify/check-all command. Run `bun run lint && bun run typecheck && bun run test` manually before committing.
+- **`bun run verify`**: Combined lint + typecheck + test command, consistent with other Sudobility projects.
 - **publishConfig is `restricted`**: This is a private npm package, not published publicly.
 
 ## CI/CD

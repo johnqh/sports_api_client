@@ -37,6 +37,11 @@ import type {
   RugbyTeamStatisticsParams,
   RugbyTimezone,
 } from "../types";
+import {
+  ApiSportsError,
+  ApiSportsErrorType,
+  classifyApiError,
+} from "../../common/api-sports-error";
 import { buildQueryString } from "../../utils/query-params";
 import {
   RUGBY_API_BASE_URL,
@@ -49,6 +54,19 @@ import {
  * API-Rugby Client class
  *
  * Provides type-safe methods for all API-Rugby endpoints.
+ * Uses NetworkClient from @sudobility/di for network requests, enabling
+ * cross-platform compatibility between React and React Native.
+ *
+ * @class ApiRugbyClient
+ *
+ * @example
+ * ```typescript
+ * const client = new ApiRugbyClient(networkClient, {
+ *   apiKey: "YOUR_API_KEY",
+ * });
+ *
+ * const leagues = await client.getLeagues({ country: "England" });
+ * ```
  */
 export class ApiRugbyClient {
   private baseUrl: string;
@@ -82,6 +100,11 @@ export class ApiRugbyClient {
 
   /**
    * Make a GET request to the API
+   *
+   * @template T - The expected response data type
+   * @param endpoint - The API endpoint path with query string
+   * @returns Promise resolving to the typed API response
+   * @throws {ApiSportsError} When no data is received or API returns errors
    */
   private async request<T>(endpoint: string): Promise<ApiRugbyResponse<T>> {
     const url = `${this.baseUrl}${endpoint}`;
@@ -91,7 +114,11 @@ export class ApiRugbyClient {
     });
 
     if (response.data === undefined || response.data === null) {
-      throw new Error("No data received from API-Rugby");
+      throw new ApiSportsError(
+        "No data received from API-Rugby",
+        "Rugby",
+        ApiSportsErrorType.NO_DATA,
+      );
     }
 
     // Check for API errors
@@ -100,7 +127,12 @@ export class ApiRugbyClient {
       const errorMsg = Array.isArray(data.errors)
         ? data.errors.join(", ")
         : Object.values(data.errors).join(", ");
-      throw new Error(`API-Rugby error: ${errorMsg}`);
+      throw new ApiSportsError(
+        `API-Rugby error: ${errorMsg}`,
+        "Rugby",
+        classifyApiError(data.errors),
+        { errors: data.errors },
+      );
     }
 
     return data;
@@ -111,14 +143,25 @@ export class ApiRugbyClient {
   // ============================================================================
 
   /**
-   * Get all available timezones
+   * Get all available timezones supported by the API
+   *
+   * @returns Promise resolving to array of timezone strings
+   * @throws {ApiSportsError} If API returns an error or no data
    */
   async getTimezone(): Promise<ApiRugbyResponse<RugbyTimezone>> {
     return this.request<RugbyTimezone>(RUGBY_ENDPOINTS.TIMEZONE);
   }
 
   /**
-   * Get all available countries
+   * Get all available countries or filter by name/code
+   *
+   * @param params - Optional filter parameters
+   * @param params.id - Filter by country ID
+   * @param params.name - Filter by country name
+   * @param params.code - Filter by ISO country code
+   * @param params.search - Search by partial name (min 3 characters)
+   * @returns Promise resolving to array of Country objects
+   * @throws {ApiSportsError} If API returns an error or no data
    */
   async getCountries(
     params?: RugbyCountriesParams,
@@ -128,7 +171,11 @@ export class ApiRugbyClient {
   }
 
   /**
-   * Get all available seasons
+   * Get all available rugby seasons
+   *
+   * @param params - Optional filter parameters
+   * @returns Promise resolving to array of season years
+   * @throws {ApiSportsError} If API returns an error or no data
    */
   async getSeasons(
     params?: RugbySeasonsParams,
@@ -142,7 +189,22 @@ export class ApiRugbyClient {
   // ============================================================================
 
   /**
-   * Get leagues with optional filtering
+   * Get rugby leagues with optional filtering
+   *
+   * @param params - Optional filter parameters
+   * @param params.id - Filter by league ID
+   * @param params.name - Filter by league name
+   * @param params.country - Filter by country name
+   * @param params.season - Filter by season year
+   * @param params.type - Filter by type ("league" or "cup")
+   * @param params.search - Search by partial name (min 3 characters)
+   * @returns Promise resolving to array of LeagueResponse objects
+   * @throws {ApiSportsError} If API returns an error or no data
+   *
+   * @example
+   * ```typescript
+   * const leagues = await client.getLeagues({ country: "England" });
+   * ```
    */
   async getLeagues(
     params?: RugbyLeaguesParams,
@@ -158,7 +220,22 @@ export class ApiRugbyClient {
   // ============================================================================
 
   /**
-   * Get teams
+   * Get rugby teams with optional filtering
+   *
+   * @param params - Optional filter parameters
+   * @param params.id - Filter by team ID
+   * @param params.name - Filter by team name
+   * @param params.league - Filter by league ID
+   * @param params.season - Filter by season year
+   * @param params.country - Filter by country name
+   * @param params.search - Search by partial name (min 3 characters)
+   * @returns Promise resolving to array of TeamResponse objects
+   * @throws {ApiSportsError} If API returns an error or no data
+   *
+   * @example
+   * ```typescript
+   * const teams = await client.getTeams({ league: 1, season: 2023 });
+   * ```
    */
   async getTeams(
     params?: RugbyTeamsParams,
@@ -168,7 +245,14 @@ export class ApiRugbyClient {
   }
 
   /**
-   * Get team statistics
+   * Get team statistics for a specific league and season
+   *
+   * @param params - Required filter parameters
+   * @param params.league - League ID (required)
+   * @param params.season - Season year (required)
+   * @param params.team - Team ID (required)
+   * @returns Promise resolving to team statistics data
+   * @throws {ApiSportsError} If API returns an error or no data
    */
   async getTeamStatistics(
     params: RugbyTeamStatisticsParams,
@@ -184,7 +268,23 @@ export class ApiRugbyClient {
   // ============================================================================
 
   /**
-   * Get games with optional filtering
+   * Get rugby games with optional filtering
+   *
+   * @param params - Optional filter parameters
+   * @param params.id - Filter by game ID
+   * @param params.league - Filter by league ID
+   * @param params.season - Filter by season year
+   * @param params.team - Filter by team ID
+   * @param params.date - Filter by date (YYYY-MM-DD)
+   * @param params.live - Get live games ("all" or league IDs)
+   * @param params.timezone - Timezone for date filtering
+   * @returns Promise resolving to array of Game objects
+   * @throws {ApiSportsError} If API returns an error or no data
+   *
+   * @example
+   * ```typescript
+   * const liveGames = await client.getGames({ live: "all" });
+   * ```
    */
   async getGames(
     params?: RugbyGamesParams,
@@ -194,7 +294,14 @@ export class ApiRugbyClient {
   }
 
   /**
-   * Get head to head games between two teams
+   * Get head-to-head games between two rugby teams
+   *
+   * @param params - Parameters including h2h team IDs
+   * @param params.h2h - Hyphen-separated team IDs (e.g., "1-2")
+   * @param params.league - Optional league ID filter
+   * @param params.season - Optional season year filter
+   * @returns Promise resolving to array of Game objects for the matchup
+   * @throws {ApiSportsError} If API returns an error or no data
    */
   async getGamesHeadToHead(
     params: RugbyHeadToHeadParams,
@@ -210,7 +317,20 @@ export class ApiRugbyClient {
   // ============================================================================
 
   /**
-   * Get standings for a league/season
+   * Get rugby standings for a league and season
+   *
+   * @param params - Required filter parameters
+   * @param params.league - League ID (required)
+   * @param params.season - Season year (required)
+   * @param params.team - Optional team ID filter
+   * @param params.group - Optional group filter
+   * @returns Promise resolving to array of Standing objects
+   * @throws {ApiSportsError} If API returns an error or no data
+   *
+   * @example
+   * ```typescript
+   * const standings = await client.getStandings({ league: 1, season: 2023 });
+   * ```
    */
   async getStandings(
     params: RugbyStandingsParams,
@@ -222,6 +342,17 @@ export class ApiRugbyClient {
 
 /**
  * Factory function to create an ApiRugbyClient instance
+ *
+ * @param networkClient - NetworkClient instance for making HTTP requests
+ * @param config - API configuration including API key
+ * @returns New ApiRugbyClient instance
+ *
+ * @example
+ * ```typescript
+ * const client = createApiRugbyClient(networkClient, {
+ *   apiKey: "YOUR_API_KEY",
+ * });
+ * ```
  */
 export const createApiRugbyClient = (
   networkClient: NetworkClient,

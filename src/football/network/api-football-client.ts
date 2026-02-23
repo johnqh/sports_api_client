@@ -67,6 +67,11 @@ import type {
   FootballVenue,
   FootballVenuesParams,
 } from "../types";
+import {
+  ApiSportsError,
+  ApiSportsErrorType,
+  classifyApiError,
+} from "../../common/api-sports-error";
 import { buildQueryString } from "../../utils/query-params";
 import {
   FOOTBALL_API_BASE_URL,
@@ -131,6 +136,11 @@ export class ApiFootballClient {
 
   /**
    * Make a GET request to the API
+   *
+   * @template T - The expected response data type
+   * @param endpoint - The API endpoint path with query string
+   * @returns Promise resolving to the typed API response
+   * @throws {ApiSportsError} When no data is received or API returns errors
    */
   private async request<T>(endpoint: string): Promise<ApiFootballResponse<T>> {
     const url = `${this.baseUrl}${endpoint}`;
@@ -140,7 +150,11 @@ export class ApiFootballClient {
     });
 
     if (response.data === undefined || response.data === null) {
-      throw new Error("No data received from API-Football");
+      throw new ApiSportsError(
+        "No data received from API-Football",
+        "Football",
+        ApiSportsErrorType.NO_DATA,
+      );
     }
 
     // Check for API errors
@@ -149,7 +163,12 @@ export class ApiFootballClient {
       const errorMsg = Array.isArray(data.errors)
         ? data.errors.join(", ")
         : Object.values(data.errors).join(", ");
-      throw new Error(`API-Football error: ${errorMsg}`);
+      throw new ApiSportsError(
+        `API-Football error: ${errorMsg}`,
+        "Football",
+        classifyApiError(data.errors),
+        { errors: data.errors },
+      );
     }
 
     return data;

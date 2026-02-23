@@ -11,3 +11,9 @@ export type {
 } from "./base-types";
 
 export { BASE_DEFAULT_HEADERS } from "./base-types";
+
+export {
+  ApiSportsError,
+  ApiSportsErrorType,
+  classifyApiError,
+} from "./api-sports-error";

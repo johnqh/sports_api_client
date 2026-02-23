@@ -2,20 +2,22 @@
 
 ## Priority 1 - High Impact, Low Effort
 
-### 1.1 Export cache utilities from utils/index.ts
-`generateCacheKey`, `isCacheValid`, `createCacheEntry`, `getRemainingTTL`, `createStorageAdapter`, `CachedData`, `StorageAdapter`, and `DEFAULT_CACHE_TTL` are defined in `src/utils/cache-utils.ts` but NOT exported from `src/utils/index.ts`. They are only accessible through `src/football/store/index.ts`. This is confusing -- consumers expect shared utilities to come from the utils barrel. Add `export * from "./cache-utils"` to `src/utils/index.ts`.
+### 1.1 Export cache utilities from utils/index.ts -- COMPLETED
+`generateCacheKey`, `isCacheValid`, `createCacheEntry`, `getRemainingTTL`, `createStorageAdapter`, `CachedData`, `StorageAdapter`, `QueryKeyFactory`, and `DEFAULT_CACHE_TTL` are now exported from `src/utils/index.ts` alongside the query-params exports. They remain also re-exported through `src/football/store/index.ts` for backward compatibility.
 
-### 1.2 Add a combined `verify` or `check-all` script
-Other Sudobility projects have a `bun run verify` command. Adding one to `package.json` would align with ecosystem conventions:
+### 1.2 Add a combined `verify` or `check-all` script -- COMPLETED
+Added `verify` and `test:coverage` scripts to `package.json`:
 ```json
-"verify": "bun run lint && bun run typecheck && bun run test"
+"verify": "bun run lint && bun run typecheck && bun run test",
+"test:coverage": "vitest run --coverage"
 ```
+CLAUDE.md updated to reflect the new command.
 
-### 1.3 Add JSDoc to non-football sport client methods
-The football client (`api-football-client.ts`) has comprehensive JSDoc on all methods. The other 9 sport clients follow the same pattern but have minimal or no JSDoc. Propagate the documentation pattern to all sport clients for consistency.
+### 1.3 Add JSDoc to non-football sport client methods -- COMPLETED
+All 9 non-football sport clients now have comprehensive JSDoc on every public method, matching the football client pattern. Includes `@param`, `@returns`, `@throws`, and `@example` tags for all methods across basketball, hockey, NFL, baseball, rugby, Formula 1, MMA, handball, and volleyball clients.
 
-### 1.4 Fix tests directory structure
-The `tests/` directory exists at the project root but is empty. All tests are co-located with source files (e.g., `network/api-football-client.test.ts`). Either remove the empty `tests/` directory or document the convention.
+### 1.4 Fix tests directory structure -- COMPLETED
+Removed the empty `tests/` directory at the project root. All tests are co-located with source files following the `*.test.ts` pattern (e.g., `network/api-football-client.test.ts`).
 
 ## Priority 2 - Medium Impact, Medium Effort
 
@@ -30,16 +32,20 @@ Each sport module (basketball, hockey, NFL, etc.) duplicates the same patterns f
 ### 2.3 Add rate limiting utilities
 The README notes that "The library does not implement rate limiting." Adding optional rate limiting (request queue, backoff, or semaphore) would prevent API quota exhaustion, which is a common consumer pain point with api-sports.io.
 
-### 2.4 Add error type discrimination
-API errors are thrown as generic `Error` with message string parsing. Define a typed `ApiSportsError` class with properties for status code, error type, and remaining quota. This enables consumers to handle different error scenarios (rate limit, auth failure, not found).
+### 2.4 Add error type discrimination -- COMPLETED
+Added `ApiSportsError` class, `ApiSportsErrorType` enum, and `classifyApiError` utility in `src/common/api-sports-error.ts`. All 10 sport clients now throw `ApiSportsError` instead of generic `Error`, with typed error discrimination for `NO_DATA`, `API_ERROR`, `AUTH_FAILURE`, `RATE_LIMIT`, `NETWORK_ERROR`, and `UNKNOWN` error types. Exported from the main barrel (`src/common/index.ts`).
 
-### 2.5 Add coverage thresholds enforcement
-The vitest config defines 70% thresholds for coverage but coverage is not part of the default `bun run test` command. Add a `test:coverage` script and ensure CI enforces it.
+### 2.5 Add coverage thresholds enforcement -- COMPLETED
+Added `test:coverage` script to `package.json`:
+```json
+"test:coverage": "vitest run --coverage"
+```
+The vitest config already defines 70% thresholds. CI can now run `bun run test:coverage` to enforce them.
 
 ## Priority 3 - Lower Impact, Higher Effort
 
-### 3.1 Add volleyball and handball hook context providers
-Check that volleyball and handball modules include the full context provider pattern (they have hooks but should be verified for completeness with the provider pattern used in other sports).
+### 3.1 Add volleyball and handball hook context providers -- ALREADY COMPLETE
+Verified that both volleyball (`volleyball-context.tsx`) and handball (`handball-context.tsx`) already include the full context provider pattern matching other sports. No changes needed.
 
 ### 3.2 Add request caching at the client level
 Currently caching only happens at the Zustand store level (after a successful hook call). Adding an optional response cache at the `ApiFootballClient` level would benefit consumers who use the client directly without hooks.
@@ -64,8 +70,12 @@ Add type guard functions (e.g., `isFootballFixtureResponse()`) that consumers ca
 ### 4.3 Add store migration support
 The Zustand persist middleware supports version-based migrations. Add a version field and migration function to handle store schema changes across library updates.
 
-### 4.4 Document cache key format
-The `generateCacheKey` function produces keys like `"leagues:country=England&season=2023"` but this format is not documented for consumers who may need to manually invalidate or inspect cache entries.
+### 4.4 Document cache key format -- COMPLETED
+The `generateCacheKey` function in `src/utils/cache-utils.ts` already has comprehensive JSDoc documenting the key format with examples:
+- `generateCacheKey("leagues")` produces `"leagues"`
+- `generateCacheKey("leagues", { country: "England" })` produces `"leagues:country=England"`
+- `generateCacheKey("fixtures", { team: 33, season: 2023 })` produces `"fixtures:season=2023&team=33"`
+- Parameters are sorted alphabetically; undefined/null values are filtered out.
 
 ### 4.5 Consider splitting into per-sport packages
 The monolithic package exports all 10 sports, which means consumers who only need football still import types for all sports. Consider splitting into `@sudobility/sports-football`, `@sudobility/sports-basketball`, etc. with a meta-package for all.
